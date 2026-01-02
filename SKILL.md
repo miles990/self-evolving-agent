@@ -5,10 +5,10 @@ description: >
   觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
   適用於：複雜任務自動完成、需要學習新技能的任務、多步驟迭代改進。
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, Task, AskUserQuestion, TodoWrite
-version: 2.0.0
+version: 2.1.0
 ---
 
-# Self-Evolving Agent v2.0
+# Self-Evolving Agent v2.1
 
 > 給定目標 → 評估能力 → 習得技能 → 執行 → 診斷 → 多策略重試 → 結構化記憶 → 直到成功
 
@@ -163,7 +163,7 @@ capability_assessment:
 ┌───────────────────────────────────────────┐
 │  對於每項「不確定」或「確定需要」的能力：  │
 │                                           │
-│  1. memory_search 查找過去經驗            │
+│  1. cipher_memory_search 查找過去經驗     │
 │  2. 沒有經驗 → recommend_skill 搜尋       │
 │  3. 找到 skill → install + verify        │
 │  4. 驗證通過 → 加入 confident_in         │
@@ -277,23 +277,25 @@ capability_assessment:
    - 格式：[情境] → [錯誤] → [解決方案]
 ```
 
-### Phase 4: 記憶系統
+### Phase 4: 記憶系統 (Cipher MCP)
 
 ```markdown
-三層記憶結構：
+雙記憶架構 (Cipher Memory Layer)：
 
-┌─ 長期記憶（Archival Memory）─────────────────────────┐
-│  - 成功的解決方案                                     │
-│  - 驗證過的最佳實踐                                   │
-│  - 重要的經驗教訓                                     │
-│  儲存：mcp__claude-dev-memory__memory_archive         │
+┌─ System 1: 知識記憶（Knowledge Memory）──────────────┐
+│  - Codebase 知識、業務邏輯                            │
+│  - 成功的解決方案、最佳實踐                           │
+│  - 過去的互動經驗                                     │
+│  工具：cipher_extract_and_operate_memory              │
+│  搜尋：cipher_memory_search                           │
 └───────────────────────────────────────────────────────┘
 
-┌─ 工作記憶（Core Memory）─────────────────────────────┐
-│  - 當前目標和進度                                     │
-│  - 活躍的策略和計劃                                   │
-│  - 最近的學習要點                                     │
-│  儲存：mcp__claude-dev-memory__memory_update          │
+┌─ System 2: 反思記憶（Reflection Memory）─────────────┐
+│  - AI 推理步驟和問題解決模式                          │
+│  - 策略演進記錄                                       │
+│  - 持續改進的代碼生成                                 │
+│  工具：cipher_store_reasoning_memory                  │
+│  搜尋：cipher_search_reasoning_patterns               │
 └───────────────────────────────────────────────────────┘
 
 ┌─ 情境記憶（Session Memory）──────────────────────────┐
@@ -302,6 +304,12 @@ capability_assessment:
 │  - 臨時數據                                           │
 │  儲存：對話上下文                                     │
 └───────────────────────────────────────────────────────┘
+
+Cipher 優勢：
+✓ 跨 IDE 同步（Cursor ↔ VS Code ↔ Claude Code）
+✓ 團隊共享記憶（Workspace Memory）
+✓ 自動學習開發模式
+✓ 零配置即用
 ```
 
 ## 自我進化機制
@@ -319,7 +327,7 @@ capability_assessment:
 │     - 區分：缺「知識」還是缺「工具」                            │
 │                                                                 │
 │  2. 搜尋已有經驗                                                │
-│     memory_search({ query: "Y", filter: "learning" })           │
+│     cipher_memory_search({ query: "Y" })                        │
 │     - 有經驗 → 直接應用                                         │
 │     - 無經驗 → 繼續步驟 3                                       │
 │                                                                 │
@@ -343,10 +351,11 @@ capability_assessment:
 │     - 失敗 → 重新學習或換 skill                                 │
 │                                                                 │
 │  7. 記錄學習經驗                                                │
-│     memory_archive({                                            │
-│       type: "learning",                                         │
-│       content: "情境 + skill + 效果",                           │
-│       tags: ["相關標籤"]                                        │
+│     cipher_extract_and_operate_memory({                         │
+│       content: "情境 + skill + 效果"                            │
+│     })                                                          │
+│     cipher_store_reasoning_memory({                             │
+│       pattern: "學到的推理模式"                                 │
 │     })                                                          │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -356,7 +365,7 @@ capability_assessment:
 任務：用 ComfyUI 生成遊戲道具
 
 1. 識別缺口：不會 ComfyUI
-2. memory_search("ComfyUI") → 無結果
+2. cipher_memory_search("ComfyUI") → 無結果
 3. recommend_skill({ query: "ComfyUI game assets" })
    → 推薦：comfyui-expert (⭐4.9, 2.1k downloads)
    → 理由：專門處理遊戲素材，支援透明背景
@@ -366,7 +375,8 @@ capability_assessment:
    → 學習 instructions
 6. 驗證：生成一張簡單測試圖
    → 成功！
-7. memory_archive 記錄經驗
+7. cipher_extract_and_operate_memory 記錄經驗
+   cipher_store_reasoning_memory 記錄推理模式
 ```
 
 ### 2. 失敗模式診斷 (NEW)
@@ -408,7 +418,7 @@ capability_assessment:
 ```
 失敗發生 → 收集錯誤訊息 → 分類失敗類型 → 選擇對應處方 → 執行修復
      │
-     └─ 記錄到 memory_archive（避免重複踩坑）
+     └─ 記錄到 cipher_extract_and_operate_memory（避免重複踩坑）
 ```
 
 ### 3. 多策略機制 (NEW)
@@ -710,11 +720,11 @@ Agent 在以下情況停止：
 
 ## 與現有系統整合
 
-### 整合 MCP Memory
+### 整合 Cipher Memory (MCP)
 
 ```python
-# 記錄學習經驗
-await mcp__claude-dev-memory__memory_archive({
+# 儲存知識記憶 (System 1)
+await mcp__cipher__cipher_extract_and_operate_memory({
     "content": """
     ## 學習記錄：ComfyUI LoRA 載入
 
@@ -728,17 +738,33 @@ await mcp__claude-dev-memory__memory_archive({
     3. 設定 strength_model 和 strength_clip
 
     驗證：成功載入並生成圖片
-    """,
-    "type": "learning",
-    "tags": ["comfyui", "lora", "troubleshooting"]
+    """
 })
 
-# 查詢相關經驗
-results = await mcp__claude-dev-memory__memory_search({
-    "query": "ComfyUI LoRA 載入問題",
-    "filter": "learning"
+# 搜尋知識記憶
+results = await mcp__cipher__cipher_memory_search({
+    "query": "ComfyUI LoRA 載入問題"
+})
+
+# 儲存推理模式 (System 2)
+await mcp__cipher__cipher_store_reasoning_memory({
+    "pattern": "遇到節點載入失敗時，先檢查檔案路徑和節點類型是否正確"
+})
+
+# 搜尋推理模式
+patterns = await mcp__cipher__cipher_search_reasoning_patterns({
+    "query": "節點載入失敗"
 })
 ```
+
+**Cipher 工具對照表：**
+| 舊工具 (claude-dev-memory) | 新工具 (Cipher) |
+|---------------------------|-----------------|
+| memory_archive | cipher_extract_and_operate_memory |
+| memory_search | cipher_memory_search |
+| memory_update | cipher_extract_and_operate_memory |
+| - | cipher_store_reasoning_memory (新增) |
+| - | cipher_search_reasoning_patterns (新增) |
 
 ### 整合 PAL 工具
 

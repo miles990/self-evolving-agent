@@ -57,7 +57,7 @@ Trigger the agent with `/evolve`:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v2.0                       │
+│                  Self-Evolving Loop v2.1                       │
 │                                                                 │
 │    ┌──────────┐                                                │
 │    │   Goal   │                                                │
@@ -105,15 +105,42 @@ Trigger the agent with `/evolve`:
 | 3 consecutive same errors | Pause and ask user |
 | User manual stop | Save progress and exit |
 
-## Memory Integration
+## Memory Integration (Cipher MCP)
 
-The agent uses a three-layer memory system:
+The agent uses **Cipher** as its memory layer - an opensource memory system designed for coding agents.
 
-| Layer | Purpose | Storage |
-|-------|---------|---------|
-| Archival | Verified solutions, lessons learned | `memory_archive` |
-| Core | Current goals, active strategies | `memory_update` |
+### Dual Memory Architecture
+
+| Layer | Purpose | Tool |
+|-------|---------|------|
+| System 1: Knowledge | Codebase knowledge, solutions, best practices | `cipher_memory_search`, `cipher_extract_and_operate_memory` |
+| System 2: Reflection | Reasoning patterns, problem-solving strategies | `cipher_store_reasoning_memory`, `cipher_search_reasoning_patterns` |
 | Session | Current context, temporary data | Conversation |
+
+### Cipher Advantages
+
+- ✅ Cross-IDE sync (Cursor ↔ VS Code ↔ Claude Code)
+- ✅ Team shared memory (Workspace Memory)
+- ✅ Auto-learns development patterns
+- ✅ Zero configuration
+
+### Installation
+
+```bash
+npm install -g @byterover/cipher
+```
+
+Add to `.mcp.json`:
+```json
+{
+  "mcpServers": {
+    "cipher": {
+      "command": "cipher",
+      "args": ["--mode", "mcp"]
+    }
+  }
+}
+```
 
 ## References
 
