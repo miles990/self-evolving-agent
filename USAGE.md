@@ -227,19 +227,30 @@
 
 ## 記憶系統使用
 
+### 本地記憶檔案
+
+```
+📁 .claude/memory/
+├── experiences.md    ← 經驗記錄（成功/失敗案例）
+├── strategies.md     ← 策略追蹤（成功率、改進）
+└── learnings.md      ← 學習筆記（新技能、發現）
+```
+
 ### 自動記錄的內容
 
 | 類型 | 儲存位置 | 內容 |
 |------|----------|------|
-| 成功經驗 | Archival Memory | 驗證過的解決方案 |
-| 失敗教訓 | Archival Memory | 錯誤原因 + 避免方法 |
-| 當前進度 | Core Memory | 目標、策略、進度 |
-| 學習要點 | Archival Memory | 新學到的技能 |
+| 成功經驗 | experiences.md | 驗證過的解決方案 |
+| 失敗教訓 | experiences.md | 錯誤原因 + 避免方法 |
+| 當前進度 | 對話上下文 | 目標、策略、進度 |
+| 學習要點 | learnings.md | 新學到的技能 |
 
 ### 記憶格式範例
 
 ```markdown
 ## 學習記錄：ComfyUI LoRA 載入
+日期：2025-01-05
+標籤：#comfyui #lora #troubleshooting
 
 **情境**：需要在 ComfyUI 中使用自訓練的 LoRA
 
@@ -250,9 +261,9 @@
 2. 使用 LoraLoader 節點（不是 Load LoRA）
 3. 設定 strength_model 和 strength_clip
 
-**驗證**：成功載入並生成圖片
+**驗證**：✅ 成功載入並生成圖片
 
-**標籤**：comfyui, lora, troubleshooting
+---
 ```
 
 ---
@@ -348,33 +359,29 @@ Agent 會：
 
 ## 與其他工具的整合
 
-### 使用 PAL 深度思考
+### 本地記憶操作
 
-遇到複雜問題時，Agent 會自動呼叫：
-```python
-mcp__pal__thinkdeep({
-    "step": "分析問題根因",
-    "findings": "...",
-    "hypothesis": "...",
-    ...
-})
+```bash
+# 儲存經驗
+Write .claude/memory/experiences.md
+# 追加新經驗記錄
+
+# 搜尋經驗
+Grep "ComfyUI" .claude/memory/
+# 搜尋相關經驗
+
+# 搜尋標籤
+Grep "#troubleshooting" .claude/memory/experiences.md
 ```
 
-### 使用 Memory 儲存
+### 使用 PAL 深度思考（可選）
 
-```python
-# 儲存成功經驗
-mcp__claude-dev-memory__memory_archive({
-    "content": "學習記錄內容",
-    "type": "learning",
-    "tags": ["comfyui", "lora"]
-})
+如果環境中有 PAL MCP，遇到複雜問題時會自動呼叫：
+```
+mcp__pal__thinkdeep - 分析問題根因
+mcp__pal__consensus - 多角度驗證方案
 
-# 查詢相關經驗
-mcp__claude-dev-memory__memory_search({
-    "query": "ComfyUI LoRA 問題",
-    "filter": "learning"
-})
+注意：PAL 是可選依賴，沒有也不影響核心功能
 ```
 
 ---
@@ -452,5 +459,5 @@ Act：記錄基準，進入下一步
 
 ---
 
-*指南版本：1.0*
-*建立日期：2025-12-31*
+*指南版本：3.0*
+*更新日期：2025-01-05*

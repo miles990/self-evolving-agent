@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2025-01-05
+
+### Breaking Changes
+- **Zero External Dependencies** - Removed all external MCP dependencies
+- **Local File Memory** - Replaced Cipher MCP with local markdown files
+
+### Changed
+- Memory system: Cipher MCP → Local files (`.claude/memory/`)
+- Skill acquisition: skillpkg → WebSearch + Context7
+- All external tool references updated to use built-in tools only
+
+### New Memory System
+```
+📁 .claude/memory/
+├── experiences.md    ← Solutions, failures, lessons learned
+├── strategies.md     ← Strategy tracking, success rates
+└── learnings.md      ← New skills, discoveries, notes
+```
+
+### Benefits
+- Works out of the box, no installation required
+- Pure text format, Git-friendly
+- Fast Grep search
+- Copy to any project instantly
+
+### Migration from v2.x
+1. Export any existing Cipher memories manually
+2. Paste into `.claude/memory/experiences.md` or `learnings.md`
+3. No configuration changes needed
+
+---
+
 ## [2.1.0] - 2025-01-03
 
 ### Added

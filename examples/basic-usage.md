@@ -78,19 +78,22 @@ action_plan:
   - Apply to main task
 
 ---
-📚 Skill Acquisition
+📚 Knowledge Acquisition
 
-Searching: recommend_skill({ query: "ComfyUI game assets" })
-→ Found: comfyui-expert (⭐4.9, 2.1k downloads)
+Searching: WebSearch "ComfyUI game asset generation tutorial"
+→ Found: Official docs, tutorials, GitHub examples
 
-Installing: install_skill({ source: "comfyui-expert" })
-→ Success
+Querying: Context7 "ComfyUI node operations"
+→ Retrieved: KSampler, VAEDecode, RemBG usage
 
-Loading: load_skill({ id: "comfyui-expert" })
-→ Learning instructions...
+Learning key concepts:
+- Basic workflow: Load Model → KSampler → VAEDecode → Save
+- Transparent background: Add RemBG node
 
 Verifying: Generate a simple 256x256 test image
-→ ✅ Success! Skill acquired.
+→ ✅ Success! Knowledge acquired.
+
+💾 Write .claude/memory/learnings.md (save what I learned)
 
 ---
 Continuing with main task...

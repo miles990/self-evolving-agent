@@ -5,10 +5,10 @@ description: >
   觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
   適用於：複雜任務自動完成、需要學習新技能的任務、多步驟迭代改進。
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, Task, AskUserQuestion, TodoWrite
-version: 2.1.0
+version: 3.0.0
 ---
 
-# Self-Evolving Agent v2.1
+# Self-Evolving Agent v3.0
 
 > 給定目標 → 評估能力 → 習得技能 → 執行 → 診斷 → 多策略重試 → 結構化記憶 → 直到成功
 
@@ -16,20 +16,20 @@ version: 2.1.0
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v2.0                       │
+│                  Self-Evolving Loop v3.0                       │
 │                                                                 │
 │    ┌──────────┐                                                │
 │    │   目標   │                                                │
 │    └────┬─────┘                                                │
 │         ↓                                                       │
 │    ┌──────────────┐                                            │
-│    │ 能力邊界評估 │  ← NEW: 先評估自己會什麼、缺什麼           │
+│    │ 能力邊界評估 │  ← 先評估自己會什麼、缺什麼                │
 │    └──────┬───────┘                                            │
 │           ↓                                                     │
 │    ┌──────────────┐     ┌──────────────┐                       │
-│    │ Skill 習得   │ ──→ │   驗證學習   │  ← NEW: 整合 skillpkg │
-│    │ (recommend/  │     │   (簡單測試) │                       │
-│    │  install)    │     └──────┬───────┘                       │
+│    │ 知識習得     │ ──→ │   驗證學習   │  ← WebSearch/Context7 │
+│    │ (Search/     │     │   (簡單測試) │                       │
+│    │  Learn)      │     └──────┬───────┘                       │
 │    └──────────────┘            ↓                               │
 │         ↓                                                       │
 │    ┌──────────┐     ┌──────────┐     ┌──────────────┐          │
@@ -51,16 +51,16 @@ version: 2.1.0
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## v2.0 新增能力
+## v3.0 核心能力
 
 | 能力 | 說明 |
 |------|------|
-| **Skill 自動習得** | 整合 skillpkg MCP，自動搜尋/安裝/載入 skills |
-| **失敗模式診斷** | 分類失敗類型，針對性處理 |
+| **知識自主習得** | 透過 WebSearch + Context7 查找文檔，自主學習新知識 |
+| **失敗模式診斷** | 分類失敗類型（5種），針對性處理 |
 | **能力邊界感知** | 執行前評估自己會什麼、缺什麼 |
 | **多策略嘗試** | 不重複同一策略，從策略池選擇 |
-| **結構化經驗** | 可檢索的經驗格式，支援經驗傳承 |
-| **學習驗證** | 安裝 skill 後先驗證再應用 |
+| **本地記憶系統** | 使用本地檔案儲存經驗，零外部依賴 |
+| **學習驗證** | 習得新知識後先驗證再應用 |
 
 ## 使用方式
 
@@ -152,8 +152,10 @@ capability_assessment:
   definitely_need:
     - "ComfyUI 節點操作知識"
   action_plan:
-    - step: "搜尋 ComfyUI 相關 skill"
-      tool: "recommend_skill"
+    - step: "搜尋 ComfyUI 教學文檔"
+      tool: "WebSearch"
+    - step: "查詢 ComfyUI API 文檔"
+      tool: "Context7"
 ```
 
 **評估流程：**
@@ -163,9 +165,9 @@ capability_assessment:
 ┌───────────────────────────────────────────┐
 │  對於每項「不確定」或「確定需要」的能力：  │
 │                                           │
-│  1. cipher_memory_search 查找過去經驗     │
-│  2. 沒有經驗 → recommend_skill 搜尋       │
-│  3. 找到 skill → install + verify        │
+│  1. Grep .claude/memory/ 查找過去經驗     │
+│  2. 沒有經驗 → WebSearch 搜尋相關知識     │
+│  3. 找到文檔 → Context7 查詢 + 學習       │
 │  4. 驗證通過 → 加入 confident_in         │
 └───────────────────────────────────────────┘
     ↓
@@ -277,109 +279,119 @@ capability_assessment:
    - 格式：[情境] → [錯誤] → [解決方案]
 ```
 
-### Phase 4: 記憶系統 (Cipher MCP)
+### Phase 4: 記憶系統（本地檔案）
 
 ```markdown
-雙記憶架構 (Cipher Memory Layer)：
+本地記憶架構 (Zero External Dependencies)：
 
-┌─ System 1: 知識記憶（Knowledge Memory）──────────────┐
-│  - Codebase 知識、業務邏輯                            │
+📁 .claude/memory/
+├── experiences.md    ← 經驗記錄（成功/失敗案例）
+├── strategies.md     ← 策略追蹤（成功率、改進筆記）
+└── learnings.md      ← 學習筆記（新技能、發現）
+
+┌─ 經驗記憶（experiences.md）─────────────────────────┐
 │  - 成功的解決方案、最佳實踐                           │
-│  - 過去的互動經驗                                     │
-│  工具：cipher_extract_and_operate_memory              │
-│  搜尋：cipher_memory_search                           │
+│  - 失敗案例與避免方法                                 │
+│  - 過去的問題解決經驗                                 │
+│  儲存：Write .claude/memory/experiences.md            │
+│  搜尋：Grep .claude/memory/experiences.md             │
 └───────────────────────────────────────────────────────┘
 
-┌─ System 2: 反思記憶（Reflection Memory）─────────────┐
-│  - AI 推理步驟和問題解決模式                          │
-│  - 策略演進記錄                                       │
-│  - 持續改進的代碼生成                                 │
-│  工具：cipher_store_reasoning_memory                  │
-│  搜尋：cipher_search_reasoning_patterns               │
+┌─ 策略記憶（strategies.md）──────────────────────────┐
+│  - 各策略的成功率追蹤                                 │
+│  - 策略改進筆記                                       │
+│  - 不同情境的最佳策略                                 │
+│  儲存：Write .claude/memory/strategies.md             │
+│  搜尋：Grep .claude/memory/strategies.md              │
+└───────────────────────────────────────────────────────┘
+
+┌─ 學習記憶（learnings.md）───────────────────────────┐
+│  - 新學到的技能和知識                                 │
+│  - 技術發現和筆記                                     │
+│  - 有用的資源連結                                     │
+│  儲存：Write .claude/memory/learnings.md              │
+│  搜尋：Grep .claude/memory/learnings.md               │
 └───────────────────────────────────────────────────────┘
 
 ┌─ 情境記憶（Session Memory）──────────────────────────┐
 │  - 當前執行的上下文                                   │
 │  - 本次迭代的嘗試記錄                                 │
 │  - 臨時數據                                           │
-│  儲存：對話上下文                                     │
+│  儲存：對話上下文（自動）                             │
 └───────────────────────────────────────────────────────┘
 
-Cipher 優勢：
-✓ 跨 IDE 同步（Cursor ↔ VS Code ↔ Claude Code）
-✓ 團隊共享記憶（Workspace Memory）
-✓ 自動學習開發模式
-✓ 零配置即用
+本地記憶優勢：
+✓ 零外部依賴（不需安裝任何 MCP）
+✓ 純文字格式（可 Git 版控、易於備份）
+✓ Grep 高效搜尋
+✓ 跨專案可複製
 ```
 
 ## 自我進化機制
 
-### 1. 技能習得（整合 skillpkg MCP）(ENHANCED)
+### 1. 知識習得（WebSearch + Context7）
 
 ```markdown
 當遇到無法完成的任務時：
 
 ┌─────────────────────────────────────────────────────────────────┐
-│  技能習得流程 v2.0                                              │
+│  知識習得流程 v3.0（零外部依賴）                                │
 │                                                                 │
-│  1. 識別技能缺口                                                │
+│  1. 識別知識缺口                                                │
 │     - 「我無法完成 X 因為我不知道如何 Y」                       │
 │     - 區分：缺「知識」還是缺「工具」                            │
 │                                                                 │
 │  2. 搜尋已有經驗                                                │
-│     cipher_memory_search({ query: "Y" })                        │
+│     Grep .claude/memory/ "Y"                                    │
 │     - 有經驗 → 直接應用                                         │
 │     - 無經驗 → 繼續步驟 3                                       │
 │                                                                 │
-│  3. 搜尋可用 Skill                                              │
-│     recommend_skill({ query: "Y", criteria: "popular" })        │
-│     - 評估推薦的 skill 是否適用                                 │
-│     - 查看 alternatives 比較選擇                                │
+│  3. 網路搜尋相關知識                                            │
+│     WebSearch "Y tutorial" / "Y best practices"                 │
+│     - 找到教學文章、官方文檔                                    │
+│     - 記錄有用的資源連結                                        │
 │                                                                 │
-│  4. 安裝 Skill                                                  │
-│     install_skill({ source: "best-skill-name" })                │
-│     - 從 Registry / GitHub / URL 安裝                           │
+│  4. 查詢技術文檔                                                │
+│     Context7 resolve-library-id → query-docs                    │
+│     - 取得最新 API 文檔                                         │
+│     - 了解正確用法和範例                                        │
 │                                                                 │
-│  5. 載入並學習                                                  │
-│     load_skill({ id: "best-skill-name" })                       │
-│     - 仔細閱讀 instructions                                     │
-│     - 理解使用方式和限制                                        │
+│  5. 整理並學習                                                  │
+│     - 閱讀搜尋到的文檔                                          │
+│     - 理解核心概念和使用方式                                    │
 │                                                                 │
-│  6. 驗證學習 ← NEW                                              │
+│  6. 驗證學習                                                    │
 │     - 用簡單任務測試是否學會                                    │
 │     - 成功 → 應用到實際任務                                     │
-│     - 失敗 → 重新學習或換 skill                                 │
+│     - 失敗 → 重新搜尋或換方法                                   │
 │                                                                 │
 │  7. 記錄學習經驗                                                │
-│     cipher_extract_and_operate_memory({                         │
-│       content: "情境 + skill + 效果"                            │
-│     })                                                          │
-│     cipher_store_reasoning_memory({                             │
-│       pattern: "學到的推理模式"                                 │
-│     })                                                          │
+│     Write .claude/memory/learnings.md                           │
+│     - 記錄：情境 + 學到的知識 + 有用連結                        │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**Skill 習得範例：**
+**知識習得範例：**
 ```
 任務：用 ComfyUI 生成遊戲道具
 
 1. 識別缺口：不會 ComfyUI
-2. cipher_memory_search("ComfyUI") → 無結果
-3. recommend_skill({ query: "ComfyUI game assets" })
-   → 推薦：comfyui-expert (⭐4.9, 2.1k downloads)
-   → 理由：專門處理遊戲素材，支援透明背景
-4. install_skill({ source: "comfyui-expert" })
-   → 安裝成功
-5. load_skill({ id: "comfyui-expert" })
-   → 學習 instructions
+2. Grep .claude/memory/ "ComfyUI" → 無結果
+3. WebSearch "ComfyUI game asset generation tutorial"
+   → 找到：官方文檔、YouTube 教學、GitHub 範例
+4. Context7 resolve-library-id "ComfyUI"
+   → 查詢 ComfyUI 節點使用方式
+5. 閱讀文檔，理解：
+   - 基本節點：KSampler, VAEDecode
+   - 透明背景：需要 RemBG 節點
 6. 驗證：生成一張簡單測試圖
    → 成功！
-7. cipher_extract_and_operate_memory 記錄經驗
-   cipher_store_reasoning_memory 記錄推理模式
+7. Write .claude/memory/learnings.md
+   記錄：ComfyUI 基礎 + RemBG 用法
 ```
 
-### 2. 失敗模式診斷 (NEW)
+### 2. 失敗模式診斷
 
 失敗時先分類，再針對性處理：
 
@@ -390,7 +402,7 @@ Cipher 優勢：
 │  類型 A: 知識缺口                                               │
 │  ├─ 症狀：不知道怎麼做、沒見過這種問題                         │
 │  ├─ 診斷：缺少領域知識或工具使用經驗                           │
-│  └─ 處方：recommend_skill → install → learn                    │
+│  └─ 處方：WebSearch → Context7 → 學習 → 驗證                   │
 │                                                                 │
 │  類型 B: 執行錯誤                                               │
 │  ├─ 症狀：知道怎麼做但做錯了、語法錯誤、參數錯誤               │
@@ -418,10 +430,10 @@ Cipher 優勢：
 ```
 失敗發生 → 收集錯誤訊息 → 分類失敗類型 → 選擇對應處方 → 執行修復
      │
-     └─ 記錄到 cipher_extract_and_operate_memory（避免重複踩坑）
+     └─ Write .claude/memory/experiences.md（避免重複踩坑）
 ```
 
-### 3. 多策略機制 (NEW)
+### 3. 多策略機制
 
 不重複嘗試同一個失敗策略，維護策略池進行智慧選擇：
 
@@ -478,7 +490,7 @@ Cipher 優勢：
 }
 ```
 
-### 4. 結構化經驗格式 (NEW)
+### 4. 結構化經驗格式
 
 經驗必須用可檢索的格式儲存，方便未來查詢：
 
@@ -524,35 +536,38 @@ experience:
 ```
 
 **經驗儲存範例：**
-```python
-await memory_archive({
-    "content": """
-    ## 經驗：ComfyUI 生成透明背景圖片
 
-    **情境**: 遊戲素材生成、需要 PNG 透明背景
-    **問題**: 預設輸出有白色背景
-    **解法**: 使用 RemBG 節點後處理
-    **驗證**: ✅ 成功
-    **注意**: 需要 4GB+ GPU 記憶體
-    """,
-    "type": "solution",
-    "tags": ["comfyui", "透明背景", "rembg", "遊戲素材"]
-})
+使用 Write 工具追加到 `.claude/memory/experiences.md`：
+
+```markdown
+## 經驗：ComfyUI 生成透明背景圖片
+日期：2025-01-05
+標籤：#comfyui #透明背景 #rembg #遊戲素材
+
+**情境**: 遊戲素材生成、需要 PNG 透明背景
+**問題**: 預設輸出有白色背景
+**解法**: 使用 RemBG 節點後處理
+**驗證**: ✅ 成功
+**注意**: 需要 4GB+ GPU 記憶體
+
+---
 ```
 
-### 5. 學習驗證流程 (NEW)
+### 5. 學習驗證流程
 
-安裝新 skill 後，必須驗證真的學會才能應用：
+學習新知識後，必須驗證真的學會才能應用：
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  學習驗證流程                                                   │
 │                                                                 │
-│  1. 安裝 Skill                                                  │
-│     install_skill({ source: "comfyui-expert" })                 │
+│  1. 搜尋並閱讀文檔                                              │
+│     WebSearch + Context7 查找相關資料                           │
 │                                                                 │
-│  2. 載入 Instructions                                           │
-│     load_skill({ id: "comfyui-expert" })                        │
+│  2. 整理學習重點                                                │
+│     - 核心概念是什麼？                                          │
+│     - 基本用法是什麼？                                          │
+│     - 常見陷阱有哪些？                                          │
 │                                                                 │
 │  3. 設計簡單驗證任務                                            │
 │     ┌─────────────────────────────────────┐                    │
@@ -564,23 +579,24 @@ await memory_archive({
 │                                                                 │
 │  4. 執行驗證                                                    │
 │     ┌─────────────────────────────────────┐                    │
-│     │  例：生成一張簡單的測試圖片          │                    │
-│     │      檢查是否符合預期格式           │                    │
+│     │  例：寫一個簡單的測試程式            │                    │
+│     │      檢查是否符合預期行為           │                    │
 │     └─────────────────────────────────────┘                    │
 │                                                                 │
 │  5. 評估結果                                                    │
 │     ✅ 成功 → 加入 confident_in，繼續主任務                    │
-│     ❌ 失敗 → 重新學習或嘗試其他 skill                         │
+│     ❌ 失敗 → 重新搜尋或換方法                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 **驗證範例：**
 ```
-Skill: comfyui-expert
+學習目標: ComfyUI 基本操作
 驗證任務: 生成一張 256x256 的藍色方塊圖片
 成功標準: 輸出 PNG、尺寸正確、顏色正確
 結果: ✅ 成功
 → 確認學會 ComfyUI 基本操作，繼續主任務
+→ Write .claude/memory/learnings.md 記錄學習成果
 ```
 
 ### 6. 策略進化
@@ -720,72 +736,67 @@ Agent 在以下情況停止：
 
 ## 與現有系統整合
 
-### 整合 Cipher Memory (MCP)
+### 本地記憶操作
 
-```python
-# 儲存知識記憶 (System 1)
-await mcp__cipher__cipher_extract_and_operate_memory({
-    "content": """
-    ## 學習記錄：ComfyUI LoRA 載入
+```markdown
+# 儲存經驗
+使用 Write 工具追加內容到 .claude/memory/experiences.md
 
-    情境：需要在 ComfyUI 中使用自訓練的 LoRA
+# 搜尋經驗
+使用 Grep 工具搜尋 .claude/memory/ 目錄
 
-    問題：直接使用 Load LoRA 節點失敗
+# 儲存學習筆記
+使用 Write 工具追加內容到 .claude/memory/learnings.md
 
-    解決方案：
-    1. 確認 LoRA 檔案在 models/loras/ 目錄
-    2. 使用 LoraLoader 節點（不是 Load LoRA）
-    3. 設定 strength_model 和 strength_clip
-
-    驗證：成功載入並生成圖片
-    """
-})
-
-# 搜尋知識記憶
-results = await mcp__cipher__cipher_memory_search({
-    "query": "ComfyUI LoRA 載入問題"
-})
-
-# 儲存推理模式 (System 2)
-await mcp__cipher__cipher_store_reasoning_memory({
-    "pattern": "遇到節點載入失敗時，先檢查檔案路徑和節點類型是否正確"
-})
-
-# 搜尋推理模式
-patterns = await mcp__cipher__cipher_search_reasoning_patterns({
-    "query": "節點載入失敗"
-})
+# 更新策略追蹤
+使用 Edit 工具更新 .claude/memory/strategies.md
 ```
 
-**Cipher 工具對照表：**
-| 舊工具 (claude-dev-memory) | 新工具 (Cipher) |
-|---------------------------|-----------------|
-| memory_archive | cipher_extract_and_operate_memory |
-| memory_search | cipher_memory_search |
-| memory_update | cipher_extract_and_operate_memory |
-| - | cipher_store_reasoning_memory (新增) |
-| - | cipher_search_reasoning_patterns (新增) |
+**記憶操作範例：**
 
-### 整合 PAL 工具
+```bash
+# 儲存經驗
+Write .claude/memory/experiences.md
+# 追加新經驗到檔案末尾
 
-```python
-# 深度思考複雜問題
-await mcp__pal__thinkdeep({
-    "step": "分析為什麼批量生成會失敗",
-    "findings": "記憶體在第 5 張圖時耗盡",
-    "hypothesis": "沒有正確釋放 GPU 記憶體",
-    ...
-})
+# 搜尋經驗
+Grep "ComfyUI" .claude/memory/
+# 搜尋所有包含 "ComfyUI" 的記錄
 
-# 多模型驗證方案
-await mcp__pal__consensus({
-    "step": "評估三種解決方案的可行性",
-    "models": [
-        {"model": "gpt-5", "stance": "for"},
-        {"model": "gemini-2.5-pro", "stance": "against"}
-    ],
-    ...
-})
+# 搜尋特定標籤
+Grep "#troubleshooting" .claude/memory/experiences.md
+```
+
+**記憶檔案格式：**
+
+```markdown
+# .claude/memory/experiences.md 格式
+
+## [標題]
+日期：YYYY-MM-DD
+標籤：#tag1 #tag2 #tag3
+
+**情境**: [什麼情況下遇到]
+**問題**: [遇到什麼問題]
+**解法**: [如何解決]
+**驗證**: ✅/❌
+**注意**: [額外備註]
+
+---
+```
+
+### 整合 PAL 工具（可選）
+
+如果環境中有 PAL MCP，可以用於深度思考：
+
+```markdown
+# 深度思考複雜問題（需要 PAL MCP）
+mcp__pal__thinkdeep - 分析複雜問題的根因
+
+# 多模型驗證（需要 PAL MCP）
+mcp__pal__consensus - 多角度驗證方案
+
+注意：PAL 是可選依賴，沒有也不影響核心功能
 ```
 
 ## 範例執行過程
@@ -840,7 +851,7 @@ Plan：加入 RemBG 節點移除背景
 Do：[更新工作流程...]
 Check：✅ 成功 - 背景已透明
 
-💾 儲存經驗到記憶
+💾 Write .claude/memory/experiences.md（儲存經驗）
 
 ---
 

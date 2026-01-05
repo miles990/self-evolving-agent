@@ -8,12 +8,13 @@ Goal → Assess Capabilities → Acquire Skills → Execute → Diagnose → Mul
 
 ## Features
 
+- **Zero External Dependencies** - Works out of the box, no MCP installation required
 - **Capability Boundary Awareness** - Self-assess what you know vs. what you need to learn
-- **Skill Auto-Acquisition** - Integrate with skillpkg to search/install/load skills on-demand
-- **Failure Mode Diagnosis** - Classify failures and apply targeted fixes
+- **Knowledge Auto-Acquisition** - Use WebSearch + Context7 to learn new knowledge on-demand
+- **Failure Mode Diagnosis** - Classify failures (5 types) and apply targeted fixes
 - **Multi-Strategy Mechanism** - Never repeat failed strategies, maintain a strategy pool
-- **Structured Experience** - Store experiences in a searchable format for future retrieval
-- **Learning Verification** - Verify skills are actually learned before applying them
+- **Local File Memory** - Store experiences in searchable local files (.claude/memory/)
+- **Learning Verification** - Verify knowledge is actually learned before applying it
 
 ## Installation
 
@@ -57,7 +58,7 @@ Trigger the agent with `/evolve`:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v2.1                       │
+│                  Self-Evolving Loop v3.0                       │
 │                                                                 │
 │    ┌──────────┐                                                │
 │    │   Goal   │                                                │
@@ -105,42 +106,32 @@ Trigger the agent with `/evolve`:
 | 3 consecutive same errors | Pause and ask user |
 | User manual stop | Save progress and exit |
 
-## Memory Integration (Cipher MCP)
+## Memory System (Local Files)
 
-The agent uses **Cipher** as its memory layer - an opensource memory system designed for coding agents.
+The agent uses **local markdown files** as its memory layer - zero external dependencies, pure file-based storage.
 
-### Dual Memory Architecture
+### Memory Architecture
 
-| Layer | Purpose | Tool |
-|-------|---------|------|
-| System 1: Knowledge | Codebase knowledge, solutions, best practices | `cipher_memory_search`, `cipher_extract_and_operate_memory` |
-| System 2: Reflection | Reasoning patterns, problem-solving strategies | `cipher_store_reasoning_memory`, `cipher_search_reasoning_patterns` |
-| Session | Current context, temporary data | Conversation |
-
-### Cipher Advantages
-
-- ✅ Cross-IDE sync (Cursor ↔ VS Code ↔ Claude Code)
-- ✅ Team shared memory (Workspace Memory)
-- ✅ Auto-learns development patterns
-- ✅ Zero configuration
-
-### Installation
-
-```bash
-npm install -g @byterover/cipher
+```
+📁 .claude/memory/
+├── experiences.md    ← Solutions, failures, lessons learned
+├── strategies.md     ← Strategy tracking, success rates
+└── learnings.md      ← New skills, discoveries, notes
 ```
 
-Add to `.mcp.json`:
-```json
-{
-  "mcpServers": {
-    "cipher": {
-      "command": "cipher",
-      "args": ["--mode", "mcp"]
-    }
-  }
-}
-```
+| Layer | Purpose | Storage |
+|-------|---------|---------|
+| Experiences | Solutions, best practices, failures | `.claude/memory/experiences.md` |
+| Strategies | Strategy tracking, improvements | `.claude/memory/strategies.md` |
+| Learnings | New knowledge, discoveries | `.claude/memory/learnings.md` |
+| Session | Current context, temp data | Conversation |
+
+### Local Memory Advantages
+
+- ✅ Zero external dependencies (no MCP required)
+- ✅ Pure text format (Git-friendly, easy backup)
+- ✅ Fast Grep search across all memories
+- ✅ Copy to any project instantly
 
 ## References
 
