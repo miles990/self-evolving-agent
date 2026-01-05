@@ -2,7 +2,7 @@
 name: evolve
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
 ---
-# Self-Evolving Agent v3.0
+# Self-Evolving Agent v3.1
 
 > 給定目標 → 評估能力 → 習得技能 → 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -10,7 +10,7 @@ description: 自我進化 Agent：給定目標，自主學習並迭代改進直�
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v3.0                        │
+│                  Self-Evolving Loop v3.1                        │
 │                                                                 │
 │    ┌──────────┐                                                │
 │    │   目標   │                                                │

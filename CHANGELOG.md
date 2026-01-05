@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2025-01-05
+
+### Changed
+- **Repo-based Memory** - 記憶目錄從 `.claude/memory/` 改為 `.github/memory/`
+- 相容 GitHub Copilot Agent Skills（共用 `.github/` 目錄）
+- 跨工具記憶共享：Claude Code, Copilot, Cursor
+
+### New Memory Structure
+```
+📁 .github/memory/
+├── index.md          ← 快速索引（自動維護）
+├── learnings/        ← 學習記錄
+├── decisions/        ← 決策記錄 (ADR)
+├── failures/         ← 失敗經驗
+├── patterns/         ← 推理模式
+└── strategies/       ← 策略記錄
+```
+
+### Added
+- Phase 0: 初始化記憶系統
+- 完整的記憶操作指南（Grep/Write/Edit 範例）
+- index.md 索引機制
+- 結構化經驗模板（frontmatter + markdown）
+
+### Benefits
+- Git 版本控制，可追溯歷史
+- 團隊協作，PR 審核記憶變更
+- 專案相關，隨 repo 遷移
+- 離線可用，無需外部服務
+
+---
+
 ## [3.0.0] - 2025-01-05
 
 ### Breaking Changes
