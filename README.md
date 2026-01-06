@@ -21,7 +21,12 @@ PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA 
 
 ## Features
 
-### v3.2 新增
+### v3.3 新增
+- **強制檢查點** - 三個不可跳過的護欄：任務前查 Memory、變更後編譯測試、Milestone 後目標確認
+- **Memory 生命週期** - 去蕪存菁機制：合併、標註過時、刪除，避免 Memory 變成垃圾堆
+- **index.md Metadata** - 新增 Last curated、Total entries、Next review 等欄位
+
+### v3.2 功能
 - **PSB Integration** - Plan-Setup-Build 環境準備，確保環境就緒再執行
 - **Design Principles** - 有主見的設計、深且窄、預期失敗、增強回饋
 - **Phase -1** - 7 步驟環境檢查清單

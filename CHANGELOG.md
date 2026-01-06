@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.0] - 2026-01-06
+
+### Added
+- **強制檢查點（Mandatory Checkpoints）**
+  - Checkpoint 1: 任務開始前 - 主動查 Memory
+  - Checkpoint 2: 程式碼變更後 - 編譯 + 測試必須通過
+  - Checkpoint 3: Milestone 完成後 - 目標確認
+
+- **Memory 生命週期管理**
+  - 整理策略：合併、標註過時、加上下文、刪除
+  - 觸發時機：Milestone 完成、條目超過 20 筆、新舊衝突、定期整理
+  - Memory 整理 Checklist
+
+- **index.md Metadata**
+  - Last curated: 上次整理日期
+  - Total entries: 總條目數
+  - Next review: 下次整理日期
+  - 統計區塊
+
+### Changed
+- 從「指南」變「護欄」：強制檢查點不可跳過
+- Memory 不再只進不出，需要定期去蕪存菁
+
+### Philosophy
+- AI 的價值：0 → 60 分（基礎產出）
+- 人類的價值：60 → 100 分（品質、判斷、細節）
+- AI 是放大器，不是替代品
+
+---
+
 ## [3.2.0] - 2026-01-06
 
 ### Added
