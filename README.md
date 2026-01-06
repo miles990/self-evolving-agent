@@ -56,6 +56,34 @@ cp SKILL.md /path/to/your/project/.claude/skills/self-evolving-agent/SKILL.md
 skillpkg install github:user/self-evolving-agent
 ```
 
+## Development Setup
+
+If you want to contribute or modify this skill:
+
+```bash
+# Clone the repo
+git clone https://github.com/miles990/self-evolving-agent.git
+cd self-evolving-agent
+
+# Setup Git hooks (recommended)
+./scripts/setup-hooks.sh
+```
+
+### Quality Assurance
+
+This project uses a two-layer quality assurance system:
+
+| Layer | Tool | Purpose |
+|-------|------|---------|
+| **Local** | Git Hooks | Fast feedback before commit |
+| **CI** | GitHub Actions | Centralized enforcement |
+
+**Pre-commit checks:**
+- SKILL.md exists and has valid frontmatter
+- Version field is present
+- No large files (>1MB)
+- Trailing whitespace check
+
 ## Usage
 
 Trigger the agent with `/evolve`:
