@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.1] - 2026-01-06
+
+### Added
+- **標準化完成輸出格式**
+  - `✅ GOAL ACHIEVED: [目標]` - 目標達成
+  - `⏸️ NEED HUMAN: [原因]` - 需要人工介入
+  - `❌ CANNOT COMPLETE: [原因]` - 無法完成
+  - 方便識別和未來工具整合
+
+### Cleanup
+- 移除 `.claude/memory/` 範本（應在使用者專案）
+- 移除 `drafts/` 目錄（屬於其他專案）
+- 移除空的 `.github/` 目錄
+
+---
+
 ## [3.3.0] - 2026-01-06
 
 ### Added

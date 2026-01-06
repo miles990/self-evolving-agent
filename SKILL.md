@@ -1,6 +1,6 @@
 ---
 name: evolve
-version: 3.3.0
+version: 3.3.1
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
 ---
 # Self-Evolving Agent v3.3
@@ -1237,6 +1237,32 @@ Agent 在以下情況停止：
    - 需要用戶決策
    - 需要外部資源
    - 風險操作需確認
+```
+
+---
+
+## 完成輸出格式
+
+```markdown
+標準化完成信號（方便識別和工具整合）：
+
+✅ 目標達成：
+   ✅ GOAL ACHIEVED: [目標描述]
+
+   範例：
+   ✅ GOAL ACHIEVED: UserList 首次渲染 < 100ms
+
+⏸️ 需要人工：
+   ⏸️ NEED HUMAN: [原因]
+
+   範例：
+   ⏸️ NEED HUMAN: 架構選擇需要確認（方案 A vs B）
+
+❌ 無法完成：
+   ❌ CANNOT COMPLETE: [原因]
+
+   範例：
+   ❌ CANNOT COMPLETE: 連續 3 次相同錯誤，需要人工診斷
 ```
 
 ---
