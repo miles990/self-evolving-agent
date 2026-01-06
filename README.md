@@ -53,7 +53,7 @@ cp SKILL.md /path/to/your/project/.claude/skills/self-evolving-agent/SKILL.md
 
 ```bash
 # Install via skillpkg
-skillpkg install github:user/self-evolving-agent
+skillpkg install github:miles990/self-evolving-agent
 ```
 
 ## Development Setup
