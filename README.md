@@ -71,14 +71,7 @@ cd self-evolving-agent
 
 ### Quality Assurance
 
-This project uses a two-layer quality assurance system:
-
-| Layer | Tool | Purpose |
-|-------|------|---------|
-| **Local** | Git Hooks | Fast feedback before commit |
-| **CI** | GitHub Actions | Centralized enforcement |
-
-**Pre-commit checks:**
+**Pre-commit checks (via Git Hooks):**
 - SKILL.md exists and has valid frontmatter
 - Version field is present
 - No large files (>1MB)
