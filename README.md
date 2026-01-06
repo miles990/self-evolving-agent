@@ -103,7 +103,7 @@ Trigger the agent with `/evolve`:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v3.2                        │
+│                  Self-Evolving Loop v3.3                        │
 │                  (PSB + PDCA Integration)                       │
 │                                                                 │
 │  ╔═══════════════════════════════════════════════════════════╗ │
