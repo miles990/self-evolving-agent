@@ -37,7 +37,7 @@ PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA 
 - **Knowledge Auto-Acquisition** - Use WebSearch + skillpkg to learn new knowledge on-demand
 - **Failure Mode Diagnosis** - Classify failures (5 types) and apply targeted fixes
 - **Multi-Strategy Mechanism** - Never repeat failed strategies, maintain a strategy pool
-- **Repo-based Memory** - Store experiences in `.github/memory/` with Git version control
+- **Git-based Memory** - Store experiences in `.github/memory/` with version control, history, rollback
 - **Learning Verification** - Verify knowledge is actually learned before applying it
 
 ## Installation
@@ -112,7 +112,7 @@ Trigger the agent with `/evolve`:
 │  ╚═══════════════════════════════════════════════════════════╝ │
 │                            │                                    │
 │                     ┌──────▼───────┐                            │
-│                     │ Repo-based   │  ← .github/memory/         │
+│                     │ Git-based    │  ← .github/memory/         │
 │                     │ Memory       │    Git version controlled  │
 │                     └──────────────┘                            │
 │                                                                 │
@@ -134,7 +134,7 @@ Trigger the agent with `/evolve`:
 | 3 consecutive same errors | Pause and ask user |
 | User manual stop | Save progress and exit |
 
-## Memory System (Repo-based)
+## Memory System (Git-based)
 
 The agent uses **Git-versioned markdown files** in `.github/memory/` as its memory layer - zero external dependencies, Git version controlled, team shareable.
 
@@ -159,7 +159,7 @@ The agent uses **Git-versioned markdown files** in `.github/memory/` as its memo
 | Strategies | Task-specific strategy pools | `.github/memory/strategies/` |
 | Session | Current context, temp data | Conversation |
 
-### Repo-based Memory Advantages
+### Git-based Memory Advantages
 
 - ✅ Git version control - track history, rollback changes
 - ✅ Cross-tool sharing - Claude Code ↔ Copilot ↔ Cursor

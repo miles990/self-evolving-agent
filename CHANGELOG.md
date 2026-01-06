@@ -73,7 +73,7 @@ All notable changes to this project will be documented in this file.
 ## [3.1.0] - 2025-01-05
 
 ### Changed
-- **Repo-based Memory** - 記憶目錄從 `.claude/memory/` 改為 `.github/memory/`
+- **Git-based Memory** - 記憶目錄從 `.claude/memory/` 改為 `.github/memory/`
 - 相容 GitHub Copilot Agent Skills（共用 `.github/` 目錄）
 - 跨工具記憶共享：Claude Code, Copilot, Cursor
 
