@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.0] - 2026-01-06
+
+### Added
+- **核心哲學：AI 協作的抽象化範式**
+  - MCP = 能力邊界（能做什麼）
+  - Tools = 具體實作（怎麼做）
+  - Skill = 領域知識（何時用什麼）— 封裝好的判斷力
+  - CLAUDE.md = 上下文約束（專案規範）
+
+- **PSB System 整合**
+  - Plan-Setup-Build 環境準備流程
+  - 在寫第一行程式碼前，先確保環境就緒
+  - 7 步驟環境檢查清單
+
+- **Phase -1: 環境準備**
+  - Git Repo 檢查
+  - CLAUDE.md 專案記憶
+  - 記憶系統初始化
+  - MCP 配置（可選）
+  - Slash Commands 設定（可選）
+
+- **設計原則**
+  - 有主見的設計：合理預設值 > 讓 AI 選擇
+  - 深且窄：專注 10% 高價值任務
+  - 預期失敗：設計優雅降級
+  - 增強回饋：執行中提醒目標和進度
+
+### Changed
+- 核心理念圖表更新為 PSB + PDCA 整合框架
+- README 新增 Core Philosophy 區塊
+- 流程從 `Goal → ...` 改為 `PSB Setup → Goal → ...`
+
+### Reference
+- [PSB System (HackMD)](https://hackmd.io/@eBrqaOowRWWfcAjhMNwlvg/HkNuCGcEZl)
+- [Agent Design is Still Hard 2025](https://ihower.tw/blog/13513-agent-design-is-still-hard-2025)
+
+---
+
 ## [3.1.0] - 2025-01-05
 
 ### Changed
