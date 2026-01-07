@@ -37,7 +37,7 @@ PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA 
 - **Knowledge Auto-Acquisition** - Use WebSearch + skillpkg to learn new knowledge on-demand
 - **Failure Mode Diagnosis** - Classify failures (5 types) and apply targeted fixes
 - **Multi-Strategy Mechanism** - Never repeat failed strategies, maintain a strategy pool
-- **Git-based Memory** - Store experiences in `.github/memory/` with version control, history, rollback
+- **Git-based Memory** - Store experiences in `.claude/memory/` with version control, history, rollback
 - **Learning Verification** - Verify knowledge is actually learned before applying it
 
 ## Installation
@@ -133,7 +133,7 @@ Trigger the agent with `/evolve`:
 │  ╚═══════════════════════════════════════════════════════════╝ │
 │                            │                                    │
 │                     ┌──────▼───────┐                            │
-│                     │ Git-based    │  ← .github/memory/         │
+│                     │ Git-based    │  ← .claude/memory/         │
 │                     │ Memory       │    Git version controlled  │
 │                     └──────────────┘                            │
 │                                                                 │
@@ -157,12 +157,12 @@ Trigger the agent with `/evolve`:
 
 ## Memory System (Git-based)
 
-The agent uses **Git-versioned markdown files** in `.github/memory/` as its memory layer - zero external dependencies, Git version controlled, team shareable.
+The agent uses **Git-versioned markdown files** in `.claude/memory/` as its memory layer - zero external dependencies, Git version controlled, team shareable.
 
 ### Memory Architecture
 
 ```
-📁 .github/memory/
+📁 .claude/memory/
 ├── index.md          ← Quick index (auto-maintained)
 ├── learnings/        ← Knowledge: solutions, best practices
 ├── decisions/        ← ADR: architecture decision records
@@ -173,11 +173,11 @@ The agent uses **Git-versioned markdown files** in `.github/memory/` as its memo
 
 | Layer | Purpose | Storage |
 |-------|---------|---------|
-| Learnings | Solutions, best practices | `.github/memory/learnings/` |
-| Decisions | Architecture decisions (ADR) | `.github/memory/decisions/` |
-| Failures | Lessons learned, pitfalls | `.github/memory/failures/` |
-| Patterns | Reusable reasoning patterns | `.github/memory/patterns/` |
-| Strategies | Task-specific strategy pools | `.github/memory/strategies/` |
+| Learnings | Solutions, best practices | `.claude/memory/learnings/` |
+| Decisions | Architecture decisions (ADR) | `.claude/memory/decisions/` |
+| Failures | Lessons learned, pitfalls | `.claude/memory/failures/` |
+| Patterns | Reusable reasoning patterns | `.claude/memory/patterns/` |
+| Strategies | Task-specific strategy pools | `.claude/memory/strategies/` |
 | Session | Current context, temp data | Conversation |
 
 ### Git-based Memory Advantages

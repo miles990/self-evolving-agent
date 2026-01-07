@@ -1,6 +1,6 @@
 # 專案記憶索引
 
-> 搜尋：`Grep pattern="關鍵字" path=".github/memory/"`
+> 搜尋：`Grep pattern="關鍵字" path=".claude/memory/"`
 
 ## 最近學習
 <!-- LEARNINGS_START -->
