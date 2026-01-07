@@ -14,10 +14,10 @@ All notable changes to this project will be documented in this file.
 - **領域 Skills 整合**
   - 支援 `claude-domain-skills` (非技術領域)
   - 支援 `claude-software-skills` (技術領域)
-  - 16 個領域 skills 可用：
+  - 18 個領域 skills 可用：
     - Finance: quant-trading, investment-analysis
     - Business: product-management, project-management, marketing, sales, strategy
-    - Creative: game-design, ui-ux-design, brainstorming
+    - Creative: game-design, ui-ux-design, brainstorming, storytelling, visual-media
     - Professional: research-analysis, knowledge-management
     - Lifestyle: personal-growth, side-income
 
