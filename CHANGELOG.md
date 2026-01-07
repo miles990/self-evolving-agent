@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.1] - 2026-01-07
+
+### Added - Auto Domain Detection
+- **自動領域識別機制**
+  - 從任務描述提取關鍵詞
+  - 透過 skillpkg triggers 搜尋匹配的領域 skill
+  - 自動載入相關領域知識
+  - 支援多領域同時載入
+
+- **領域 Skills 整合**
+  - 支援 `claude-domain-skills` (非技術領域)
+  - 支援 `claude-software-skills` (技術領域)
+  - 8 個領域 skills 可用：
+    - Finance: quant-trading, investment-analysis
+    - Business: product-management, project-management, marketing
+    - Creative: game-design, ui-ux-design
+    - Professional: research-analysis
+
+- **新增範例文檔**
+  - `examples/auto-domain-detection.md` - 自動領域識別使用範例
+
+### Changed
+- 核心流程新增 Auto Domain Detection 階段
+- 更新 README 說明自動領域識別功能
+- triggers 格式相容 skillpkg 1.0 schema
+
+### Reference
+- [claude-domain-skills](https://github.com/miles990/claude-domain-skills)
+- [skillpkg](https://github.com/anthropics/skillpkg)
+
+---
+
 ## [3.4.0] - 2026-01-07
 
 ### Added - Boris Cherny Tips 整合
