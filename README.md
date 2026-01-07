@@ -6,6 +6,8 @@
 
 > A Claude Code skill that enables autonomous goal achievement through iterative learning and self-improvement.
 
+**[Quick Start Guide](./docs/QUICKSTART.md)** | [Usage Manual](./USAGE.md) | [Examples](./examples/)
+
 ```
 PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA Execute → Diagnose → Multi-Strategy Retry → Repo Memory → Until Success
 ```
