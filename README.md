@@ -1,5 +1,9 @@
 # Self-Evolving Agent
 
+[![Version](https://img.shields.io/badge/version-3.5.1-blue)](./SKILL.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
+[![Domain Skills](https://img.shields.io/badge/domain_skills-16-orange)](https://github.com/miles990/claude-domain-skills)
+
 > A Claude Code skill that enables autonomous goal achievement through iterative learning and self-improvement.
 
 ```
@@ -242,7 +246,25 @@ keywords: [finance, trading]
 ---
 ```
 
-See [claude-domain-skills](https://github.com/miles990/claude-domain-skills) for available domains.
+### Available Domain Skills (16)
+
+| Category | Skills | Count |
+|----------|--------|-------|
+| 💼 Business | marketing, sales, product-management, project-management, strategy | 5 |
+| 💰 Finance | quant-trading, investment-analysis | 2 |
+| 🎨 Creative | game-design, ui-ux-design, brainstorming, storytelling, visual-media | 5 |
+| 🔬 Professional | research-analysis, knowledge-management | 2 |
+| 🌱 Lifestyle | personal-growth, side-income | 2 |
+
+See [claude-domain-skills](https://github.com/miles990/claude-domain-skills) for full documentation.
+
+## Related Projects
+
+| Project | Description |
+|---------|-------------|
+| [claude-domain-skills](https://github.com/miles990/claude-domain-skills) | 16 non-technical domain skills |
+| [claude-starter-kit](https://github.com/miles990/claude-starter-kit) | One-command Claude Code setup CLI |
+| [claude-software-skills](https://github.com/miles990/claude-software-skills) | Software development skills |
 
 ## References
 
