@@ -14,12 +14,12 @@ All notable changes to this project will be documented in this file.
 - **領域 Skills 整合**
   - 支援 `claude-domain-skills` (非技術領域)
   - 支援 `claude-software-skills` (技術領域)
-  - 14 個領域 skills 可用：
+  - 16 個領域 skills 可用：
     - Finance: quant-trading, investment-analysis
     - Business: product-management, project-management, marketing, sales, strategy
     - Creative: game-design, ui-ux-design, brainstorming
-    - Professional: research-analysis
-    - Lifestyle: personal-growth
+    - Professional: research-analysis, knowledge-management
+    - Lifestyle: personal-growth, side-income
 
 - **新增範例文檔**
   - `examples/auto-domain-detection.md` - 自動領域識別使用範例
