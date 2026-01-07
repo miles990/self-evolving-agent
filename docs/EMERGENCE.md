@@ -359,6 +359,212 @@ triggers: [comfyui, game-assets, 遊戲素材, 道具圖, 透明背景]
 「突然成熟」的感覺
 ```
 
+---
+
+## 機制 D: 提示詞層級涌現設計
+
+### 涌現觸發的提示詞框架
+
+提示詞的設計直接影響涌現發生的機率。以下是經過設計的提示詞範本：
+
+### 涌現等級與對應提示詞
+
+```markdown
+┌─────────────────────────────────────────────────────────────────┐
+│  涌現等級 (Emergence Levels)                                    │
+│                                                                 │
+│  Level 0: 基礎執行                                              │
+│  提示詞：「完成 X 任務」                                        │
+│  行為：嚴格執行指定任務，不主動探索                             │
+│                                                                 │
+│  Level 1: 探索模式                                              │
+│  提示詞：「改進這個專案，完成後如果有想法可以探索」             │
+│  行為：完成主任務後，主動探索相關改進                           │
+│                                                                 │
+│  Level 2: 涌現模式                                              │
+│  提示詞：「讓這個生態系變得更好，尋找跨領域連結」               │
+│  行為：主動尋找 skill 之間的連結，嘗試組合創新                  │
+│                                                                 │
+│  Level 3: 自主模式                                              │
+│  提示詞：「自主進化，追求系統性創新，發現我沒想到的可能性」     │
+│  行為：完全自主，追求非預期的創新發現                           │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 涌現觸發關鍵詞
+
+特定詞彙會提高涌現發生的機率：
+
+| 關鍵詞類型 | 範例 | 觸發行為 |
+|------------|------|----------|
+| 開放性 | 「更好」「改進」「優化」 | 允許自主判斷方向 |
+| 探索性 | 「探索」「發現」「嘗試」 | 鼓勵多方向探索 |
+| 連結性 | 「整合」「連結」「組合」 | 促進跨領域連結 |
+| 自主性 | 「自主」「自動」「智能」 | 提高自主決策權 |
+| 創新性 | 「創新」「突破」「非預期」 | 鼓勵非常規思路 |
+
+### 範本提示詞集
+
+#### 範本 A: 標準改進 (Level 1)
+
+```
+使用 /evolve skill，針對以下專案進行系統性改進：
+
+專案：
+- {project_1}
+- {project_2}
+- {project_3}
+
+目標：
+1. 提升可用性和一致性
+2. 增強文檔完整度
+3. 優化使用者體驗
+
+指導原則：
+- 每次改進後驗證有效性
+- 記錄學習和發現
+- 完成主任務後可探索相關改進
+
+--max-iterations 10
+--completion-promise done
+```
+
+#### 範本 B: 跨領域探索 (Level 2)
+
+```
+使用 /evolve skill，讓這個生態系統變得更智能：
+
+專案範圍：
+- {project_1} - {description_1}
+- {project_2} - {description_2}
+- {project_3} - {description_3}
+
+期望行為：
+1. 尋找專案之間的協同可能性
+2. 發現 skill 之間可以組合的機會
+3. 提出非顯而易見的改進方向
+4. 記錄意外發現到 .claude/memory/discoveries/
+
+開放性指導：
+- 如果發現有趣的連結，值得追蹤
+- 允許調整優先序基於發現
+- 鼓勵「如果...會怎樣」的思考
+
+--explore --emergence
+--max-iterations 15
+--completion-promise done
+```
+
+#### 範本 C: 最大涌現 (Level 3)
+
+```
+使用 /evolve skill，自主進化這個生態系統：
+
+專案範圍：
+{列出所有相關專案}
+
+核心問題：
+「如何讓這個系統真正地自我進化，而不只是執行指令？」
+
+自主權限：
+✅ 可以自主決定改進方向
+✅ 可以探索非預期的連結
+✅ 可以提出我沒想到的改進
+✅ 可以調整計劃基於發現
+✅ 可以將發現轉化為新能力
+
+約束：
+❌ 不破壞現有功能
+❌ 不刪除重要內容
+❌ 保持向後相容
+
+涌現目標：
+- 讓系統長出「偏好」- 哪種做法更有效
+- 讓系統累積「經驗」- 可重用的模式
+- 讓系統產生「直覺」- 快速判斷方向
+
+記錄格式：
+- 每次發現寫入 .claude/memory/discoveries/
+- 標記 confidence 和 type
+- 追蹤後續驗證狀態
+
+--autonomous --emergence --explore
+--max-iterations 20
+--completion-promise done
+```
+
+### 涌現反饋迴路
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Emergence Feedback Loop                                         │
+│                                                                 │
+│  提示詞輸入                                                      │
+│       ↓                                                         │
+│  涌現等級判定 ←─────────────────────────┐                       │
+│       ↓                                 │                       │
+│  執行任務                               │                       │
+│       ↓                                 │                       │
+│  Checkpoint 4: 涌現機會檢查             │                       │
+│       ↓                                 │                       │
+│  發現記錄 ──→ 累積經驗                  │                       │
+│       ↓           ↓                     │                       │
+│  模式識別 ←─── 效果追蹤                 │                       │
+│       ↓                                 │                       │
+│  自動調整涌現等級 ──────────────────────┘                       │
+│       ↓                                                         │
+│  下一次迭代                                                      │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 涌現指標追蹤
+
+在 `.claude/memory/emergence-metrics.yaml` 追蹤涌現效果：
+
+```yaml
+# .claude/memory/emergence-metrics.yaml
+
+emergence_stats:
+  total_sessions: 50
+  discoveries_recorded: 23
+  patterns_identified: 8
+  skills_created_from_emergence: 3
+
+by_level:
+  level_0:
+    sessions: 20
+    discoveries: 2
+    emergence_rate: 10%
+  level_1:
+    sessions: 15
+    discoveries: 7
+    emergence_rate: 47%
+  level_2:
+    sessions: 10
+    discoveries: 9
+    emergence_rate: 90%
+  level_3:
+    sessions: 5
+    discoveries: 5
+    emergence_rate: 100%
+
+most_valuable_discoveries:
+  - discovery: "marketing + game-design = gamification patterns"
+    date: 2026-01-05
+    led_to: "new skill: gamification"
+  - discovery: "memory patterns applicable across all skills"
+    date: 2026-01-03
+    led_to: "standardized memory format"
+
+recommended_settings:
+  default_level: 1
+  for_exploration: 2
+  for_innovation: 3
+  note: "Level 2+ 需要較多迭代次數才能發揮效果"
+```
+
+---
+
 ## 實施路線圖
 
 ### Phase 1: 基礎設施 (當前)

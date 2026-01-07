@@ -26,6 +26,17 @@
 - [Subagent 策略](strategies/subagents.md) - verify-app, code-simplifier, build-validator (Boris Tip #8)
 <!-- STRATEGIES_END -->
 
+## 涌現發現 (v3.6 新增)
+<!-- DISCOVERIES_START -->
+<!-- DISCOVERIES_END -->
+
+> 詳見：[discoveries/README.md](discoveries/README.md)
+
+## 技能效果追蹤 (v3.6 新增)
+
+- [技能排行榜](skill-metrics/index.md)
+- [涌現指標](emergence-metrics.yaml)
+
 ## 標籤索引
 <!-- TAGS_START -->
 - architecture: [claude-agent-sdk-analysis](learnings/2025-01-07-claude-agent-sdk-analysis.md)
