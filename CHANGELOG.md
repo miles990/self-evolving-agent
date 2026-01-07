@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.0] - 2026-01-07
+
+### Added - Boris Cherny Tips 整合
+
+基於 Claude Code 創作者 Boris Cherny 分享的 13 條使用技巧，新增以下功能：
+
+- **強化驗證迴圈（Tip #13）**
+  - PDCA Check 階段加入自動化驗證策略
+  - 自動執行測試、構建、Lint、型別檢查
+  - Boris: "給 Claude 驗證工作的方式，品質提升 2-3 倍"
+
+- **Subagent 策略（Tip #8）**
+  - `verify-app`: 驗證應用程式正確運作
+  - `code-simplifier`: 簡化複雜程式碼
+  - `build-validator`: 驗證構建流程
+  - 新增 `.claude/memory/strategies/subagents.md` 策略定義
+
+- **Hooks 整合（Tips #9, #12）**
+  - PostToolUse hook: 自動格式化程式碼
+  - Stop hook: 任務完成時執行驗證
+  - 配置範例和使用建議
+
+- **長時間任務處理（Tip #12）**
+  - ralph-wiggum plugin 整合
+  - Background Agent 使用指南
+  - Permission 優化建議（/permissions vs --dangerously-skip-permissions）
+
+### Reference
+- [Boris Cherny Threads Post](https://www.threads.com/@boris_cherny/post/DTBVlMIkpcm)
+- 學習記錄：`.claude/memory/learnings/2025-01-07-boris-cherny-claude-code-tips.md`
+
+---
+
 ## [3.3.1] - 2026-01-06
 
 ### Added

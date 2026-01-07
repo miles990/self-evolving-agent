@@ -20,6 +20,11 @@
 <!-- PATTERNS_START -->
 <!-- PATTERNS_END -->
 
+## 策略記錄
+<!-- STRATEGIES_START -->
+- [Subagent 策略](strategies/subagents.md) - verify-app, code-simplifier, build-validator (Boris Tip #8)
+<!-- STRATEGIES_END -->
+
 ## 標籤索引
 <!-- TAGS_START -->
 - best-practices: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
