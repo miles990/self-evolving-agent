@@ -90,4 +90,5 @@ Agent 會自動識別任務關鍵詞並載入相關領域知識：
 - [完整使用手冊](../USAGE.md)
 - [基本範例](../examples/basic-usage.md)
 - [自動領域識別範例](../examples/auto-domain-detection.md)
+- [失敗處理範例](../examples/failure-handling.md)
 - [變更日誌](../CHANGELOG.md)
