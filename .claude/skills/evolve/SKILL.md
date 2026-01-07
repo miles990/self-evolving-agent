@@ -371,10 +371,6 @@ ls .claude/memory/ 2>/dev/null || echo "需要初始化"
 <!-- PATTERNS_START -->
 <!-- PATTERNS_END -->
 
-## 策略記錄
-<!-- STRATEGIES_START -->
-<!-- STRATEGIES_END -->
-
 ## 標籤索引
 <!-- TAGS_START -->
 <!-- TAGS_END -->
