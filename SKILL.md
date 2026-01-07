@@ -1,9 +1,11 @@
 ---
 name: evolve
-version: 3.5.0
+version: 3.5.1
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
+triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented]
+keywords: [agent, learning, pdca, memory, skill-acquisition]
 ---
-# Self-Evolving Agent v3.5
+# Self-Evolving Agent v3.5.1
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -603,6 +605,31 @@ keywords: [finance, investment, analysis]
 ```
 找到匹配 → 載入並增強能力
 沒找到 → 記錄「無專門領域知識」，用通用能力執行
+```
+
+**實作範例：**
+
+```python
+# Step 1: 從用戶任務提取關鍵詞（AI 自動分析）
+task = "幫我分析台積電的財報，判斷是否值得投資"
+keywords = ["台積電", "財報", "投資"]  # AI 提取
+
+# Step 2: 搜尋匹配的領域 skill（使用 skillpkg MCP）
+search_skills({
+    "query": " ".join(keywords),  # "台積電 財報 投資"
+    "source": "local"  # 優先搜尋已安裝的
+})
+# → 結果：investment-analysis (匹配 triggers: 財報, 投資)
+
+# Step 3: 載入領域知識
+load_skill({ "id": "investment-analysis" })
+# → 獲得：財報分析框架、估值模型、風險評估方法
+
+# Step 4: 帶著領域知識執行任務
+# AI 現在知道：
+# - 如何解讀財報三表
+# - PE/PB/ROE 等估值指標
+# - 風險評估的框架
 ```
 
 ---
