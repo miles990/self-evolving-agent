@@ -164,54 +164,104 @@ Using UI/UX design principles:
 Starting design...
 ```
 
-## Example 5: No Match (優雅降級)
+## Example 5: Personal Growth (自動識別)
 
 ```
-User: /evolve 幫我整理房間的收納系統
+User: /evolve 幫我規劃未來三年的職涯發展計畫
 
 Agent:
 🔍 Auto Domain Detection
 
-任務關鍵詞: 整理, 房間, 收納
+任務關鍵詞: 規劃, 職涯, 發展
 搜尋匹配 skills...
 
-No matching domain skill found.
-(lifestyle 領域尚未實現)
+Found: lifestyle/personal-growth
+  triggers: [人生規劃, 個人品牌, 時間管理, 職涯]
+  match_score: 0.85
 
-📝 Proceeding without domain skill
-→ Will use general knowledge
-→ Can still complete task
+📚 Loading domain skill...
+✅ personal-growth loaded
 
 ---
-📋 Goal Analysis
+📋 Goal Analysis (with domain knowledge)
 
-Goal: 房間收納系統規劃
+Goal: 三年職涯發展計畫
 
-Sub-goals:
-1. 評估現有空間
-2. 分類物品
-3. 規劃收納區域
-4. 執行整理
+Using life design framework:
+1. 現況評估
+   - SWOT 自我分析
+   - 價值觀確認
+2. 目標設定
+   - 3 年願景
+   - Personal OKR
+3. 行動計畫
+   - 里程碑設定
+   - 技能培養路線
+4. 追蹤機制
+   - 季度檢視
+   - 調整策略
 
-Note: 此任務沒有特定領域 skill，
-      使用通用知識執行。
-      如需專業收納建議，可安裝 lifestyle 領域 skill。
-
-Starting execution...
+Starting planning...
 ```
 
-## Available Domain Skills
+## Example 6: Storytelling (自動識別)
+
+```
+User: /evolve 幫我構思一個短篇小說的大綱，主題是 AI 與人類的共存
+
+Agent:
+🔍 Auto Domain Detection
+
+任務關鍵詞: 小說, 大綱, 構思, 故事
+搜尋匹配 skills...
+
+Found: creative/storytelling
+  triggers: [小說, 故事, 劇本, 角色, narrative]
+  match_score: 0.90
+
+📚 Loading domain skill...
+✅ storytelling loaded
+
+---
+📋 Goal Analysis (with domain knowledge)
+
+Goal: AI 與人類共存主題短篇小說
+
+Using storytelling framework:
+1. 故事結構（三幕劇）
+   - 第一幕：日常 + 觸發事件
+   - 第二幕：衝突與挑戰
+   - 第三幕：高潮與解決
+2. 角色設計
+   - 主角 Want vs Need
+   - 致命缺陷
+3. 世界觀建構
+   - AI 社會規則
+   - 人機關係設定
+
+Starting outline...
+```
+
+## Available Domain Skills (16)
 
 | 領域 | Triggers 範例 | 說明 |
 |------|---------------|------|
 | `finance/quant-trading` | 量化, backtest, 策略 | 量化交易 |
 | `finance/investment-analysis` | 財報, 投資, 估值 | 投資分析 |
+| `business/marketing` | 行銷, CAC, 漏斗 | 行銷策略 |
+| `business/sales` | 銷售, 電商, CRM | 銷售電商 |
 | `business/product-management` | PRD, OKR, 路線圖 | 產品管理 |
 | `business/project-management` | Scrum, Sprint, 甘特圖 | 專案管理 |
-| `business/marketing` | 行銷, CAC, 漏斗 | 行銷策略 |
+| `business/strategy` | 藍海, 差異化, 商業模式 | 商業策略 |
 | `creative/game-design` | 遊戲, 關卡, 平衡 | 遊戲設計 |
 | `creative/ui-ux-design` | UI, UX, 無障礙 | 介面設計 |
+| `creative/brainstorming` | 靈感, 頭腦風暴, 創意 | 創意發想 |
+| `creative/storytelling` | 小說, 漫畫, 劇本 | 故事創作 |
+| `creative/visual-media` | 攝影, 影片, 動畫 | 影像創作 |
 | `professional/research-analysis` | 研究, 競品, 調研 | 研究分析 |
+| `professional/knowledge-management` | 筆記, PKM, 第二大腦 | 知識管理 |
+| `lifestyle/personal-growth` | 人生規劃, 個人品牌 | 個人成長 |
+| `lifestyle/side-income` | 副業, 被動收入, 投資 | 副業投資 |
 
 ## Tips
 
