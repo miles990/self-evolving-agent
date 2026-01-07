@@ -1,11 +1,11 @@
 ---
 name: evolve
-version: 3.5.1
+version: 3.6.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented]
-keywords: [agent, learning, pdca, memory, skill-acquisition]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence]
 ---
-# Self-Evolving Agent v3.5.1
+# Self-Evolving Agent v3.6.0
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -1765,6 +1765,18 @@ Edit(.claude/memory/index.md) → 更新索引
 ```
 
 ---
+
+## 涌現機制 (v3.6 新增)
+
+系統透過三個關鍵機制實現真正的自我進化：
+
+| 機制 | 說明 | 效果 |
+|------|------|------|
+| **多階技能路由** | 粗分類 → Top-K 候選 → 組合策略 | 精準匹配，避免技能庫混亂 |
+| **技能效果記分板** | 追蹤成功率、迭代次數、最佳組合 | 自動選擇歷史最優路徑 |
+| **知識蒸餾** | 成功經驗 → 可重用技能/策略 | 從「會做」到「會教自己做」 |
+
+詳見：[涌現機制設計文檔](docs/EMERGENCE.md)
 
 ## 相關資源
 
