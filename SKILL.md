@@ -587,11 +587,12 @@ capability_assessment:
 每個領域 skill 定義 `triggers`（觸發詞），用於自動匹配：
 
 ```yaml
-# finance/investment-analysis/SKILL.md
+# finance/investment-analysis/SKILL.md (skillpkg 相容格式)
 ---
-triggers:
-  zh: [股票, 財報, 投資, 估值, 基本面]
-  en: [stock, financial-report, investment, valuation]
+schema: "1.0"
+name: investment-analysis
+triggers: [股票, 財報, 投資, 估值, 基本面, stock, financial-report, investment, valuation]
+keywords: [finance, investment, analysis]
 ---
 ```
 
