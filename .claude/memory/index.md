@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [Boris Cherny Claude Code Tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md) - claude-code, best-practices, verification, subagents
 - [Claude Starter Kit CLI](learnings/2025-01-07-claude-starter-kit-cli.md) - cli, scaffold, npx, multi-select domains
 <!-- LEARNINGS_END -->
 
@@ -21,7 +22,11 @@
 
 ## 標籤索引
 <!-- TAGS_START -->
+- best-practices: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
+- claude-code: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
 - cli: [claude-starter-kit-cli](learnings/2025-01-07-claude-starter-kit-cli.md)
 - scaffold: [claude-starter-kit-cli](learnings/2025-01-07-claude-starter-kit-cli.md)
-- domain-skills: [claude-starter-kit-cli](learnings/2025-01-07-claude-starter-kit-cli.md)
+- subagents: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
+- verification: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
+- workflow: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
 <!-- TAGS_END -->
