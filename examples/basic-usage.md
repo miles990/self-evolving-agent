@@ -1,5 +1,7 @@
 # Basic Usage Examples
 
+> 也可參考 [auto-domain-detection.md](./auto-domain-detection.md) 了解自動領域識別功能
+
 ## Example 1: Performance Optimization
 
 ```
@@ -169,6 +171,7 @@ Result: ✅ Success - Transparent PNG output
 1. **Be Specific** - Include measurable success criteria
 2. **Set Constraints** - Mention any limitations or requirements
 3. **Provide Context** - What problem are you solving?
+4. **Natural Language** - 自動領域識別會根據關鍵詞載入相關知識
 
 ```
 ❌ Bad: /evolve Make it faster
@@ -177,4 +180,21 @@ Result: ✅ Success - Transparent PNG output
          Target: First render under 100ms
          Constraint: Don't change the API interface
          Test: Use React DevTools Profiler
+
+✅ Domain-aware: /evolve 分析台積電財報，評估投資價值
+         → 自動載入 finance/investment-analysis
 ```
+
+## Available Domain Skills
+
+16 個領域 skills 可自動識別並載入：
+
+| 分類 | 領域 |
+|------|------|
+| 💰 Finance | quant-trading, investment-analysis |
+| 💼 Business | marketing, sales, product-management, project-management, strategy |
+| 🎨 Creative | game-design, ui-ux-design, brainstorming, storytelling, visual-media |
+| 🔬 Professional | research-analysis, knowledge-management |
+| 🌱 Lifestyle | personal-growth, side-income |
+
+詳見 [auto-domain-detection.md](./auto-domain-detection.md)
