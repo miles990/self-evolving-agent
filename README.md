@@ -21,7 +21,12 @@ PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA 
 
 ## Features
 
-### v3.3 新增
+### v3.5 新增
+- **自動領域識別** - 從用戶任務提取關鍵詞，自動搜尋並載入匹配的領域 skills
+- **Triggers 機制** - 支援 SKILL.md 中的 triggers/keywords 欄位，精準匹配領域知識
+- **skillpkg 深度整合** - 使用 `search_skills` + `load_skill` 完成知識自動習得
+
+### v3.3 功能
 - **強制檢查點** - 三個不可跳過的護欄：任務前查 Memory、變更後編譯測試、Milestone 後目標確認
 - **Memory 生命週期** - 去蕪存菁機制：合併、標註過時、刪除，避免 Memory 變成垃圾堆
 - **index.md Metadata** - 新增 Last curated、Total entries、Next review 等欄位
@@ -103,8 +108,8 @@ Trigger the agent with `/evolve`:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v3.3                        │
-│                  (PSB + PDCA Integration)                       │
+│                  Self-Evolving Loop v3.5                        │
+│                  (Auto Domain + PSB + PDCA)                     │
 │                                                                 │
 │  ╔═══════════════════════════════════════════════════════════╗ │
 │  ║  PSB System (環境準備)                                     ║ │
@@ -188,6 +193,56 @@ The agent uses **Git-versioned markdown files** in `.claude/memory/` as its memo
 - ✅ Team collaboration - PR review memory changes
 - ✅ Fast Grep search - standard tools work
 - ✅ Project portable - memory travels with repo
+
+## Auto Domain Detection (v3.5)
+
+When you trigger `/evolve`, the agent automatically identifies domain expertise needed:
+
+```
+User: 「幫我分析台積電的財報」
+        ↓
+┌───────────────────────────────────────┐
+│ 1. Extract keywords: 財報, 分析, 投資 │
+│ 2. Search skills: triggers match      │
+│ 3. Load: investment-analysis          │
+│ 4. Execute with domain knowledge      │
+└───────────────────────────────────────┘
+```
+
+### How It Works
+
+```python
+# Step 1: AI extracts keywords from task
+task = "幫我分析台積電的財報，判斷是否值得投資"
+keywords = ["財報", "分析", "投資"]  # AI extracted
+
+# Step 2: Search matching domain skills
+search_skills({
+    "query": " ".join(keywords),
+    "source": "local"
+})
+# → Result: investment-analysis (triggers: 財報, 投資)
+
+# Step 3: Load domain knowledge
+load_skill({ "id": "investment-analysis" })
+
+# Step 4: Execute task with loaded expertise
+```
+
+### Compatible Domain Skills
+
+Domain skills with `triggers` field in frontmatter are auto-detected:
+
+```yaml
+---
+schema: "1.0"
+name: quant-trading
+triggers: [量化, 交易, 回測, quant, trading, backtest]
+keywords: [finance, trading]
+---
+```
+
+See [claude-domain-skills](https://github.com/miles990/claude-domain-skills) for available domains.
 
 ## References
 
