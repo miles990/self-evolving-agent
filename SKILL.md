@@ -1,11 +1,11 @@
 ---
 name: evolve
-version: 3.7.0
+version: 3.7.1
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented]
 keywords: [agent, learning, pdca, memory, skill-acquisition, emergence]
 ---
-# Self-Evolving Agent v3.7.0
+# Self-Evolving Agent v3.7.1
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -131,6 +131,35 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence]
 │  ❌ 禁止：用戶說「繼續」就盲目繼續                              │
 │  ❌ 禁止：完成後直接跳到下一個而不回顧                          │
 │  ✅ 必須：主動報告進度並等待確認                                │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Checkpoint 3.5: Memory 同步 - 即時更新 index.md (v3.7.1 新增)
+
+```markdown
+┌─────────────────────────────────────────────────────────────────┐
+│  📝 Memory 同步（強制）                                         │
+│                                                                 │
+│  每次創建 memory 文件後，必須**立即**同步 index.md：            │
+│                                                                 │
+│  □ Write(.claude/memory/learnings/xxx.md)                       │
+│    → 立即 Edit(.claude/memory/index.md) 加入條目                │
+│                                                                 │
+│  □ Write(.claude/memory/failures/xxx.md)                        │
+│    → 立即 Edit(.claude/memory/index.md) 加入條目                │
+│                                                                 │
+│  □ Write(.claude/memory/decisions/xxx.md)                       │
+│    → 立即 Edit(.claude/memory/index.md) 加入條目                │
+│                                                                 │
+│  背景：                                                         │
+│  - 實際案例：創建了多個 ADR 記錄文件但忘記更新 index.md          │
+│  - 用戶反饋：「我看.claude/memory沒有新的紀錄」                  │
+│  - 原因：儲存與索引是兩個分離的動作，容易忽略後者                │
+│                                                                 │
+│  ❌ 禁止：創建 memory 文件但不更新 index.md                     │
+│  ❌ 禁止：批量創建多個 memory 後才一次更新 index                 │
+│  ✅ 必須：Write memory → Edit index → 驗證 三步一體             │
+│  ✅ 必須：Commit 前確認 index.md 與實際文件數量匹配              │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

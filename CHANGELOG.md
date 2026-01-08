@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.7.1] - 2026-01-08
+
+### Added - Checkpoint 3.5: Memory 同步
+
+基於 evolve-trader 專案的實際失敗經驗，新增強制 Memory 同步檢查點：
+
+- **Checkpoint 3.5: Memory 同步 - 即時更新 index.md**
+  - 背景：創建多個 memory 文件（learnings, failures, decisions）後忘記更新 index.md
+  - 用戶反饋：「我看.claude/memory沒有新的紀錄」
+  - 原因：儲存與索引是兩個分離的動作，容易忽略後者
+  - 解決：強制要求 Write memory → Edit index → 驗證 三步一體
+
+### Changed
+- 版本號從 3.7.0 更新至 3.7.1
+- 強制檢查點從 3 個增至 3.5 個（新增 Memory 同步）
+
+### Lessons Learned
+- 從 evolve-trader 專案 ADR-043~045 優化過程中發現此模式
+- 失敗記錄：`.claude/memory/failures/2026-01-08-forget-to-update-index.md`
+
+---
+
 ## [3.5.1] - 2026-01-07
 
 ### Added - Auto Domain Detection
