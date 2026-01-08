@@ -1,0 +1,22 @@
+{
+  "registry": "https://registry.skillpkg.dev",
+  "registries": {},
+  "defaultPlatforms": [
+    "claude-code",
+    "codex",
+    "copilot",
+    "cline"
+  ],
+  "autoSync": true,
+  "autoSyncTargets": {
+    "claude-code": true
+  },
+  "ui": {
+    "port": 3737,
+    "openBrowser": true
+  },
+  "mcp": {
+    "enabled": true,
+    "port": 3838
+  }
+}

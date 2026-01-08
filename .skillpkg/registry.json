@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "skills": {
+    "investment-analysis": {
+      "name": "investment-analysis",
+      "version": "1.0.0",
+      "installedAt": "2026-01-07T08:09:58.876Z",
+      "source": "registry",
+      "sourceUrl": "github:miles990/claude-domain-skills#finance/investment-analysis",
+      "syncedPlatforms": []
+    },
+    "quant-trading": {
+      "name": "quant-trading",
+      "version": "1.0.0",
+      "installedAt": "2026-01-07T08:33:06.786Z",
+      "source": "registry",
+      "sourceUrl": "/Users/user/Workspace/claude-domain-skills/finance/quant-trading",
+      "syncedPlatforms": []
+    }
+  },
+  "lastUpdated": "2026-01-07T08:35:35.055Z"
+}

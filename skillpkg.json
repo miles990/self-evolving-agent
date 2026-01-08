@@ -1,0 +1,9 @@
+{
+  "name": "self-evolving-agent",
+  "skills": {
+    "quant-trading": "/Users/user/Workspace/claude-domain-skills/finance/quant-trading"
+  },
+  "sync_targets": {
+    "claude-code": true
+  }
+}

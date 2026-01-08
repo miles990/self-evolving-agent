@@ -1,11 +1,11 @@
 ---
 name: evolve
-version: 3.6.0
+version: 3.7.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented]
 keywords: [agent, learning, pdca, memory, skill-acquisition, emergence]
 ---
-# Self-Evolving Agent v3.6.0
+# Self-Evolving Agent v3.7.0
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -579,28 +579,63 @@ capability_assessment:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  自動領域識別流程                                               │
+│  自動領域識別流程 v3.6（使用 MatchingEngine）                    │
 │                                                                 │
-│  用戶任務：「幫我分析這支股票的財報，判斷是否值得投資」         │
+│  用戶任務：「幫我建立一個量化交易回測系統」                     │
 │                                                                 │
-│  Step 1: 提取關鍵詞                                             │
+│  Step 1: 使用 recommend_skills 智慧匹配                         │
 │  ┌─────────────────────────────────────────────────────────┐   │
-│  │  關鍵詞：股票、財報、投資                                │   │
+│  │  recommend_skills({ goal: "量化交易回測系統" })          │   │
+│  │                                                         │   │
+│  │  → MatchingEngine 分析：                                │   │
+│  │    • 提取關鍵詞：量化、交易、回測、系統                 │   │
+│  │    • 匹配 primary keywords（權重 1.0）                  │   │
+│  │    • 匹配 secondary keywords（權重 0.6）                │   │
+│  │    • 計算整體信心度                                     │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                          ↓                                      │
-│  Step 2: 搜尋匹配的 skills                                      │
+│  Step 2: 獲得推薦結果                                           │
 │  ┌─────────────────────────────────────────────────────────┐   │
-│  │  search_skills("股票 財報 投資")                         │   │
-│  │  → 匹配：finance/investment-analysis (score: 0.95)       │   │
+│  │  domain_skills:                                         │   │
+│  │    • quant-trading (85% confidence, high priority)      │   │
+│  │      → 依賴: python, database, data-analysis            │   │
+│  │                                                         │   │
+│  │  software_skills:                                       │   │
+│  │    • python (90% confidence)                            │   │
+│  │    • database (75% confidence)                          │   │
+│  │                                                         │   │
+│  │  from_dependencies: [python, database, data-analysis]   │   │
+│  │  overall_confidence: 0.83                               │   │
+│  │  research_mode: false                                   │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                          ↓                                      │
-│  Step 3: 自動載入                                               │
+│  Step 3: 自動載入推薦的 skills                                  │
 │  ┌─────────────────────────────────────────────────────────┐   │
-│  │  load_skill("finance/investment-analysis")               │   │
-│  │  → 獲得：財報分析框架、估值模型、風險評估知識             │   │
+│  │  load_skill("quant-trading")     # 領域知識             │   │
+│  │  load_skill("python")            # 軟體技能             │   │
+│  │  load_skill("database")          # 軟體技能             │   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                          ↓                                      │
-│  Step 4: 執行任務（帶有領域知識）                               │
+│  Step 4: 執行任務（帶有完整知識棧）                             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**研究模式（Research Mode）：**
+
+當整體信心度 < 50% 時，自動進入研究模式：
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  研究模式觸發                                                   │
+│                                                                 │
+│  overall_confidence: 0.35 (< 0.5 閾值)                          │
+│  research_mode: true                                            │
+│  research_suggestions:                                          │
+│    • 搜尋外部 skill 倉庫：區塊鏈、智能合約                     │
+│    • Web 搜尋最佳實踐："blockchain development"                │
+│    • 詢問用戶澄清具體需求或技術                                │
+│                                                                 │
+│  → 不盲目執行，先補充知識再繼續                                │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
