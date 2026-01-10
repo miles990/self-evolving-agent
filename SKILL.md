@@ -1,11 +1,11 @@
 ---
 name: evolve
-version: 3.7.1
+version: 3.8.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。觸發詞：evolve、進化、自我學習、迭代改進、達成目標。
-triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented]
-keywords: [agent, learning, pdca, memory, skill-acquisition, emergence]
+triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning]
 ---
-# Self-Evolving Agent v3.7.1
+# Self-Evolving Agent v3.8.0
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -734,27 +734,6 @@ load_skill({ "id": "investment-analysis" })
 │  - 制定具體執行計劃                                   │
 │  - 預測可能的問題                                     │
 │  - 準備備選方案                                       │
-│                                                       │
-│  🔍 Sharp Edges 檢查：                                │
-│  □ 搜尋載入的 skills 的 sharp_edges 區塊              │
-│  □ 識別當前任務可能觸發的陷阱                         │
-│  □ 主動警告用戶並提供預防建議                         │
-│                                                       │
-│  🔀 Delegation 檢查：                                 │
-│  □ 檢查當前 skill 的 delegation_triggers              │
-│  □ 判斷任務是否匹配觸發條件                           │
-│  □ 建議載入或委派給相關 skill                         │
-│                                                       │
-│  範例輸出：                                           │
-│  ┌────────────────────────────────────────────────┐  │
-│  │ ⚠️ Sharp Edge 警告：                           │  │
-│  │   當前任務涉及「forEach + async」，這是常見陷阱 │  │
-│  │   建議：使用 for...of 或 Promise.all           │  │
-│  │                                                │  │
-│  │ 🔀 Delegation 建議：                           │  │
-│  │   觸發：API endpoint design                    │  │
-│  │   建議載入：api-design skill                   │  │
-│  └────────────────────────────────────────────────┘  │
 └───────────────────────────────────────────────────────┘
                           ↓
 ┌─ Do（執行）───────────────────────────────────────────┐
@@ -776,25 +755,6 @@ load_skill({ "id": "investment-analysis" })
 │  □ UI 測試：使用 Chrome extension 測試介面           │
 │  □ Lint 檢查：eslint / prettier --check              │
 │  □ 型別檢查：tsc --noEmit                            │
-│                                                       │
-│  ✅ Skill Validations 檢查（新增）：                  │
-│  □ 搜尋載入的 skills 的 validations 區塊             │
-│  □ 使用 regex/ast 模式掃描變更的程式碼               │
-│  □ 報告違規並提供修復建議                            │
-│                                                       │
-│  範例：                                               │
-│  ┌────────────────────────────────────────────────┐  │
-│  │ 🔍 Validation 檢查結果：                       │  │
-│  │                                                │  │
-│  │ ❌ V-1: 發現空的 catch block                   │  │
-│  │   位置：src/services/api.ts:45                 │  │
-│  │   模式：catch\\s*\\([^)]*\\)\\s*\\{\\s*\\}    │  │
-│  │   修復：加入 console.error(err) 或 throw err  │  │
-│  │                                                │  │
-│  │ ⚠️ V-2: 發現 console.log 未移除               │  │
-│  │   位置：src/utils/helper.ts:12                 │  │
-│  │   修復：移除或改用 logger                      │  │
-│  └────────────────────────────────────────────────┘  │
 │                                                       │
 │  驗證失敗 → 不進入下一步，先修復                      │
 └───────────────────────────────────────────────────────┘
@@ -1990,6 +1950,73 @@ related_skills: [skill-a, skill-b]
 - [ ] 整合到現有機制
 ```
 
+## Unified Planning 整合 (v3.8)
+
+> 與 spec-workflow 整合，提供統一的規劃入口
+
+### 統一入口
+
+```
+/plan [目標]           # 自動路由到 evolve 或 spec-workflow
+/plan [目標] --formal  # 強制使用 spec-workflow
+/plan [目標] --quick   # 強制使用 evolve PDCA
+```
+
+### 從 Spec 執行
+
+當 spec-workflow 產生 tasks.md 後，evolve 可以讀取並執行：
+
+```
+/evolve [任務] --from-spec [spec-name]
+```
+
+**執行流程：**
+1. 讀取 `specs/.specs/[spec-name]/tasks.md`
+2. 載入任務的 `context` 和 `acceptance` 標準
+3. 執行 PDCA 循環
+4. 更新 tasks.md 狀態 (`- [ ]` → `- [x]`)
+5. 呼叫 `log-implementation` 記錄
+
+### tasks.md 格式
+
+```markdown
+## Tasks
+
+- [ ] 1. Task description
+      context: |
+        Background information
+        Reference: design.md#section
+      acceptance: |
+        - Acceptance criterion 1
+        - Acceptance criterion 2
+```
+
+### 路由邏輯
+
+| 任務類型 | 路由 |
+|----------|------|
+| 大型功能 (feature, system, architecture) | spec-workflow |
+| 快速改進 (fix, improve, add) | evolve PDCA |
+| 用戶指定 --formal | spec-workflow |
+| 用戶指定 --quick | evolve PDCA |
+
+### 共享 Memory
+
+兩個機制共用 `.claude/memory/`：
+- evolve → `learnings/`, `failures/`, `strategies/`
+- spec-workflow → `decisions/`, `specs/`
+
+### 觸發詞擴展
+
+v3.8 新增支援：
+```
+/plan implement user auth    # 自動路由
+/evolve fix bug --quick      # 等同於 /evolve fix bug
+/evolve task --from-spec auth-system  # 從 spec 執行
+```
+
+---
+
 ## 相關資源
 
 - [Reflexion Paper](https://arxiv.org/abs/2303.11366)
@@ -1997,3 +2024,4 @@ related_skills: [skill-a, skill-b]
 - [Andrew Ng - Agentic Design Patterns](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/)
 - [AutoPDL Paper](https://arxiv.org/abs/2504.04365)
 - [GitHub Copilot Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
+- [Unified Planning Layer ADR](../../.claude/memory/decisions/002-unified-planning-layer.md)
