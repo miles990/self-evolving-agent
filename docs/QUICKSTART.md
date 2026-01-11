@@ -1,15 +1,33 @@
 # Quick Start Guide
 
-> 5 分鐘上手 Self-Evolving Agent
+> 5 分鐘上手 Self-Evolving Agent v4.0.0
 
 ## 安裝
 
-```bash
-# 使用 skillpkg 安裝（推薦）
-mcp__skillpkg__install_skill({ source: "github:miles990/self-evolving-agent" })
+### 方法一：一鍵安裝（推薦）
 
-# 或使用 claude-starter-kit
-npx claude-starter-kit
+```bash
+# 基本安裝
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash
+
+# 完整安裝（含 hooks 和 memory 初始化）
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash -s -- --with-hooks --with-memory
+
+# 安裝到指定專案
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash -s -- --target /path/to/project
+```
+
+### 方法二：skillpkg
+
+```bash
+skillpkg install github:miles990/self-evolving-agent
+```
+
+### 方法三：手動安裝
+
+```bash
+git clone https://github.com/miles990/self-evolving-agent.git
+cp -r self-evolving-agent/skills /path/to/your/project/.claude/skills/evolve
 ```
 
 ## 基本使用
@@ -31,6 +49,34 @@ npx claude-starter-kit
 /evolve 將這個模組重構為 TypeScript，加入完整型別定義
 ```
 
+### Flags
+
+```bash
+--explore          # 探索模式 - 允許自主選擇方向
+--emergence        # 涌現模式 - 啟用跨領域連結探索
+--autonomous       # 自主模式 - 完全自主
+--max-iterations N # 最大迭代次數（預設 10）
+--from-spec NAME   # 從 spec-workflow 執行
+```
+
+## v4.0.0 原子化架構
+
+新版本將 SKILL.md 拆分為獨立模組：
+
+```
+skills/
+├── SKILL.md                    # 主入口（192行）
+├── 00-getting-started/         # 入門
+│   ├── _base/                  # 官方內容
+│   └── community/              # 社群貢獻
+├── 01-core/                    # 核心流程
+├── 02-checkpoints/             # 強制檢查點
+├── 03-memory/                  # 記憶系統
+├── 04-emergence/               # 涌現機制
+├── 05-integration/             # 外部整合
+└── 99-evolution/               # 自我進化
+```
+
 ## 自動領域識別
 
 Agent 會自動識別任務關鍵詞並載入相關領域知識：
@@ -45,7 +91,7 @@ Agent 會自動識別任務關鍵詞並載入相關領域知識：
 ## 核心流程
 
 ```
-目標 → 自動領域識別 → 能力評估 → 技能習得 → PDCA 執行 → 記憶儲存
+PSB Setup → 目標分析 → 自動領域識別 → 能力評估 → 技能習得 → PDCA 執行 → 記憶儲存
 ```
 
 ## 記憶系統
@@ -54,11 +100,25 @@ Agent 會自動識別任務關鍵詞並載入相關領域知識：
 
 ```
 .claude/memory/
+├── index.md      # 快速索引（必須維護）
 ├── learnings/    # 成功經驗
 ├── failures/     # 失敗教訓
+├── decisions/    # 決策記錄 (ADR)
 ├── patterns/     # 推理模式
-└── index.md      # 快速索引
+├── strategies/   # 策略記錄
+└── discoveries/  # 涌現發現
 ```
+
+## 強制檢查點
+
+以下檢查點**不可跳過**：
+
+| 檢查點 | 時機 | 動作 |
+|--------|------|------|
+| CP1 | 任務開始前 | 搜尋 Memory |
+| CP2 | 程式碼變更後 | 編譯 + 測試 |
+| CP3 | Milestone 完成後 | 目標確認 |
+| CP3.5 | Memory 創建後 | 同步 index.md |
 
 ## 進階技巧
 
@@ -75,22 +135,18 @@ Agent 會自動識別任務關鍵詞並載入相關領域知識：
        驗證：使用 React DevTools Profiler
 ```
 
-### 查看可用領域
+### 使用涌現模式
 
-16 個領域 skills 可自動載入：
-
-- **Finance**: quant-trading, investment-analysis
-- **Business**: marketing, sales, product-management, project-management, strategy
-- **Creative**: game-design, ui-ux-design, brainstorming, storytelling, visual-media
-- **Professional**: research-analysis, knowledge-management
-- **Lifestyle**: personal-growth, side-income
+```bash
+# 啟用跨領域探索
+/evolve 改進這個專案 --emergence --max-iterations 10
+```
 
 ## 相關文檔
 
 - [完整使用手冊](../USAGE.md)
+- [原子化模組](../skills/SKILL.md)
 - [基本範例](../examples/basic-usage.md)
-- [自動領域識別範例](../examples/auto-domain-detection.md)
 - [失敗處理範例](../examples/failure-handling.md)
 - [Memory 管理範例](../examples/memory-management.md)
-- [整合模式範例](../examples/integration-patterns.md)
 - [變更日誌](../CHANGELOG.md)
