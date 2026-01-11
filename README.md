@@ -1,15 +1,74 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-3.5.1-blue)](./SKILL.md)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
-[![Domain Skills](https://img.shields.io/badge/domain_skills-16-orange)](https://github.com/miles990/claude-domain-skills)
+[![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
 > A Claude Code skill that enables autonomous goal achievement through iterative learning and self-improvement.
 
-**[Quick Start Guide](./docs/QUICKSTART.md)** | [Usage Manual](./USAGE.md) | [Examples](./examples/)
+**[Quick Install](#quick-install)** | [Documentation](./skills/SKILL.md) | [Usage Manual](./USAGE.md) | [Examples](./examples/)
 
 ```
-PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA Execute → Diagnose → Multi-Strategy Retry → Repo Memory → Until Success
+PSB Setup → Goal Analysis → Auto Domain Detection → Assess Capabilities → Acquire Skills → PDCA Execute → Diagnose → Multi-Strategy Retry → Repo Memory → Until Success
+```
+
+## What's New in v4.0.0
+
+### 🧬 原子化架構 (Atomic Architecture)
+
+將 2000+ 行的 SKILL.md 拆分成獨立模組，更易維護和社群貢獻：
+
+```
+skills/
+├── SKILL.md                    # 主入口
+├── 00-getting-started/         # 入門
+│   ├── _base/                  # 官方內容
+│   └── community/              # 社群貢獻
+├── 01-core/                    # 核心流程
+├── 02-checkpoints/             # 強制檢查點
+├── 03-memory/                  # 記憶系統
+├── 04-emergence/               # 涌現機制
+├── 05-integration/             # 外部整合
+└── 99-evolution/               # 自我進化
+```
+
+### 🚀 一行安裝
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash
+```
+
+### 🪝 Hook 自動觸發
+
+內建 Claude Code hooks 支援，自動提醒記錄學習經驗。
+
+## Quick Install
+
+### Option 1: One-line install (Recommended)
+
+```bash
+# Basic install
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash
+
+# Full install with hooks and memory initialization
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash -s -- --with-hooks --with-memory
+
+# Install to specific project
+curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash -s -- --target /path/to/project
+```
+
+### Option 2: Manual install
+
+```bash
+# Clone and copy
+git clone https://github.com/miles990/self-evolving-agent.git
+cp -r self-evolving-agent/skills /path/to/your/project/.claude/skills/evolve
+```
+
+### Option 3: Use with skillpkg
+
+```bash
+skillpkg install github:miles990/self-evolving-agent
 ```
 
 ## Core Philosophy
@@ -25,75 +84,22 @@ PSB Setup → Goal Analysis → Assess Capabilities → Acquire Skills → PDCA 
 
 > **Skill 不只是知識，是「封裝好的判斷力」** — 告訴 AI 在什麼情況下，用什麼方式，達成什麼目標
 
-## Features
-
-### v3.5 新增
-- **自動領域識別** - 從用戶任務提取關鍵詞，自動搜尋並載入匹配的領域 skills
-- **Triggers 機制** - 支援 SKILL.md 中的 triggers/keywords 欄位，精準匹配領域知識
-- **skillpkg 深度整合** - 使用 `search_skills` + `load_skill` 完成知識自動習得
-
-### v3.3 功能
-- **強制檢查點** - 三個不可跳過的護欄：任務前查 Memory、變更後編譯測試、Milestone 後目標確認
-- **Memory 生命週期** - 去蕪存菁機制：合併、標註過時、刪除，避免 Memory 變成垃圾堆
-- **index.md Metadata** - 新增 Last curated、Total entries、Next review 等欄位
-
-### v3.2 功能
-- **PSB Integration** - Plan-Setup-Build 環境準備，確保環境就緒再執行
-- **Design Principles** - 有主見的設計、深且窄、預期失敗、增強回饋
-- **Phase -1** - 7 步驟環境檢查清單
-
-### 核心功能
-- **Zero External Dependencies** - Works out of the box, no MCP installation required
-- **Capability Boundary Awareness** - Self-assess what you know vs. what you need to learn
-- **Knowledge Auto-Acquisition** - Use WebSearch + skillpkg to learn new knowledge on-demand
-- **Failure Mode Diagnosis** - Classify failures (5 types) and apply targeted fixes
-- **Multi-Strategy Mechanism** - Never repeat failed strategies, maintain a strategy pool
-- **Git-based Memory** - Store experiences in `.claude/memory/` with version control, history, rollback
-- **Learning Verification** - Verify knowledge is actually learned before applying it
-
-## Installation
-
-### Option 1: Copy to your project
-
-```bash
-# Copy SKILL.md to your Claude Code skills directory
-cp SKILL.md /path/to/your/project/.claude/skills/self-evolving-agent/SKILL.md
-```
-
-### Option 2: Use with skillpkg (coming soon)
-
-```bash
-# Install via skillpkg
-skillpkg install github:miles990/self-evolving-agent
-```
-
-## Development Setup
-
-If you want to contribute or modify this skill:
-
-```bash
-# Clone the repo
-git clone https://github.com/miles990/self-evolving-agent.git
-cd self-evolving-agent
-
-# Setup Git hooks (recommended)
-./scripts/setup-hooks.sh
-```
-
-### Quality Assurance
-
-**Pre-commit checks (via Git Hooks):**
-- SKILL.md exists and has valid frontmatter
-- Version field is present
-- No large files (>1MB)
-- Trailing whitespace check
-
 ## Usage
 
 Trigger the agent with `/evolve`:
 
-```
+```bash
 /evolve [your goal description]
+```
+
+### Flags
+
+```bash
+--explore          # 探索模式 - 允許自主選擇方向
+--emergence        # 涌現模式 - 啟用跨領域連結探索
+--autonomous       # 自主模式 - 完全自主，追求系統性創新
+--max-iterations N # 最大迭代次數（預設 10）
+--from-spec NAME   # 從 spec-workflow 的 tasks.md 執行
 ```
 
 ### Examples
@@ -106,71 +112,52 @@ Trigger the agent with `/evolve`:
 /evolve Build a ComfyUI workflow that generates game asset images
        with transparent backgrounds, consistent style, and batch processing
 
-# Learning goal
-/evolve Research and implement WebSocket real-time communication
+# Exploration mode
+/evolve 讓這個專案變得更好 --explore --emergence --max-iterations 10
+
+# From spec
+/evolve implement user auth --from-spec auth-system
 ```
 
 ## How It Works
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                  Self-Evolving Loop v3.5                        │
-│                  (Auto Domain + PSB + PDCA)                     │
+│                  Self-Evolving Loop v4.0                        │
 │                                                                 │
 │  ╔═══════════════════════════════════════════════════════════╗ │
 │  ║  PSB System (環境準備)                                     ║ │
-│  ║  Plan (目標) → Setup (環境) → Build (執行)                 ║ │
+│  ║  Plan → Setup → Build                                      ║ │
 │  ╚═══════════════════════════════════════════════════════════╝ │
 │                            ↓                                    │
-│    ┌──────────┐                                                │
-│    │   Goal   │  ← Phase 1: Goal Analysis                      │
-│    └────┬─────┘                                                │
-│         ↓                                                       │
-│    ┌──────────────┐                                            │
-│    │ Capability   │  ← Phase 1.5: Assess what you know vs need │
-│    │ Assessment   │                                            │
-│    └──────┬───────┘                                            │
-│           ↓                                                     │
-│    ┌──────────────┐     ┌──────────────┐                       │
-│    │ Skill        │ ──→ │   Verify     │  ← Integrate skillpkg │
-│    │ Acquisition  │     │   Learning   │                       │
-│    └──────────────┘     └──────┬───────┘                       │
-│         ↓                      ↓                               │
+│         目標分析 → 能力評估 → Skill 習得                        │
+│                            ↓                                    │
 │  ╔═══════════════════════════════════════════════════════════╗ │
-│  ║  PDCA Cycle                                                ║ │
-│  ║  Plan → Do → Check → Act → (repeat)                        ║ │
+│  ║  PDCA Cycle (執行循環)                                     ║ │
+│  ║  Plan → Do → Check → Act                                   ║ │
 │  ║       ↑                  │                                 ║ │
-│  ║       └── Multi-Strategy ←┘                                ║ │
+│  ║       └── 多策略選擇 ←───┘                                 ║ │
 │  ╚═══════════════════════════════════════════════════════════╝ │
-│                            │                                    │
-│                     ┌──────▼───────┐                            │
-│                     │ Git-based    │  ← .claude/memory/         │
-│                     │ Memory       │    Git version controlled  │
-│                     └──────────────┘                            │
+│                            ↓                                    │
+│                    Git-based Memory                             │
 │                                                                 │
-│    Repeat until: Goal achieved OR max iterations reached       │
+│    重複直到：目標達成 或 達到最大迭代次數                       │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Documentation
+## Mandatory Checkpoints (護欄)
 
-- [SKILL.md](./SKILL.md) - Complete skill definition and instructions
-- [USAGE.md](./USAGE.md) - Detailed usage guide with examples
+這些檢查點**不可跳過**，確保行為穩定：
 
-## Stop Conditions
-
-| Condition | Action |
-|-----------|--------|
-| All sub-goals completed | Success - End |
-| Max iterations (10) reached | Pause and report |
-| 3 consecutive same errors | Pause and ask user |
-| User manual stop | Save progress and exit |
+| 檢查點 | 時機 | 動作 |
+|--------|------|------|
+| **CP1** | 任務開始前 | 搜尋 .claude/memory/ 查找相關經驗 |
+| **CP2** | 程式碼變更後 | 編譯 + 測試驗證 |
+| **CP3** | Milestone 完成後 | 確認目標、方向、下一步 |
+| **CP3.5** | Memory 文件創建後 | 立即同步 index.md |
+| **CP4** | 迭代完成後 | 涌現機會檢查（選擇性） |
 
 ## Memory System (Git-based)
-
-The agent uses **Git-versioned markdown files** in `.claude/memory/` as its memory layer - zero external dependencies, Git version controlled, team shareable.
-
-### Memory Architecture
 
 ```
 📁 .claude/memory/
@@ -179,19 +166,12 @@ The agent uses **Git-versioned markdown files** in `.claude/memory/` as its memo
 ├── decisions/        ← ADR: architecture decision records
 ├── failures/         ← Failures: lessons learned, pitfalls
 ├── patterns/         ← Reasoning: reusable thinking patterns
-└── strategies/       ← Strategies: task-specific strategy pools
+├── strategies/       ← Strategies: task-specific strategy pools
+├── discoveries/      ← Emergence: unexpected findings
+└── skill-metrics/    ← Performance: skill effectiveness tracking
 ```
 
-| Layer | Purpose | Storage |
-|-------|---------|---------|
-| Learnings | Solutions, best practices | `.claude/memory/learnings/` |
-| Decisions | Architecture decisions (ADR) | `.claude/memory/decisions/` |
-| Failures | Lessons learned, pitfalls | `.claude/memory/failures/` |
-| Patterns | Reusable reasoning patterns | `.claude/memory/patterns/` |
-| Strategies | Task-specific strategy pools | `.claude/memory/strategies/` |
-| Session | Current context, temp data | Conversation |
-
-### Git-based Memory Advantages
+### Advantages
 
 - ✅ Git version control - track history, rollback changes
 - ✅ Cross-tool sharing - Claude Code ↔ Copilot ↔ Cursor
@@ -200,79 +180,57 @@ The agent uses **Git-versioned markdown files** in `.claude/memory/` as its memo
 - ✅ Fast Grep search - standard tools work
 - ✅ Project portable - memory travels with repo
 
-## Auto Domain Detection (v3.5)
+## Emergence Levels (涌現等級)
 
-When you trigger `/evolve`, the agent automatically identifies domain expertise needed:
+| Level | 名稱 | 行為 | 觸發 |
+|-------|------|------|------|
+| 0 | 基礎 | 嚴格執行指定任務 | 預設 |
+| 1 | 探索 | 完成後探索相關改進 | `--explore` |
+| 2 | 涌現 | 主動尋找跨領域連結 | `--emergence` |
+| 3 | 自主 | 自主發現和追求創新 | `--autonomous` |
+
+## Module Documentation
+
+| Module | Description |
+|--------|-------------|
+| [00-getting-started](./skills/00-getting-started/) | 入門與環境設定 |
+| [01-core](./skills/01-core/) | 核心流程（PSB + PDCA） |
+| [02-checkpoints](./skills/02-checkpoints/) | 強制檢查點（護欄） |
+| [03-memory](./skills/03-memory/) | 記憶系統操作 |
+| [04-emergence](./skills/04-emergence/) | 涌現機制 |
+| [05-integration](./skills/05-integration/) | 外部工具整合 |
+| [99-evolution](./skills/99-evolution/) | 自我進化機制 |
+
+## Contributing
+
+採用 `_base/` + `community/` 分離架構：
 
 ```
-User: 「幫我分析台積電的財報」
-        ↓
-┌───────────────────────────────────────┐
-│ 1. Extract keywords: 財報, 分析, 投資 │
-│ 2. Search skills: triggers match      │
-│ 3. Load: investment-analysis          │
-│ 4. Execute with domain knowledge      │
-└───────────────────────────────────────┘
+skills/01-core/
+├── _base/           # 官方內容（受保護）
+└── community/       # 社群貢獻（可自由添加）
 ```
 
-### How It Works
+1. Fork this repo
+2. Add your contribution to `community/` directory
+3. Submit a PR
 
-```python
-# Step 1: AI extracts keywords from task
-task = "幫我分析台積電的財報，判斷是否值得投資"
-keywords = ["財報", "分析", "投資"]  # AI extracted
-
-# Step 2: Search matching domain skills
-search_skills({
-    "query": " ".join(keywords),
-    "source": "local"
-})
-# → Result: investment-analysis (triggers: 財報, 投資)
-
-# Step 3: Load domain knowledge
-load_skill({ "id": "investment-analysis" })
-
-# Step 4: Execute task with loaded expertise
-```
-
-### Compatible Domain Skills
-
-Domain skills with `triggers` field in frontmatter are auto-detected:
-
-```yaml
----
-schema: "1.0"
-name: quant-trading
-triggers: [量化, 交易, 回測, quant, trading, backtest]
-keywords: [finance, trading]
----
-```
-
-### Available Domain Skills (16)
-
-| Category | Skills | Count |
-|----------|--------|-------|
-| 💼 Business | marketing, sales, product-management, project-management, strategy | 5 |
-| 💰 Finance | quant-trading, investment-analysis | 2 |
-| 🎨 Creative | game-design, ui-ux-design, brainstorming, storytelling, visual-media | 5 |
-| 🔬 Professional | research-analysis, knowledge-management | 2 |
-| 🌱 Lifestyle | personal-growth, side-income | 2 |
-
-See [claude-domain-skills](https://github.com/miles990/claude-domain-skills) for full documentation.
+Your `community/` files never conflict with official `_base/` updates.
 
 ## Related Projects
 
 | Project | Description |
 |---------|-------------|
 | [claude-domain-skills](https://github.com/miles990/claude-domain-skills) | 16 non-technical domain skills |
-| [claude-starter-kit](https://github.com/miles990/claude-starter-kit) | One-command Claude Code setup CLI |
 | [claude-software-skills](https://github.com/miles990/claude-software-skills) | Software development skills |
+| [skillpkg](https://github.com/anthropics/skillpkg) | Skill package manager |
 
 ## References
 
 - [Reflexion Paper](https://arxiv.org/abs/2303.11366)
 - [OpenAI Self-Evolving Agents Cookbook](https://cookbook.openai.com/examples/partners/self_evolving_agents/autonomous_agent_retraining)
 - [Andrew Ng - Agentic Design Patterns](https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/)
+- [makepad-skills](https://github.com/ZhangHanDong/makepad-skills) - Atomic architecture inspiration
 
 ## License
 

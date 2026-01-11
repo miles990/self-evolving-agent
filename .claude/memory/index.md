@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [原子化架構（從 makepad-skills 學習）](learnings/2026-01-11-atomic-architecture-from-makepad.md) - architecture, atomic-design, skill-design, makepad-skills
 - [Claude Agent SDK 架構分析](learnings/2025-01-07-claude-agent-sdk-analysis.md) - claude-agent-sdk, architecture, comparison, production
 - [Boris Cherny Claude Code Tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md) - claude-code, best-practices, verification, subagents
 - [Claude Starter Kit CLI](learnings/2025-01-07-claude-starter-kit-cli.md) - cli, scaffold, npx, multi-select domains
