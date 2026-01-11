@@ -22,4 +22,3 @@
 
 ## 社群貢獻
 
-在 [community/](./community/) 目錄添加你的執行模式、PDCA 變體等。

@@ -136,52 +136,45 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 skills/
 ├── SKILL.md                    # 本文件（主入口）
 ├── 00-getting-started/         # 入門
-│   ├── _base/                  # 官方內容
-│   │   ├── init.md             # 初始化指南
-│   │   └── psb-setup.md        # PSB 環境檢查
-│   └── community/              # 社群貢獻
+│   └── _base/
+│       ├── init.md             # 初始化指南
+│       └── psb-setup.md        # PSB 環境檢查
 ├── 01-core/                    # 核心流程
-│   ├── _base/
-│   │   ├── goal-analysis.md    # 目標分析
-│   │   ├── capability-assessment.md  # 能力評估
-│   │   ├── skill-acquisition.md      # 技能習得
-│   │   └── pdca-cycle.md       # PDCA 循環
-│   └── community/
+│   └── _base/
+│       ├── goal-analysis.md    # 目標分析
+│       ├── capability-assessment.md  # 能力評估
+│       ├── skill-acquisition.md      # 技能習得
+│       └── pdca-cycle.md       # PDCA 循環
 ├── 02-checkpoints/             # 強制檢查點
-│   ├── _base/
-│   │   ├── cp1-memory-search.md
-│   │   ├── cp2-build-test.md
-│   │   ├── cp3-milestone-confirm.md
-│   │   ├── cp3.5-memory-sync.md
-│   │   └── cp4-emergence-check.md
-│   └── community/
+│   └── _base/
+│       ├── cp1-memory-search.md
+│       ├── cp2-build-test.md
+│       ├── cp3-milestone-confirm.md
+│       ├── cp3.5-memory-sync.md
+│       └── cp4-emergence-check.md
 ├── 03-memory/                  # 記憶系統
-│   ├── _base/
-│   │   ├── structure.md        # 目錄結構
-│   │   ├── operations.md       # 操作指南
-│   │   └── lifecycle.md        # 生命週期管理
-│   └── community/
+│   └── _base/
+│       ├── structure.md        # 目錄結構
+│       ├── operations.md       # 操作指南
+│       ├── lifecycle.md        # 生命週期管理
+│       └── retention-policy.md # 保留策略
 ├── 04-emergence/               # 涌現機制
-│   ├── _base/
-│   │   ├── multi-stage-routing.md    # 多階路由
-│   │   ├── skill-metrics.md          # 效果記分板
-│   │   ├── knowledge-distillation.md # 知識蒸餾
-│   │   └── emergence-levels.md       # 涌現等級
-│   └── community/
+│   └── _base/
+│       ├── emergence-levels.md       # 涌現等級
+│       ├── emergence-prompts.md      # 涌現 prompt 模板
+│       ├── multi-stage-routing.md    # 多階路由
+│       ├── skill-metrics.md          # 效果記分板
+│       └── knowledge-distillation.md # 知識蒸餾
 ├── 05-integration/             # 外部整合
-│   ├── _base/
-│   │   ├── skillpkg.md         # skillpkg 整合
-│   │   ├── pal-tools.md        # PAL 工具
-│   │   ├── spec-workflow.md    # spec-workflow 整合
-│   │   └── hooks.md            # Claude Code Hooks
-│   └── community/
+│   └── _base/
+│       ├── skillpkg.md         # skillpkg 整合
+│       ├── pal-tools.md        # PAL 工具
+│       ├── spec-workflow.md    # spec-workflow 整合
+│       └── hooks.md            # Claude Code Hooks
 └── 99-evolution/               # 自我進化
-    ├── _base/
-    │   ├── self-evolution.md   # 自我進化機制
-    │   ├── self-correction.md  # 自我修正
-    │   └── templates/          # 模板
-    ├── community/              # 社群貢獻的進化模式
-    └── hooks/                  # Hook 腳本
+    └── _base/
+        ├── self-evolution.md   # 自我進化機制
+        └── self-correction.md  # 自我修正
 ```
 
 ## 相關資源

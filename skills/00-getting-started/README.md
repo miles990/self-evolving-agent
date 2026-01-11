@@ -24,4 +24,3 @@ ls .claude/memory/ 2>/dev/null || echo "需要初始化記憶系統"
 
 ## 社群貢獻
 
-在 [community/](./community/) 目錄添加你的入門教程、環境配置範例等。

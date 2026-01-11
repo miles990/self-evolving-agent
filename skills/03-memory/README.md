@@ -36,4 +36,3 @@ Write(...) → Edit(index.md) → Verify
 
 ## 社群貢獻
 
-在 [community/](./community/) 目錄添加你的記憶模板、索引工具等。
