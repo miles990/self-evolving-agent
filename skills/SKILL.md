@@ -170,6 +170,7 @@ skills/
 │       ├── skillpkg.md         # skillpkg 整合
 │       ├── pal-tools.md        # PAL 工具
 │       ├── spec-workflow.md    # spec-workflow 整合
+│       ├── knowledge-acquisition.md  # 4C 知識習得整合
 │       └── hooks.md            # Claude Code Hooks
 └── 99-evolution/               # 自我進化
     └── _base/
