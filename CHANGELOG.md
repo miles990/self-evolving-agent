@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0] - 2026-01-11
+
+### Breaking Changes
+- **原子化架構重構** - 將 2000+ 行的 SKILL.md 拆分為模組化結構
+- 路徑從根目錄 `SKILL.md` 改為 `skills/SKILL.md`
+
+### Added
+- **原子化模組結構**
+  - `00-getting-started/` - 入門與環境設定
+  - `01-core/` - 核心流程（PSB + PDCA）
+  - `02-checkpoints/` - 強制檢查點（護欄）
+  - `03-memory/` - 記憶系統操作
+  - `04-emergence/` - 涌現機制
+  - `05-integration/` - 外部工具整合
+  - `99-evolution/` - 自我進化機制
+
+- **`_base/` + `community/` 分離架構**
+  - `_base/`: 官方內容（受保護，更新不會覆蓋）
+  - `community/`: 社群貢獻（避免 merge conflict）
+
+- **一鍵安裝**
+  ```bash
+  curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash
+  ```
+
+- **全域同步腳本**
+  - `scripts/sync-global.sh` - 同步到 `~/.claude/skills/evolve/`
+  - 支援 `--atomic` 參數保持原子化結構
+
+### Changed
+- SKILL.md 從 2027 行精簡為 192 行（主入口）
+- 完整內容分散於各模組 `_base/` 目錄
+- 全域整合版約 1769 行
+
+### Benefits
+- **更易維護**: 小文件 > 巨型文件
+- **更易貢獻**: 社群可在 `community/` 自由添加
+- **更易學習**: 模組化方便逐步閱讀
+- **更易擴展**: 新功能加新模組，不影響既有內容
+
+### Inspiration
+- 借鑒 [makepad-skills](https://github.com/ZhangHanDong/makepad-skills) 的架構設計
+
+---
+
 ## [3.7.1] - 2026-01-08
 
 ### Added - Checkpoint 3.5: Memory 同步
