@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [自動化和測試改進 v4.1.0](learnings/2026-01-12-automation-and-testing-improvements.md) - automation, testing, makefile, quickstart, fallback
 - [專業 Skill 專案的必備元素](learnings/2026-01-11-professional-skill-project-improvements.md) - skill-project, professional, automation, ci-cd, documentation
 - [原子化架構（從 makepad-skills 學習）](learnings/2026-01-11-atomic-architecture-from-makepad.md) - architecture, atomic-design, skill-design, makepad-skills
 - [Claude Agent SDK 架構分析](learnings/2025-01-07-claude-agent-sdk-analysis.md) - claude-agent-sdk, architecture, comparison, production

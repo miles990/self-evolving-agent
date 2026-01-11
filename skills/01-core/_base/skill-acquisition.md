@@ -100,6 +100,77 @@ research_suggestions:
    ❌ 失敗 → 重新學習或嘗試其他 skill
 ```
 
+## Fallback 機制
+
+當主要習得路徑失敗時，啟用多層降級策略：
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Fallback 優先級                                                │
+│                                                                 │
+│  Level 1: Skill + Memory（正常路徑）                            │
+│  ├─ recommend_skill() → 找到 → 安裝 → 學習                      │
+│  └─ 搜尋 Memory → 找到 → 應用                                   │
+│                                                                 │
+│  Level 2: 外部知識源                                            │
+│  ├─ context7 查詢文檔                                           │
+│  │   query-docs({ libraryId: "...", query: "..." })             │
+│  ├─ Web 搜尋最佳實踐                                            │
+│  │   WebSearch({ query: "how to X best practices 2026" })       │
+│  └─ PAL 多模型諮詢                                              │
+│      chat({ prompt: "...", model: "gemini-2.5-pro" })           │
+│                                                                 │
+│  Level 3: 結構化降級                                            │
+│  ├─ 分解任務為更小的子任務                                      │
+│  ├─ 詢問用戶提供範例或參考                                      │
+│  └─ 嘗試相鄰領域的 skill                                        │
+│                                                                 │
+│  Level 4: 誠實失敗                                              │
+│  └─ 告知用戶限制，建議專業資源                                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Fallback 觸發條件
+
+| 條件 | 觸發 Level |
+|------|------------|
+| skill 安裝失敗 | Level 2 |
+| 學習驗證失敗 3 次 | Level 2 |
+| 整體信心度 < 30% | Level 2 |
+| 所有外部源無結果 | Level 3 |
+| Level 3 嘗試失敗 | Level 4 |
+
+### 範例：Fallback 執行流程
+
+```
+任務：「建立一個量子計算模擬器」
+
+Step 1: recommend_skill({ query: "quantum computing" })
+        → 無匹配結果
+
+Step 2: 搜尋 Memory
+        Grep(pattern="quantum", path=".claude/memory/")
+        → 無相關經驗
+
+→ 觸發 Level 2 Fallback
+
+Step 3: context7 查詢
+        resolve-library-id({ query: "quantum computing", libraryName: "qiskit" })
+        → 找到 Qiskit 文檔
+
+Step 4: Web 搜尋
+        WebSearch({ query: "quantum computing python tutorial 2026" })
+        → 獲得教程連結
+
+Step 5: 評估是否足夠
+        - 有基礎文檔 ✓
+        - 有教程參考 ✓
+        → 信心度提升到 60%，可嘗試執行
+
+若 Step 5 信心度仍 < 50%:
+→ 觸發 Level 3，詢問用戶
+```
+
 ## 能力評估思考框架
 
 ```yaml
@@ -120,4 +191,10 @@ capability_assessment:
   action_plan:
     - step: "[下一步行動]"
       tool: "[使用的工具]"
+
+  fallback_options:
+    - level: 2
+      sources: ["context7", "WebSearch", "PAL"]
+    - level: 3
+      actions: ["分解任務", "詢問用戶", "嘗試相鄰 skill"]
 ```

@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.1.0] - 2026-01-12
+
+### Added
+- **測試框架**
+  - `tests/test_skills.bats` - Bats-core 測試套件
+  - `tests/run_tests.sh` - 測試執行器（支援 `--quick` 和 `--bats` 模式）
+
+- **自動化提升**
+  - `Makefile` - 統一命令入口（`make help`, `make test`, `make validate`）
+  - `scripts/quickstart.sh` - 一鍵快速設置新專案
+  - CI 新增 quick-test job
+
+- **智能化提升**
+  - `skill-acquisition.md` 新增 **Fallback 機制**
+    - Level 1: Skill + Memory（正常路徑）
+    - Level 2: 外部知識源（context7, WebSearch, PAL）
+    - Level 3: 結構化降級（分解任務、詢問用戶）
+    - Level 4: 誠實失敗
+
+### Changed
+- CI 工作流程重構，新增 quick-test → validate → install-test 流程
+- 更新能力評估框架，新增 `fallback_options` 欄位
+
+---
+
 ## [4.0.1] - 2026-01-11
 
 ### Added

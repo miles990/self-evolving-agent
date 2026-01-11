@@ -7,6 +7,19 @@ on:
     branches: [main]
 
 jobs:
+  quick-test:
+    name: Quick Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run quick tests
+        run: |
+          chmod +x tests/run_tests.sh
+          ./tests/run_tests.sh --quick
+
   validate:
     name: Validate Skill
     runs-on: ubuntu-latest
@@ -156,7 +169,7 @@ jobs:
   install-test:
     name: Test Installation
     runs-on: ubuntu-latest
-    needs: validate
+    needs: [quick-test, validate]
 
     steps:
       - name: Checkout
