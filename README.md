@@ -1,12 +1,12 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-4.0.0-blue)](./skills/SKILL.md)
+[![Version](https://img.shields.io/badge/version-4.0.1-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
 > A Claude Code skill that enables autonomous goal achievement through iterative learning and self-improvement.
 
-**[Quick Install](#quick-install)** | [Documentation](./skills/SKILL.md) | [Usage Manual](./USAGE.md) | [Examples](./examples/)
+**[Quick Install](#quick-install)** | [Documentation](./skills/SKILL.md) | [Usage Manual](./USAGE.md) | [Examples](./examples/) | [Troubleshooting](./docs/TROUBLESHOOTING.md)
 
 ```
 PSB Setup → Goal Analysis → Auto Domain Detection → Assess Capabilities → Acquire Skills → PDCA Execute → Diagnose → Multi-Strategy Retry → Repo Memory → Until Success
@@ -20,16 +20,15 @@ PSB Setup → Goal Analysis → Auto Domain Detection → Assess Capabilities �
 
 ```
 skills/
-├── SKILL.md                    # 主入口
-├── 00-getting-started/         # 入門
-│   ├── _base/                  # 官方內容
-│   └── community/              # 社群貢獻
-├── 01-core/                    # 核心流程
-├── 02-checkpoints/             # 強制檢查點
-├── 03-memory/                  # 記憶系統
+├── SKILL.md                    # 主入口（全域 skill 文件）
+├── 00-getting-started/         # 入門與環境設定
+│   └── _base/                  # 模組內容
+├── 01-core/                    # 核心流程（PSB + PDCA）
+├── 02-checkpoints/             # 強制檢查點（護欄）
+├── 03-memory/                  # 記憶系統操作
 ├── 04-emergence/               # 涌現機制
-├── 05-integration/             # 外部整合
-└── 99-evolution/               # 自我進化
+├── 05-integration/             # 外部工具整合
+└── 99-evolution/               # 自我進化機制
 ```
 
 ### 🚀 一行安裝
@@ -203,19 +202,25 @@ Trigger the agent with `/evolve`:
 
 ## Contributing
 
-採用 `_base/` + `community/` 分離架構：
-
-```
-skills/01-core/
-├── _base/           # 官方內容（受保護）
-└── community/       # 社群貢獻（可自由添加）
-```
+歡迎貢獻！請遵循以下流程：
 
 1. Fork this repo
-2. Add your contribution to `community/` directory
-3. Submit a PR
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run validation: `./scripts/check-env.sh && ./scripts/validate-memory.sh`
+5. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
-Your `community/` files never conflict with official `_base/` updates.
+### Commit Convention
+
+```
+feat: 新功能
+fix: 修復
+docs: 文檔更新
+refactor: 重構
+chore: 雜項
+```
 
 ## Related Projects
 

@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.1] - 2026-01-11
+
+### Added
+- **專業度提升**
+  - `.gitignore` - 排除不必要的文件
+  - `CLAUDE.md` - 專案約束文件，供 AI 理解專案規範
+  - `docs/TROUBLESHOOTING.md` - 故障排除指南
+  - `scripts/verify-install.sh` - 安裝驗證腳本
+  - `.github/workflows/ci.yml` - GitHub Actions CI 自動化驗證
+
+### Changed
+- **移除 community/ 架構** - 簡化為單人使用模式
+- 更新 `README.md` 貢獻指南，移除 community 引用
+- 修復 `skillpkg.json` 硬編碼路徑問題
+
+### Fixed
+- `check-env.sh` 現在會正確檢測 `CLAUDE.md`
+
+---
+
 ## [4.0.0] - 2026-01-11
 
 ### Breaking Changes

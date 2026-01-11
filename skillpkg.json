@@ -1,8 +1,8 @@
 {
   "name": "self-evolving-agent",
-  "skills": {
-    "quant-trading": "/Users/user/Workspace/claude-domain-skills/finance/quant-trading"
-  },
+  "version": "4.0.1",
+  "description": "A Claude Code skill for autonomous goal achievement through iterative learning",
+  "skills": {},
   "sync_targets": {
     "claude-code": true
   }

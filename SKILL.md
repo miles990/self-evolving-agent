@@ -1,6 +1,6 @@
 ---
 name: evolve
-version: 4.0.0
+version: 4.0.1
 description: 自我進化 Agent - 已遷移至原子化架構
 redirect: ./skills/SKILL.md
 ---

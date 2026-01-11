@@ -1,12 +1,12 @@
 ---
 name: evolve
-version: 4.0.0
+version: 4.0.1
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
 keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning]
 ---
 
-# Self-Evolving Agent v4.0.0
+# Self-Evolving Agent v4.0.1
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
