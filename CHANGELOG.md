@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.5.0] - 2026-01-12
+
+### Changed
+- **Token 優化 (Token Optimization)**
+  - ASCII Box Art → Markdown 格式轉換，減少 token 消耗
+  - SKILL.md: 14,727 bytes → 8,997 bytes (39% 減少)
+  - 保持 100% 護欄效果與判斷力
+
+### Optimized Files
+- `skills/SKILL.md` - 主入口優化
+  - 核心哲學區塊：ASCII box → table
+  - 執行流程概覽：43 行 ASCII 圖 → 11 行編號清單
+  - 架構考量三層設計：ASCII box → table
+  - CP1.5 兩階段設計：ASCII box → bullet points
+  - 停止條件/完成信號：ASCII box → table/list
+- `skills/02-checkpoints/_base/cp1-memory-search.md` - ASCII box → checklist
+- `skills/01-core/_base/pdca-cycle.md` - PDCA 流程圖和架構設計 ASCII → markdown
+- `skills/00-getting-started/_base/psb-setup.md` - PSB 檢查清單 ASCII → markdown
+- `skills/02-checkpoints/_base/cp1.5-consistency-check.md` - 多個 ASCII box → tables/checklists
+
+### Philosophy
+- 核心洞察：skillpkg 模組合併導致安裝後 7x 膨脹 (14.7KB → 106.8KB)
+- 解決方案：移除裝飾性 ASCII 藝術，保留語意內容
+- 原則：Token 效率 > 視覺美觀（在 CLI 環境中）
+
+---
+
 ## [4.4.0] - 2026-01-12
 
 ### Added
