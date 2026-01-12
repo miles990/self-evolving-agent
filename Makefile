@@ -8,7 +8,7 @@
 #   make test       - Run test suite
 #   make install    - Install to target project
 
-.PHONY: help validate test install clean release lint check-env quick-test changelog changelog-save changelog-since recent memory-stats memory-recent verify-memory memory-sync deps-check pre-commit
+.PHONY: help validate test install clean release lint check-env quick-test changelog changelog-save changelog-since recent memory-stats memory-recent verify-memory memory-sync deps-check pre-commit setup-file-suggestion
 
 # Default target
 .DEFAULT_GOAL := help
@@ -87,6 +87,22 @@ install-global: ## Install globally to ~/.claude/skills/
 install-local: ## Install to current directory
 	@echo "$(BOLD)Installing to current project...$(NC)"
 	@./scripts/quickstart.sh .
+
+setup-file-suggestion: ## Setup file-suggestion for large codebase optimization
+	@echo "$(BOLD)Setting up file-suggestion script...$(NC)"
+	@mkdir -p ~/.claude
+	@./scripts/setup-file-suggestion.sh
+	@echo ""
+	@echo "$(GREEN)✅ file-suggestion.sh installed to ~/.claude/$(NC)"
+	@echo ""
+	@echo "$(YELLOW)Next step: Add this to your ~/.claude/settings.json:$(NC)"
+	@echo '  {'
+	@echo '    "fileSuggestion": {'
+	@echo '      "type": "command",'
+	@echo '      "command": "~/.claude/file-suggestion.sh"'
+	@echo '    }'
+	@echo '  }'
+	@echo ""
 
 #==============================================================================
 # Development
@@ -246,6 +262,9 @@ docs: ## Open documentation
 	@echo "  - Core Flow:       skills/01-core/"
 	@echo "  - Checkpoints:     skills/02-checkpoints/"
 	@echo "  - Memory System:   skills/03-memory/"
+	@echo "  - Emergence:       skills/04-emergence/"
+	@echo "  - Integration:     skills/05-integration/"
+	@echo "  - Scaling:         skills/06-scaling/"
 	@echo ""
 
 stats: ## Show project statistics
