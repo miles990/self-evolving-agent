@@ -35,6 +35,11 @@
 │  □ 7. Slash Commands 已設定（可選）                        │
 │     - /evolve 觸發詞                                       │
 │     - 其他自動化指令                                       │
+│                                                            │
+│  □ 8. Claude Code 權限配置（可選但推薦）                   │
+│     - 使用 /permissions 精細管理權限                       │
+│     - 預先允許安全的常用命令                               │
+│     - 避免 --dangerously-skip-permissions                  │
 └────────────────────────────────────────────────────────────┘
 
 ┌─ Build（執行）─────────────────────────────────────────────┐
@@ -65,3 +70,87 @@ ls .claude/memory/ 2>/dev/null || echo "⚠️ 需要初始化記憶系統"
 | ✅ | `.claude/memory/` | 記憶儲存 |
 | 建議 | `CLAUDE.md` | 專案約束 |
 | 可選 | MCP 配置 | 擴展能力 |
+| 可選 | 權限配置 | 減少中斷 |
+
+## 權限配置指南（Boris Tip #6）
+
+> 精細權限管理，預先允許安全常用命令，避免 `--dangerously-skip-permissions`
+
+### 為什麼重要
+
+| 方式 | 風險 | 體驗 |
+|------|------|------|
+| 預設（每次詢問） | ✅ 最安全 | ⚠️ 頻繁中斷 |
+| `/permissions` 配置 | ✅ 可控風險 | ✅ 流暢體驗 |
+| `--dangerously-skip-permissions` | ❌ 高風險 | ✅ 無中斷 |
+
+**推薦使用 `/permissions`**：在安全和體驗之間取得平衡。
+
+### 配置方式
+
+**方式 1：使用 `/permissions` 命令**
+
+```bash
+# 在 Claude Code 中執行
+/permissions
+
+# 會顯示互動式介面，可以：
+# - 允許特定命令模式
+# - 拒絕危險操作
+# - 檢視當前設定
+```
+
+**方式 2：編輯設定檔**
+
+```json
+// .claude/settings.local.json
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm test*)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(make *)",
+      "Read(*)",
+      "Glob(*)",
+      "Grep(*)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(sudo *)"
+    ]
+  }
+}
+```
+
+### 推薦的安全允許清單
+
+| 類別 | 允許模式 | 說明 |
+|------|----------|------|
+| **讀取操作** | `Read(*)`, `Glob(*)`, `Grep(*)` | 無副作用，安全 |
+| **Git 查詢** | `git status`, `git diff*`, `git log*` | 只讀操作 |
+| **建置測試** | `npm run *`, `npm test*`, `make *` | 開發必需 |
+| **專案腳本** | `./scripts/*` | 自訂安全腳本 |
+
+### 建議禁止的操作
+
+| 類別 | 禁止模式 | 原因 |
+|------|----------|------|
+| **破壞性刪除** | `rm -rf *` | 可能誤刪重要檔案 |
+| **強制推送** | `git push --force*` | 可能覆蓋團隊工作 |
+| **系統權限** | `sudo *` | 系統級風險 |
+| **環境變數** | `export *` | 可能洩露敏感資訊 |
+
+### 何時用什麼
+
+| 情境 | 建議 |
+|------|------|
+| 日常開發 | 使用 `/permissions` 配置 |
+| 敏感專案 | 維持預設（每次確認） |
+| 自動化腳本 | 使用 sandbox 模式 |
+| 快速探索 | 可考慮 `--permission-mode=dontAsk` |
+
+> **Boris Tip**: 「精細權限管理 > `--dangerously-skip-permissions`」

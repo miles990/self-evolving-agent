@@ -22,6 +22,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | **03-memory** | 記憶系統操作 | [→](./03-memory/) |
 | **04-emergence** | 涌現機制 | [→](./04-emergence/) |
 | **05-integration** | 外部工具整合 | [→](./05-integration/) |
+| **06-scaling** | 大規模專案優化 | [→](./06-scaling/) |
 | **99-evolution** | 自我進化機制 | [→](./99-evolution/) |
 
 ## 使用方式
@@ -208,6 +209,9 @@ skills/
 │       ├── spec-workflow.md    # spec-workflow 整合
 │       ├── knowledge-acquisition.md  # 4C 知識習得整合
 │       └── hooks.md            # Claude Code Hooks
+├── 06-scaling/                 # 大規模專案優化
+│   └── _base/
+│       └── large-codebase.md   # 大型專案檔案搜尋優化
 └── 99-evolution/               # 自我進化
     └── _base/
         ├── self-evolution.md   # 自我進化機制
