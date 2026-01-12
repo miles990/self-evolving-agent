@@ -117,6 +117,7 @@ skillpkg install github:miles990/self-evolving-agent
 
 | Project | Description |
 |---------|-------------|
+| [claude-starter-kit](https://github.com/miles990/claude-starter-kit) | CLI 工具，快速初始化專案（內建此 skill） |
 | [claude-domain-skills](https://github.com/miles990/claude-domain-skills) | 16 non-technical domain skills |
 | [claude-software-skills](https://github.com/miles990/claude-software-skills) | Software development skills |
 | [skillpkg](https://github.com/anthropics/skillpkg) | Skill package manager |
