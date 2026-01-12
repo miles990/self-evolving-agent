@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [Flame Game Engine Skill 開發](learnings/2026-01-12-flame-game-engine-skill.md) - flame, flutter, dart, 2d-games, skill-creation
 - [skillpkg 分層載入機制研究](learnings/2026-01-12-skillpkg-layered-loading-research.md) - skillpkg, layered-loading, token-optimization, architecture
 - [Evolve Token 優化研究](learnings/2026-01-12-evolve-token-optimization.md) - evolve, token, optimization, skillpkg
 - [深度訪談模式 - Benson Sun 技巧](learnings/2026-01-12-deep-interview-mode.md) - goal-analysis, deep-interview, spec, requirements, benson-sun
