@@ -1,12 +1,12 @@
 ---
 name: evolve
-version: 4.1.0
+version: 4.2.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
 keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning]
 ---
 
-# Self-Evolving Agent v4.1.0
+# Self-Evolving Agent v4.2.0
 
 > PSB 環境檢查 → 目標分析 → **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行 → 診斷 → 多策略重試 → Repo 記憶 → 直到成功
 
@@ -113,6 +113,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | **CP3** | Milestone 完成後 | 確認目標、方向、下一步 |
 | **CP3.5** | Memory 文件創建後 | 立即同步 index.md |
 | **CP4** | 迭代完成後 | 涌現機會檢查（選擇性） |
+| **CP5** | PDCA Check 失敗時 | 失敗後驗屍，生成結構化 Lesson |
 
 ## 停止條件
 
@@ -151,7 +152,8 @@ skills/
 │       ├── cp2-build-test.md
 │       ├── cp3-milestone-confirm.md
 │       ├── cp3.5-memory-sync.md
-│       └── cp4-emergence-check.md
+│       ├── cp4-emergence-check.md
+│       └── cp5-failure-postmortem.md
 ├── 03-memory/                  # 記憶系統
 │   └── _base/
 │       ├── structure.md        # 目錄結構

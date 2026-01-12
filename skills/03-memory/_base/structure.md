@@ -19,6 +19,8 @@
 │   └── {task-type}.md
 ├── discoveries/          # 涌現發現
 │   └── {date}-{name}.md
+├── lessons/              # CP5 結構化教訓（失敗後驗屍）
+│   └── {date}-{failure-id}.md
 └── skill-metrics/        # 技能效果追蹤
     ├── index.md
     ├── by-task-type/
@@ -35,6 +37,7 @@
 | **patterns** | 可複用的推理模式、思考框架 | `{category}-{name}.md` |
 | **strategies** | 任務類型的策略池、成功率統計 | `{task-type}.md` |
 | **discoveries** | 涌現發現、跨領域連結、意外洞察 | `{date}-{name}.md` |
+| **lessons** | CP5 結構化教訓、失敗後驗屍 | `{date}-{failure-id}.md` |
 | **skill-metrics** | 技能效果追蹤、排行榜 | 依結構 |
 
 ## Git-based 優勢
