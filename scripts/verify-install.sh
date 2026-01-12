@@ -28,19 +28,20 @@ check_warn() {
 }
 
 # Detect installation location
-SKILL_LOCATIONS=(
-    ".claude/skills/evolve"
-    "skills"
-    "$HOME/.claude/skills/evolve"
-)
+# Priority: source repo (skills/) > local install > global install
+# When developing, prefer skills/ which has full atomic structure
 
 SKILL_DIR=""
-for loc in "${SKILL_LOCATIONS[@]}"; do
-    if [[ -f "$loc/SKILL.md" ]]; then
-        SKILL_DIR="$loc"
-        break
-    fi
-done
+
+# First check if we're in the source repo (has skills/ with modules)
+if [[ -f "skills/SKILL.md" && -d "skills/00-getting-started" ]]; then
+    SKILL_DIR="skills"
+# Then check installed locations
+elif [[ -f ".claude/skills/evolve/SKILL.md" ]]; then
+    SKILL_DIR=".claude/skills/evolve"
+elif [[ -f "$HOME/.claude/skills/evolve/SKILL.md" ]]; then
+    SKILL_DIR="$HOME/.claude/skills/evolve"
+fi
 
 if [[ -z "$SKILL_DIR" ]]; then
     check_fail "Skill not found in any standard location"
@@ -82,6 +83,7 @@ MODULES=(
     "03-memory:記憶系統"
     "04-emergence:涌現機制"
     "05-integration:外部整合"
+    "06-scaling:擴展策略"
     "99-evolution:自我進化"
 )
 
