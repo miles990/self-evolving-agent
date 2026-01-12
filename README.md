@@ -41,12 +41,12 @@
 flowchart LR
     subgraph 初始化
         NS[🌟 北極星錨定]
-        PSB[Plan → Setup → Build]
+        PSB[規劃 → 設置 → 建構]
         GOAL[目標分析<br/>深度訪談]
     end
 
     subgraph 執行循環
-        PDCA[Plan → Do → Check → Act]
+        PDCA[計畫 → 執行 → 檢核 → 行動]
         DIR[方向校正]
         MEM[Git 記憶儲存]
     end
