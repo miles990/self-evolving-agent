@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [深度訪談模式 - Benson Sun 技巧](learnings/2026-01-12-deep-interview-mode.md) - goal-analysis, deep-interview, spec, requirements, benson-sun
 - [code-simplifier Plugin 整合](learnings/2026-01-12-code-simplifier-integration.md) - code-simplifier, plugin, refactoring, technical-debt, boris-cherny
 - [自我進化流程：修改 Skill 的正確順序](learnings/2026-01-12-self-evolution-workflow.md) - self-evolution, skill-modification, workflow, source-of-truth
 - [Makefile 優化 + 探索模式](learnings/2026-01-12-makefile-explore-mode.md) - makefile, automation, explore-mode, level-1, memory-stats
@@ -48,6 +49,10 @@
 
 ## 標籤索引
 <!-- TAGS_START -->
+- deep-interview: [deep-interview-mode](learnings/2026-01-12-deep-interview-mode.md)
+- goal-analysis: [deep-interview-mode](learnings/2026-01-12-deep-interview-mode.md)
+- spec: [deep-interview-mode](learnings/2026-01-12-deep-interview-mode.md)
+- benson-sun: [deep-interview-mode](learnings/2026-01-12-deep-interview-mode.md)
 - architecture: [claude-agent-sdk-analysis](learnings/2025-01-07-claude-agent-sdk-analysis.md)
 - best-practices: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
 - teleport: [boris-cherny-tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md)
