@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [Makefile 優化 + 探索模式](learnings/2026-01-12-makefile-explore-mode.md) - makefile, automation, explore-mode, level-1, memory-stats
 - [CHANGELOG 自動生成腳本](learnings/2026-01-12-changelog-auto-generation.md) - changelog, automation, bash, conventional-commits, git
 - [競品分析研究洞察](learnings/2026-01-12-competitor-analysis-insights.md) - competitor-analysis, market-research, agentic-ai, strategy
 - [自動化和測試改進 v4.1.0](learnings/2026-01-12-automation-and-testing-improvements.md) - automation, testing, makefile, quickstart, fallback

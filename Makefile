@@ -8,7 +8,7 @@
 #   make test       - Run test suite
 #   make install    - Install to target project
 
-.PHONY: help validate test install clean release lint check-env quick-test
+.PHONY: help validate test install clean release lint check-env quick-test changelog changelog-save changelog-since recent memory-stats memory-recent verify-memory
 
 # Default target
 .DEFAULT_GOAL := help
@@ -99,6 +99,32 @@ sync: ## Sync skill to global location
 verify-memory: ## Validate memory system
 	@./scripts/validate-memory.sh
 
+memory-stats: ## Show memory system statistics
+	@echo "$(BOLD)Memory System Statistics:$(NC)"
+	@echo ""
+	@echo "  $(CYAN)Learnings:$(NC)    $$(find .claude/memory/learnings -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo "  $(CYAN)Failures:$(NC)     $$(find .claude/memory/failures -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo "  $(CYAN)Decisions:$(NC)    $$(find .claude/memory/decisions -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo "  $(CYAN)Patterns:$(NC)     $$(find .claude/memory/patterns -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo "  $(CYAN)Discoveries:$(NC)  $$(find .claude/memory/discoveries -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo "  $(CYAN)Strategies:$(NC)   $$(find .claude/memory/strategies -name '*.md' 2>/dev/null | wc -l | tr -d ' ')"
+	@echo ""
+	@echo "$(BOLD)Index Status:$(NC)"
+	@if [ -f ".claude/memory/index.md" ]; then \
+		echo "  Last updated: $$(stat -f '%Sm' .claude/memory/index.md 2>/dev/null || stat -c '%y' .claude/memory/index.md 2>/dev/null | cut -d' ' -f1)"; \
+		echo "  Total index entries: $$(grep -c '^\- \[' .claude/memory/index.md 2>/dev/null || echo 0)"; \
+	else \
+		echo "  $(RED)index.md not found!$(NC)"; \
+	fi
+	@echo ""
+
+memory-recent: ## Show recently modified memory files
+	@echo "$(BOLD)Recently Modified Memory Files:$(NC)"
+	@find .claude/memory -name "*.md" -type f -mtime -7 2>/dev/null | while read f; do \
+		echo "  $$(stat -f '%Sm' "$$f" 2>/dev/null || stat -c '%y' "$$f" 2>/dev/null | cut -d' ' -f1-2)  $$f"; \
+	done | sort -r | head -10
+	@echo ""
+
 verify-install: ## Verify skill installation
 	@./scripts/verify-install.sh
 
@@ -120,7 +146,25 @@ release: validate test ## Prepare for release (validate + test)
 	@echo "  4. Push: git push && git push --tags"
 	@echo ""
 
-changelog: ## Show recent changes
+changelog: ## Generate CHANGELOG.md (preview mode)
+	@echo "$(BOLD)Generating CHANGELOG preview...$(NC)"
+	@./scripts/generate-changelog.sh --preview
+
+changelog-save: ## Generate and save CHANGELOG.md
+	@echo "$(BOLD)Generating CHANGELOG.md...$(NC)"
+	@./scripts/generate-changelog.sh --all --output CHANGELOG.md
+	@echo "$(GREEN)CHANGELOG.md updated!$(NC)"
+
+changelog-since: ## Generate changelog since a tag (use: make changelog-since TAG=v4.1.0)
+	@if [ -z "$(TAG)" ]; then \
+		echo "$(RED)Error: TAG not specified$(NC)"; \
+		echo "Usage: make changelog-since TAG=v4.1.0"; \
+		exit 1; \
+	fi
+	@echo "$(BOLD)Generating changelog since $(TAG)...$(NC)"
+	@./scripts/generate-changelog.sh --since $(TAG) --preview
+
+recent: ## Show recent commits (quick view)
 	@echo "$(BOLD)Recent commits:$(NC)"
 	@git log --oneline -10
 
