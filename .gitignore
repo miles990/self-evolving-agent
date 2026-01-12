@@ -35,3 +35,8 @@ venv/
 # Test outputs
 coverage/
 .nyc_output/
+
+# Other AI tools (this project uses Claude Code)
+.codex/
+.cursor/
+.github/skills/
