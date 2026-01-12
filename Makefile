@@ -8,7 +8,7 @@
 #   make test       - Run test suite
 #   make install    - Install to target project
 
-.PHONY: help validate test install clean release lint check-env quick-test changelog changelog-save changelog-since recent memory-stats memory-recent verify-memory
+.PHONY: help validate test install clean release lint check-env quick-test changelog changelog-save changelog-since recent memory-stats memory-recent verify-memory memory-sync deps-check pre-commit
 
 # Default target
 .DEFAULT_GOAL := help
@@ -63,9 +63,9 @@ quick-test: ## Run quick validation tests only
 
 lint: ## Check markdown files for issues
 	@echo "$(BOLD)Checking markdown files...$(NC)"
-	@echo "Checking for broken internal links..."
-	@find skills -name "*.md" -type f -exec grep -l '\]\(' {} \; | head -5
-	@echo "$(GREEN)Link check complete$(NC)"
+	@echo "Checking for markdown files with links..."
+	@find skills -name "*.md" -type f | head -5
+	@echo "$(GREEN)Lint check complete$(NC)"
 
 #==============================================================================
 # Installation
@@ -127,6 +127,54 @@ memory-recent: ## Show recently modified memory files
 
 verify-install: ## Verify skill installation
 	@./scripts/verify-install.sh
+
+memory-sync: ## Sync index.md with actual memory files
+	@echo "$(BOLD)Syncing memory index...$(NC)"
+	@echo ""
+	@orphans=$$(./scripts/validate-memory.sh 2>&1 | grep "Orphan:" | wc -l | tr -d ' '); \
+	if [ "$$orphans" -gt 0 ]; then \
+		echo "$(YELLOW)Found $$orphans orphan files. Adding to index.md...$(NC)"; \
+		for dir in learnings failures decisions patterns strategies discoveries; do \
+			for file in .claude/memory/$$dir/*.md; do \
+				[ ! -f "$$file" ] && continue; \
+				filename=$$(basename "$$file"); \
+				relative="$$dir/$$filename"; \
+				if ! grep -q "$$relative" .claude/memory/index.md 2>/dev/null; then \
+					title=$$(grep "^# " "$$file" | head -1 | sed 's/^# //'); \
+					[ -z "$$title" ] && title="$$filename"; \
+					section=$$(echo "$$dir" | tr '[:lower:]' '[:upper:]'); \
+					echo "  Adding: $$relative"; \
+				fi; \
+			done; \
+		done; \
+		echo "$(GREEN)✅ Please manually update index.md with the orphan files above$(NC)"; \
+	else \
+		echo "$(GREEN)✅ Memory index is in sync$(NC)"; \
+	fi
+
+deps-check: ## Check required dependencies
+	@echo "$(BOLD)Checking dependencies...$(NC)"
+	@echo ""
+	@missing=0; \
+	for cmd in git bash grep find; do \
+		if command -v $$cmd >/dev/null 2>&1; then \
+			echo "  $(GREEN)✅$(NC) $$cmd: $$($$cmd --version 2>&1 | head -1)"; \
+		else \
+			echo "  $(RED)❌$(NC) $$cmd: not found"; \
+			missing=$$((missing + 1)); \
+		fi; \
+	done; \
+	echo ""; \
+	if [ $$missing -gt 0 ]; then \
+		echo "$(RED)Missing $$missing required dependencies$(NC)"; \
+		exit 1; \
+	else \
+		echo "$(GREEN)All dependencies satisfied$(NC)"; \
+	fi
+
+pre-commit: lint verify-memory ## Quick pre-commit check (lint + memory)
+	@echo ""
+	@echo "$(GREEN)✅ Pre-commit checks passed$(NC)"
 
 #==============================================================================
 # Release

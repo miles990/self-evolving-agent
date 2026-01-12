@@ -83,36 +83,33 @@ echo ""
 # === Build 階段 ===
 echo "┌─ Build（執行準備）──────────────────┐"
 
-# 檢查常見的專案文件
-if [[ -f "package.json" ]]; then
-    check_pass "package.json exists (Node.js project)"
+# 檢查專案類型（使用陣列避免相容性問題）
+check_project() {
+    local file="$1" type="$2"
+    [[ -f "$file" ]] && check_pass "$type project detected ($file)"
+}
 
-    # 檢查 node_modules
-    if [[ -d "node_modules" ]]; then
-        check_pass "node_modules/ exists"
-    else
-        check_warn "node_modules/ not found (run npm install?)"
-    fi
-fi
+check_project "package.json" "Node.js"
+check_project "requirements.txt" "Python"
+check_project "pyproject.toml" "Python (pyproject)"
+check_project "Cargo.toml" "Rust"
+check_project "go.mod" "Go"
 
-if [[ -f "requirements.txt" ]] || [[ -f "pyproject.toml" ]]; then
-    check_pass "Python project detected"
-fi
-
-if [[ -f "Cargo.toml" ]]; then
-    check_pass "Rust project detected"
-fi
-
-if [[ -f "go.mod" ]]; then
-    check_pass "Go project detected"
+# Node.js 特殊檢查：node_modules
+if [[ -f "package.json" ]] && [[ ! -d "node_modules" ]]; then
+    check_warn "node_modules/ not found (run npm install?)"
 fi
 
 # 檢查測試配置
-if [[ -f "jest.config.js" ]] || [[ -f "vitest.config.ts" ]] || [[ -f "pytest.ini" ]]; then
-    check_pass "Test configuration found"
-else
-    check_warn "No test configuration detected"
-fi
+test_config_found=false
+for config in jest.config.js vitest.config.ts pytest.ini; do
+    if [[ -f "$config" ]]; then
+        check_pass "Test configuration found ($config)"
+        test_config_found=true
+        break
+    fi
+done
+[[ "$test_config_found" == "false" ]] && check_warn "No test configuration detected"
 
 echo "└────────────────────────────────────────┘"
 echo ""

@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [code-simplifier Plugin 整合](learnings/2026-01-12-code-simplifier-integration.md) - code-simplifier, plugin, refactoring, technical-debt, boris-cherny
 - [自我進化流程：修改 Skill 的正確順序](learnings/2026-01-12-self-evolution-workflow.md) - self-evolution, skill-modification, workflow, source-of-truth
 - [Makefile 優化 + 探索模式](learnings/2026-01-12-makefile-explore-mode.md) - makefile, automation, explore-mode, level-1, memory-stats
 - [CHANGELOG 自動生成腳本](learnings/2026-01-12-changelog-auto-generation.md) - changelog, automation, bash, conventional-commits, git
