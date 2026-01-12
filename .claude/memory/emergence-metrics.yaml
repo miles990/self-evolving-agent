@@ -2,18 +2,21 @@
 # 自動更新，追蹤涌現效果
 
 emergence_stats:
-  total_sessions: 0
+  total_sessions: 1
   discoveries_recorded: 0
   patterns_identified: 0
   skills_created_from_emergence: 0
-  last_updated: null
+  learnings_recorded: 1  # 新增：追蹤 learning 記錄數
+  last_updated: 2026-01-12
 
 by_level:
   level_0:
     description: "基礎執行 - 嚴格執行指定任務"
-    sessions: 0
+    sessions: 1
     discoveries: 0
+    learnings: 1
     emergence_rate: 0%
+    notes: "2026-01-12: CHANGELOG 自動生成腳本"
   level_1:
     description: "探索模式 - 完成後探索相關改進"
     sessions: 0
@@ -31,6 +34,7 @@ by_level:
     emergence_rate: 0%
 
 most_valuable_discoveries: []
+# 待填充：當有 Level 2+ 的涌現發現時記錄
 # 格式範例:
 # - discovery: "marketing + game-design = gamification patterns"
 #   date: 2026-01-05

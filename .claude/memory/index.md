@@ -16,6 +16,7 @@
 
 ## 重要決策
 <!-- DECISIONS_START -->
+- [ADR-001: 整合 CP5 失敗後驗屍機制](decisions/001-integrate-cp5-failure-postmortem.md) - checkpoint, failure-handling, learning, pdca
 <!-- DECISIONS_END -->
 
 ## 失敗經驗
