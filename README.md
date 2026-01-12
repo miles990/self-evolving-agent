@@ -84,7 +84,7 @@ git clone https://github.com/miles990/self-evolving-agent.git
 cp -r self-evolving-agent/skills /path/to/your/project/.claude/skills/evolve
 ```
 
-**Use with skillpkg**
+**Use with [skillpkg](https://github.com/anthropics/skillpkg)** — Claude Code 的 skill 套件管理器
 
 ```bash
 skillpkg install github:miles990/self-evolving-agent
@@ -92,16 +92,11 @@ skillpkg install github:miles990/self-evolving-agent
 
 ## 核心哲學
 
-**AI 協作的本質：透過抽象化介面溝通**
+> 給定目標，自主迭代直到完成。從失敗中學習，記憶經驗。北極星錨定，避免迷失方向。
 
-| 傳統軟體 | AI 協作 | 作用 |
-|----------|---------|------|
-| API | MCP | 能力邊界（能做什麼） |
-| SDK/Library | Tools | 具體實作（怎麼做） |
-| 文檔+Best Practices | Skill | 領域知識（何時用什麼） |
-| Config | CLAUDE.md | 上下文約束（專案規範） |
-
-> **Skill 不只是知識，是「封裝好的判斷力」** — 告訴 AI 在什麼情況下，用什麼方式，達成什麼目標
+- **目標導向**：不是執行指令，而是達成目標
+- **迭代改進**：失敗是學習機會，每次嘗試都比上次更好
+- **經驗累積**：解決方案存入記憶，相同問題不再重蹈覆轍
 
 ## 模組文檔
 
