@@ -109,6 +109,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | 檢查點 | 時機 | 動作 |
 |--------|------|------|
 | **CP1** | 任務開始前 | 搜尋 .claude/memory/ 查找相關經驗 |
+| **CP1.5** | 寫程式碼前 | 搜尋 codebase 確認一致性，避免重複造輪子 |
 | **CP2** | 程式碼變更後 | 編譯 + 測試驗證 |
 | **CP3** | Milestone 完成後 | 確認目標、方向、下一步 |
 | **CP3.5** | Memory 文件創建後 | 立即同步 index.md |
@@ -149,6 +150,7 @@ skills/
 ├── 02-checkpoints/             # 強制檢查點
 │   └── _base/
 │       ├── cp1-memory-search.md
+│       ├── cp1.5-consistency-check.md
 │       ├── cp2-build-test.md
 │       ├── cp3-milestone-confirm.md
 │       ├── cp3.5-memory-sync.md
