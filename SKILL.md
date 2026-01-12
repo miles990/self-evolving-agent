@@ -1,6 +1,6 @@
 ---
 name: evolve
-version: 4.1.0
+version: 4.5.0
 description: 自我進化 Agent - 已遷移至原子化架構
 redirect: ./skills/SKILL.md
 ---
@@ -23,6 +23,7 @@ The Self-Evolving Agent skill has been reorganized into an atomic architecture.
 | Memory | 記憶系統操作 | [→](./skills/03-memory/) |
 | Emergence | 涌現機制 | [→](./skills/04-emergence/) |
 | Integration | 外部工具整合 | [→](./skills/05-integration/) |
+| Scaling | 大規模專案優化 | [→](./skills/06-scaling/) |
 | Evolution | 自我進化機制 | [→](./skills/99-evolution/) |
 
 ## Why the Change?
