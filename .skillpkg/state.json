@@ -16,10 +16,10 @@
       "depended_by": []
     },
     "evolve": {
-      "version": "4.1.0",
+      "version": "4.5.0",
       "source": "github:miles990/self-evolving-agent",
       "installed_by": "user",
-      "installed_at": "2026-01-12T06:19:25.168Z",
+      "installed_at": "2026-01-12T07:01:30.619Z",
       "depended_by": []
     }
   },

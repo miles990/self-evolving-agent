@@ -16,7 +16,15 @@
       "source": "registry",
       "sourceUrl": "/Users/user/Workspace/claude-domain-skills/finance/quant-trading",
       "syncedPlatforms": []
+    },
+    "evolve": {
+      "name": "evolve",
+      "version": "4.1.0",
+      "installedAt": "2026-01-12T07:01:30.615Z",
+      "source": "registry",
+      "sourceUrl": "github:miles990/self-evolving-agent",
+      "syncedPlatforms": []
     }
   },
-  "lastUpdated": "2026-01-07T08:35:35.055Z"
+  "lastUpdated": "2026-01-12T07:01:30.617Z"
 }
