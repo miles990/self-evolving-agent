@@ -40,3 +40,6 @@ coverage/
 .codex/
 .cursor/
 .github/skills/
+
+# Installed skills (user-specific, not part of this project)
+.claude/skills/
