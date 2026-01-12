@@ -44,5 +44,5 @@ coverage/
 # Installed skills (user-specific, not part of this project)
 .claude/skills/
 
-# skillpkg local store (skills are fetched, not committed)
-.skillpkg/skills/
+# skillpkg local state (user-specific, not part of this project)
+.skillpkg/
