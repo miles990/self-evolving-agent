@@ -198,3 +198,126 @@ status: "unresolved"
 ## 待解決
 - [ ] 下一步行動
 ```
+
+### 設計模式記錄模板
+
+> 用於 CP1.5 Phase 2 的「模式一致性」檢查
+
+```yaml
+# .claude/memory/patterns/design-patterns-in-use.md
+---
+date: "YYYY-MM-DD"
+tags: [architecture, design-patterns]
+last_updated: "YYYY-MM-DD"
+---
+
+# 本專案使用的設計模式
+
+## 已採用的模式
+
+| 模式 | 位置 | 用途 | 備註 |
+|------|------|------|------|
+| Repository | `src/repositories/` | 資料存取抽象 | 所有 DB 操作必須經過 |
+| Strategy | `src/strategies/` | 多種演算法切換 | 交易策略、定價策略 |
+| Factory | `src/factories/` | 複雜物件創建 | 訂單、報表 |
+
+## 何時使用哪個模式
+
+| 情境 | 建議模式 | 範例 |
+|------|----------|------|
+| 資料存取 | Repository | `userRepository.findById()` |
+| 3+ 種演算法變體 | Strategy | 交易策略、排序方式 |
+| 物件創建邏輯複雜 | Factory | 訂單含多種子項目 |
+| 跨多個物件的操作 | Service | `orderService.checkout()` |
+
+## 分層架構
+
+```
+Controller (處理 HTTP)
+    ↓
+Service (業務邏輯)
+    ↓
+Repository (資料存取)
+    ↓
+Database
+```
+
+**依賴規則：只能向下依賴，不可逆向**
+
+## 錯誤處理模式
+
+- 統一使用 `AppError` 類別
+- Service 層拋出業務異常
+- Controller 層統一處理並回應
+
+## 橫切關注點
+
+| 關注點 | 機制 | 位置 |
+|--------|------|------|
+| Logging | `src/utils/logger.ts` | 統一 logger |
+| Metrics | `src/utils/metrics.ts` | Prometheus 格式 |
+| Tracing | OpenTelemetry | 自動注入 |
+
+## 避免的反模式
+
+- ❌ 在 Repository 中寫業務邏輯
+- ❌ Controller 直接存取 Database
+- ❌ 使用 `console.log` 而非統一 logger
+- ❌ 每個模組自己定義 Error 類別
+
+## 新增程式碼檢查清單
+
+新增程式碼前，確認：
+
+- [ ] 資料存取是否經過 Repository？
+- [ ] 是否符合分層依賴規則？
+- [ ] 錯誤處理是否使用 AppError？
+- [ ] Logging 是否使用統一 logger？
+- [ ] 是否有現成的模式可以複用？
+```
+
+## 儲存設計模式記錄
+
+```python
+# 建立專案的設計模式記錄
+Write(
+    file_path=".claude/memory/patterns/design-patterns-in-use.md",
+    content="""---
+date: 2026-01-12
+tags: [architecture, design-patterns]
+last_updated: 2026-01-12
+---
+
+# 本專案使用的設計模式
+
+## 已採用的模式
+
+| 模式 | 位置 | 用途 |
+|------|------|------|
+| [模式名] | `src/xxx/` | [用途說明] |
+
+## 分層架構
+
+[描述專案的分層結構]
+
+## 錯誤處理模式
+
+[描述統一的錯誤處理方式]
+
+## 橫切關注點
+
+| 關注點 | 機制 |
+|--------|------|
+| Logging | [使用的 logger] |
+| Metrics | [使用的 metrics 系統] |
+"""
+)
+
+# ⚠️ 重要：立即更新 index.md（Checkpoint 3.5）
+Edit(
+    file_path=".claude/memory/index.md",
+    old_string="<!-- PATTERNS_START -->",
+    new_string="""<!-- PATTERNS_START -->
+- [設計模式記錄](patterns/design-patterns-in-use.md) - architecture, design-patterns"""
+)
+```
