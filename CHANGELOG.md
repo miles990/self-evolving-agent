@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.0] - 2026-01-12
+
+### Added
+- **深度訪談模式 (Deep Interview)**
+  - 新增 `goal-analysis.md` 深度訪談區塊
+  - 觸發條件：Level 2 強制、Level 1+模糊建議
+  - Ultrathink 4 問：隱藏假設、邊界情況、技術債務、二階效應
+  - 訪談問題範本（4 大類深入問題）
+  - 結束條件與產出格式（`goal_specification` YAML）
+
+### Changed
+- 更新執行流程圖，突出深度訪談步驟
+- 流程簡述新增「深度訪談」標記
+
+### Credits
+- 靈感來源：[@BensonTWN](https://x.com/BensonTWN/status/2010319050099110270)
+- 核心洞察：「寫 spec 最大的問題是你不知道自己漏了什麼」
+
+---
+
 ## [4.1.0] - 2026-01-12
 
 ### Added
