@@ -17,10 +17,11 @@
 │     - 有經驗 → 直接應用                                         │
 │     - 無經驗 → 繼續步驟 3                                       │
 │                                                                 │
-│  3. 搜尋可用 Skill                                              │
-│     recommend_skill({ query: "Y", criteria: "popular" })        │
+│  3. 搜尋可用 Skill（優先搜尋 priority repos）                   │
+│     search_skills({ query: "Y", source: "priority" })           │
+│     - 優先搜尋 miles990/claude-software-skills                  │
+│     - 優先搜尋 miles990/claude-domain-skills                    │
 │     - 評估推薦的 skill 是否適用                                 │
-│     - 查看 alternatives 比較選擇                                │
 │                                                                 │
 │  4. 安裝 Skill                                                  │
 │     install_skill({ source: "best-skill-name" })                │
@@ -49,16 +50,18 @@
 ```
 用戶任務：「幫我建立一個量化交易回測系統」
 
-Step 1: recommend_skills({ goal: "量化交易回測系統" })
-        → 分析關鍵詞：量化、交易、回測、系統
+Step 1: search_skills({ query: "量化交易", source: "priority" })
+        → 優先搜尋 miles990/claude-software-skills
+        → 優先搜尋 miles990/claude-domain-skills
+        → 分析關鍵詞：量化、交易、回測
 
 Step 2: 獲得推薦結果
-        domain_skills: quant-trading (85% confidence)
-        software_skills: python, database
+        domain_skills: quant-trading (from claude-domain-skills)
+        software_skills: python, database (from claude-software-skills)
 
-Step 3: 自動載入
+Step 3: 安裝並載入
+        install_skill({ source: "github:miles990/claude-domain-skills#finance/quant-trading" })
         load_skill("quant-trading")
-        load_skill("python")
 ```
 
 ### 研究模式
