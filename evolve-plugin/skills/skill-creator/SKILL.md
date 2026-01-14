@@ -30,10 +30,13 @@ triggers: [new-skill, create-skill, 建立skill, 新增skill]
 
 ### Stage 2: 分析 + 生成
 
-1. 搜尋 GitHub 上類似的 skills 作為參考
-2. 選擇適合的範本（basic / advanced）
-3. 生成 SKILL.md 初稿
-4. 建立目錄結構（如需要 scripts/templates）
+1. **優先搜尋官方 Skill Repos**：
+   - [claude-domain-skills](https://github.com/miles990/claude-domain-skills) — 領域知識 skills
+   - [claude-software-skills](https://github.com/miles990/claude-software-skills) — 軟體開發 skills
+2. 如無適合參考，再搜尋 GitHub 上其他 skills
+3. 選擇適合的範本（basic / advanced）
+4. 生成 SKILL.md 初稿
+5. 建立目錄結構（如需要 scripts/templates）
 
 輸出：完整的 skill 目錄
 
