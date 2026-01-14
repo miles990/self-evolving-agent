@@ -36,10 +36,12 @@ triggers: [new-skill, create-skill, 建立skill, 新增skill]
    - [claude-domain-skills](https://github.com/miles990/claude-domain-skills) — 領域知識 skills
    - [claude-software-skills](https://github.com/miles990/claude-software-skills) — 軟體開發 skills
 2. 如無適合，搜尋 GitHub 上其他 skills
-3. **如都無適合參考，自行研究領域知識**：
-   - 使用 WebSearch / WebFetch 查詢官方文檔、最佳實踐
-   - 分析領域核心概念和常見流程
-   - 整理成 skill 可用的知識結構
+3. **如都無適合參考，使用 4C 方法自行研究**：
+   - 載入 `methodology/knowledge-acquisition-4c` skill（from claude-domain-skills）
+   - **Collect**：WebSearch / WebFetch 收集官方文檔、最佳實踐
+   - **Curate**：篩選高品質來源，去除噪音
+   - **Contextualize**：分析領域核心概念和常見流程
+   - **Codify**：整理成 skill 可用的知識結構
 
 **生成流程**：
 
