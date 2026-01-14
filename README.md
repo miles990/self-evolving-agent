@@ -71,7 +71,7 @@ flowchart LR
 **Plugin 版本（推薦）** — v5.0.0 新增，含 Hooks 自動提醒
 
 ```bash
-/plugin install miles990/evolve-plugin
+/plugin install miles990/self-evolving-agent#evolve-plugin
 ```
 
 **One-line install（傳統 Skill 版本）**

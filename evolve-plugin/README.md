@@ -5,7 +5,7 @@
 ## 安裝
 
 ```bash
-/plugin install miles990/evolve-plugin
+/plugin install miles990/self-evolving-agent#evolve-plugin
 ```
 
 ## 使用

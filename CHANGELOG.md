@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.0.0] - 2026-01-14
+
+### Added
+- **Plugin 格式支援**
+  - 新增 `evolve-plugin/` 目錄，支援 Claude Code Plugin 安裝
+  - 安裝方式：`/plugin install miles990/self-evolving-agent#evolve-plugin`
+  - 新增 `.claude-plugin/plugin.json` 配置
+
+- **Skill Creator 工作流**
+  - 新增 `/new-skill` 命令和 `--new-skill` 參數
+  - 四階段流程：引導式訪談 → 分析生成 → 驗證 → 發布
+  - 新增 `skill-creator/` 模組（含範本和腳本）
+  - 整合 `knowledge-acquisition-4c` 作為研究 fallback
+
+- **Hooks 自動提醒**
+  - `checkpoint-reminder.sh`：Edit/Write 後提醒 CP1.5、CP2
+  - `memory-sync.sh`：Memory 文件創建後提醒 CP3.5
+
+- **Commands 定義**
+  - `commands/evolve/COMMAND.md`：正式 /evolve 命令
+  - `commands/new-skill/COMMAND.md`：正式 /new-skill 命令
+
+### Changed
+- **Repo 整合**
+  - 從雙 repo（self-evolving-agent + evolve-plugin）合併為單一 repo
+  - `evolve-plugin/` 現為子目錄，不再是獨立 repo
+  - 統一 `skills/` 和 `evolve-plugin/skills/` 內容
+
+- **安裝路徑更新**
+  - 舊：`/plugin install miles990/evolve-plugin`
+  - 新：`/plugin install miles990/self-evolving-agent#evolve-plugin`
+
+### Deprecated
+- `miles990/evolve-plugin` 獨立 repo 已停用（建議 archive）
+
+---
+
 ## [4.5.0] - 2026-01-12
 
 ### Changed
