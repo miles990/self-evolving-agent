@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.4.0] - 2026-01-16
+
+### Added
+- **Memory MCP 整合**
+  - 新增 `skills/05-integration/_base/memory-mcp.md` 整合指南
+  - 整合 SQLite FTS5 全文搜尋到 evolve 流程
+  - 支援 Skill 使用追蹤（成功率統計）
+  - 支援失敗經驗跨專案索引
+
+### Changed
+- **CP1 強化**：加入 `memory_search` + `failure_search`（FTS5 搜尋）
+- **CP3.5 強化**：加入 `memory_write`（雙重記錄：Git + SQLite）
+- **CP5 強化**：加入 `failure_record`（跨專案失敗經驗共享）
+
+### Performance
+- 搜尋速度：~20ms → ~3.5ms（5.7x 提升）
+- Token/搜尋：~2300 → ~200（91% 節省）
+
+---
+
 ## [5.3.0] - 2026-01-15
 
 ### Added

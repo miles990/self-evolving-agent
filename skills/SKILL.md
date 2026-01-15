@@ -1,12 +1,12 @@
 ---
 name: evolve
-version: 5.3.0
+version: 5.4.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
 keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update, plugin]
 ---
 
-# Self-Evolving Agent v5.3.0
+# Self-Evolving Agent v5.4.0
 
 > [**版本檢查**] → **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
 

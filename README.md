@@ -1,6 +1,6 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-5.3.0-blue)](./skills/SKILL.md)
+[![Version](https://img.shields.io/badge/version-5.4.0-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
