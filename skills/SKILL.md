@@ -1,14 +1,14 @@
 ---
 name: evolve
-version: 5.1.0
+version: 5.2.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
-keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update]
 ---
 
-# Self-Evolving Agent v5.1.0
+# Self-Evolving Agent v5.2.0
 
-> **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
+> [**版本檢查**] → **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
 
 ## 快速導覽
 
@@ -73,8 +73,9 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ## 執行流程概覽
 
-**Self-Evolving Loop v5.1**
+**Self-Evolving Loop v5.2**
 
+0. 🔄 **版本檢查**（自動）— 檢查更新、詢問用戶、自動更新
 1. 🌟 **CP0: 北極星錨定** — 願景、完成標準、不做清單、動機
 2. 🔒 **CP0.5: Worktree 隔離**（條件觸發）— Level 2 / autonomous / 並行任務
 3. **PSB System** — Plan → Setup → Build（環境準備）
@@ -88,6 +89,10 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ↻ 重複直到：目標達成 或 達到最大迭代次數
 
+> 💡 **v5.2 新增**：版本檢查與自動更新 — 每次啟動時檢查新版本
+> - 版本檢查：[00-getting-started/_base/version-check.md](./00-getting-started/_base/version-check.md)
+> - 自動比較本地與遠端版本，詢問用戶是否更新
+>
 > 💡 **v5.1 新增**：Worktree 隔離環境 — 高風險任務的安全邊界
 > - CP0.5：Worktree 準備 → [02-checkpoints/_base/cp0.5-worktree-setup.md](./02-checkpoints/_base/cp0.5-worktree-setup.md)
 > - CP6.5：Worktree 完成 → [02-checkpoints/_base/cp6.5-worktree-completion.md](./02-checkpoints/_base/cp6.5-worktree-completion.md)
