@@ -1,6 +1,8 @@
 # Memory MCP 整合
 
-> 使用 claude-memory-mcp 實現智能記憶管理、Skill 追蹤、失敗經驗索引
+> 使用 [sqlite-memory-mcp](https://www.npmjs.com/package/sqlite-memory-mcp) 實現智能記憶管理、Skill 追蹤、失敗經驗索引
+>
+> GitHub: https://github.com/miles990/claude-memory-mcp
 
 ## 概覽
 
@@ -180,9 +182,38 @@ Memory MCP 與 `.claude/memory/` Git-based 系統**並存**：
 3. **自動 Schema**: 首次使用自動初始化
 4. **Fallback**: 若 MCP 不可用，回退到 Git Memory
 
+## 安裝
+
+### 方式一：從 npm 安裝（推薦）
+
+```bash
+npm install -g sqlite-memory-mcp
+```
+
+### 方式二：從源碼安裝
+
+```bash
+git clone https://github.com/miles990/claude-memory-mcp.git
+cd claude-memory-mcp
+npm install && npm run build
+```
+
 ## 配置
 
-確保 `~/.claude/.mcp.json` 包含：
+在 `~/.claude/.mcp.json` 加入：
+
+```json
+{
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": ["sqlite-memory-mcp"]
+    }
+  }
+}
+```
+
+或如果從源碼安裝：
 
 ```json
 {
