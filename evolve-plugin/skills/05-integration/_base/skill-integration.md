@@ -2,6 +2,50 @@
 
 > 使用 Claude Code Plugin 系統搜尋、安裝、載入 skills
 
+## 智能安裝流程
+
+在習得新 skill 前，先檢查現有安裝狀態：
+
+```
+Step 0: 檢查已安裝狀態
+        Read("~/.claude/plugins/installed_plugins.json")
+        Read("~/.claude/plugins/known_marketplaces.json")
+               ↓
+        已安裝 → 直接使用 Skill({ skill: "..." })
+        未安裝但有 marketplace → /plugin install ...
+        無 marketplace → /plugin marketplace add ...
+```
+
+### 已安裝狀態檢查
+
+```python
+# 讀取已安裝 plugins
+installed = Read("~/.claude/plugins/installed_plugins.json")
+# 結構: { "plugins": { "name@marketplace": [...] } }
+
+# 讀取已添加 marketplaces
+marketplaces = Read("~/.claude/plugins/known_marketplaces.json")
+# 結構: { "marketplace-name": { "source": {...} } }
+```
+
+### 智能決策
+
+| 狀態 | 行動 |
+|------|------|
+| Plugin 已安裝 | 直接使用 `Skill({ skill: "..." })` |
+| Marketplace 已添加但 plugin 未安裝 | `/plugin install {name}@{marketplace}` |
+| Marketplace 未添加 | 先 `/plugin marketplace add ...` 再安裝 |
+| 找不到適合的 skill | WebSearch 搜尋或降級執行 |
+
+### 推薦 Marketplaces
+
+| Marketplace | 用途 | 添加指令 |
+|-------------|------|----------|
+| `claude-plugins-official` | 官方工具 | 預設已添加 |
+| `miles990/claude-software-skills` | 軟體開發 | `/plugin marketplace add miles990/claude-software-skills` |
+| `miles990/claude-domain-skills` | 領域知識 | `/plugin marketplace add miles990/claude-domain-skills` |
+| `miles990/evolve-plugin` | 自我進化 | `/plugin marketplace add miles990/evolve-plugin` |
+
 ## 基本操作
 
 ### 搜尋 Skill
@@ -12,38 +56,40 @@
 # → 選擇 Discover tab 瀏覽可用 skills
 
 # 或使用 WebSearch 工具
-WebSearch({ query: "Claude Code skill flame game flutter" })
+WebSearch({ query: "Claude Code skill [關鍵字]" })
 ```
 
 ### 安裝 Skill
 
 ```bash
-# 從官方 Marketplace 安裝
-/plugin install {skill-name}@{marketplace-name}
+# 從已添加的 Marketplace 安裝
+/plugin install {plugin-name}@{marketplace-name}
 
-# 範例：安裝 document-skills
-/plugin install document-skills@anthropic-agent-skills
+# 範例：安裝 software-design
+/plugin install software-design@claude-software-skills
 
-# 範例：安裝 evolve
-/plugin marketplace add miles990/evolve-plugin
-/plugin install evolve@evolve-plugin
+# 範例：安裝 finance（需要先添加 marketplace）
+/plugin marketplace add miles990/claude-domain-skills
+/plugin install finance@claude-domain-skills
 ```
 
 ### 載入 Skill
 
 Skills 安裝後會自動載入。只需在對話中提及 skill 名稱，Claude 會自動識別並載入。
 
-```
+```bash
 # 使用 Skill 工具載入
 Skill({ skill: "skill-name" })
 ```
 
-### 查看已安裝
+### 更新 Plugin
 
 ```bash
-# 在 Claude Code 中
-/plugin
-# → 選擇 Manage tab 查看已安裝的 plugins/skills
+# 更新特定 plugin
+/plugin update {plugin-name}
+
+# 更新所有 marketplaces
+claude plugin marketplace update
 ```
 
 ## 自動領域識別流程
@@ -51,27 +97,23 @@ Skill({ skill: "skill-name" })
 ```
 用戶任務：「幫我建立一個量化交易回測系統」
                     ↓
-Step 1: 搜尋相關 skills
-        WebSearch({ query: "quant trading Claude skill" })
-        或 /plugin → Discover
+Step 0: 檢查已安裝狀態
+        Read("~/.claude/plugins/installed_plugins.json")
+        → 檢查是否有 finance@claude-domain-skills
                     ↓
-Step 2: 安裝推薦的 skill
-        /plugin install quant-trading@{marketplace}
+Step 1: 若未安裝，檢查 marketplace
+        Read("~/.claude/plugins/known_marketplaces.json")
+        → 檢查是否有 claude-domain-skills
+                    ↓
+Step 2: 安裝（若需要）
+        /plugin marketplace add miles990/claude-domain-skills  # 若無
+        /plugin install finance@claude-domain-skills
                     ↓
 Step 3: 使用 Skill
         Skill({ skill: "quant-trading" })
                     ↓
 Step 4: 帶著領域知識執行任務
 ```
-
-## 推薦 Skill 來源
-
-| Marketplace | 說明 |
-|-------------|------|
-| `anthropic-agent-skills` | 官方 Anthropic skills |
-| `miles990/evolve-plugin` | Self-Evolving Agent |
-| `miles990/claude-software-skills` | 軟體開發技術 |
-| `miles990/claude-domain-skills` | 非技術領域知識 |
 
 ## 研究模式
 

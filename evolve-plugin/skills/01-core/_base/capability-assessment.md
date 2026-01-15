@@ -61,15 +61,33 @@ Grep(
 )
 ```
 
-## 搜尋 Skill
+## 習得 Skill
 
-若有能力差距，嘗試習得：
+若有能力差距，先檢查已安裝狀態再習得：
 
-```bash
-# 使用 Claude Code Plugin 搜尋
-/plugin
-# → 選擇 Discover tab 搜尋相關 skill
+```python
+# Step 1: 檢查已安裝 plugins
+installed = Read("~/.claude/plugins/installed_plugins.json")
+# 查看是否有匹配的 skill
 
-# 或使用 WebSearch
-WebSearch({ query: "Claude Code skill [能力關鍵字]" })
+# Step 2: 檢查已添加 marketplaces
+marketplaces = Read("~/.claude/plugins/known_marketplaces.json")
+# 常用: claude-software-skills, claude-domain-skills
+
+# Step 3: 智能決策
+if skill_installed:
+    Skill({ skill: "skill-name" })  # 直接使用
+elif marketplace_exists:
+    # /plugin install {skill}@{marketplace}
+else:
+    # /plugin marketplace add miles990/{marketplace}
+    # /plugin install {skill}@{marketplace}
 ```
+
+### 快速參考
+
+| 需求類型 | Marketplace | 安裝指令 |
+|----------|-------------|----------|
+| 軟體開發 | `claude-software-skills` | `/plugin install {category}@claude-software-skills` |
+| 領域知識 | `claude-domain-skills` | `/plugin install {category}@claude-domain-skills` |
+| 官方工具 | `claude-plugins-official` | `/plugin install {plugin}@claude-plugins-official` |
