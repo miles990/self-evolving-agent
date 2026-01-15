@@ -1,6 +1,6 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-5.0.0-blue)](./skills/SKILL.md)
+[![Version](https://img.shields.io/badge/version-5.3.0-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
@@ -68,7 +68,7 @@ flowchart LR
 
 ## Quick Install
 
-**Plugin 版本（推薦）** — v5.0.0 新增，含 Hooks 自動提醒
+**Plugin 版本（推薦）** — 含 Hooks 自動提醒
 
 ```bash
 # Step 1: 添加 marketplace
