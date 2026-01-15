@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.3.0] - 2026-01-15
+
+### Added
+- **智能 Plugin 安裝流程**
+  - 自動檢查已安裝 plugins (`~/.claude/plugins/installed_plugins.json`)
+  - 自動檢查已添加 marketplaces (`~/.claude/plugins/known_marketplaces.json`)
+  - 版本比對：已安裝版本 vs marketplace 最新版本
+  - 過期時建議執行 `/plugin update`
+
+- **Skills → Plugin 轉換工具**
+  - 新增 `scripts/convert-to-plugin.sh` 腳本
+  - 支援 `--marketplace` 和 `--category` 模式
+  - 自動生成 marketplace.json 和各分類 plugin.json
+
+### Changed
+- **skillpkg → Plugin Marketplace 遷移**
+  - 移除所有 skillpkg MCP 依賴
+  - 重命名 `skillpkg.md` → `skill-integration.md`
+  - 更新安裝方式為 `/plugin marketplace add` + `/plugin install`
+
+### Removed
+- skillpkg MCP 工具呼叫（`mcp__skillpkg__*`）
+
+---
+
+## [5.2.0] - 2026-01-14
+
+### Added
+- **版本檢查與自動更新**
+  - 啟動時檢查 evolve 版本
+  - 建議用戶更新到最新版本
+
+- **Skill Creator Token 優化**
+  - 新增 Stage 3.5 Token 優化步驟
+  - 整合 skill-optimizer 方法論
+
+---
+
+## [5.1.0] - 2026-01-14
+
+### Added
+- **Git Worktree 隔離環境**
+  - 新增 Worktree 工作流程
+  - 支援功能隔離開發
+  - 自動清理完成的 worktree
+
+---
+
 ## [5.0.0] - 2026-01-14
 
 ### Added

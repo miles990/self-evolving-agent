@@ -1,0 +1,94 @@
+#!/bin/bash
+# update-version.sh
+# 統一更新所有版本號，確保一致性
+# 用法: ./scripts/update-version.sh <new-version>
+
+set -e
+
+NEW_VERSION="$1"
+
+if [ -z "$NEW_VERSION" ]; then
+  echo "❌ 用法: ./scripts/update-version.sh <new-version>"
+  echo ""
+  echo "範例: ./scripts/update-version.sh 5.4.0"
+  echo ""
+  echo "會更新以下檔案:"
+  echo "  - skills/SKILL.md"
+  echo "  - evolve-plugin/skills/SKILL.md"
+  echo "  - evolve-plugin/.claude-plugin/plugin.json"
+  echo "  - evolve-plugin/.claude-plugin/marketplace.json"
+  exit 1
+fi
+
+# 驗證版本格式
+if ! [[ "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "❌ 版本格式錯誤: $NEW_VERSION"
+  echo "   正確格式: X.Y.Z (例如 5.3.0)"
+  exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+
+echo "🔄 更新版本號至 v$NEW_VERSION"
+echo ""
+
+# 檔案列表
+FILES=(
+  "skills/SKILL.md"
+  "evolve-plugin/skills/SKILL.md"
+  "evolve-plugin/.claude-plugin/plugin.json"
+  "evolve-plugin/.claude-plugin/marketplace.json"
+)
+
+# 顯示當前版本
+echo "📋 當前版本:"
+for file in "${FILES[@]}"; do
+  filepath="$REPO_ROOT/$file"
+  if [ -f "$filepath" ]; then
+    current=$(grep -oE '"?version"?:?\s*"?[0-9]+\.[0-9]+\.[0-9]+"?' "$filepath" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    echo "  $file: ${current:-unknown}"
+  fi
+done
+echo ""
+
+# 更新 skills/SKILL.md
+echo "📝 更新 skills/SKILL.md..."
+sed -i '' "s/^version: [0-9]\+\.[0-9]\+\.[0-9]\+$/version: $NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
+sed -i '' "s/Self-Evolving Agent v[0-9]\+\.[0-9]\+\.[0-9]\+/Self-Evolving Agent v$NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
+
+# 同步到 evolve-plugin/skills/SKILL.md
+echo "📝 同步 evolve-plugin/skills/SKILL.md..."
+cp "$REPO_ROOT/skills/SKILL.md" "$REPO_ROOT/evolve-plugin/skills/SKILL.md"
+
+# 更新 evolve-plugin/.claude-plugin/plugin.json
+echo "📝 更新 evolve-plugin/.claude-plugin/plugin.json..."
+sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/evolve-plugin/.claude-plugin/plugin.json"
+
+# 更新 evolve-plugin/.claude-plugin/marketplace.json
+echo "📝 更新 evolve-plugin/.claude-plugin/marketplace.json..."
+sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/evolve-plugin/.claude-plugin/marketplace.json"
+
+echo ""
+echo "✅ 版本更新完成！"
+echo ""
+
+# 驗證結果
+echo "📋 更新後版本:"
+for file in "${FILES[@]}"; do
+  filepath="$REPO_ROOT/$file"
+  if [ -f "$filepath" ]; then
+    current=$(grep -oE '"?version"?:?\s*"?[0-9]+\.[0-9]+\.[0-9]+"?' "$filepath" 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+    if [ "$current" = "$NEW_VERSION" ]; then
+      echo "  ✅ $file: $current"
+    else
+      echo "  ❌ $file: $current (預期 $NEW_VERSION)"
+    fi
+  fi
+done
+
+echo ""
+echo "下一步:"
+echo "  1. 更新 CHANGELOG.md"
+echo "  2. git add -A && git commit -m 'chore: bump version to v$NEW_VERSION'"
+echo "  3. git push"
