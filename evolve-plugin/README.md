@@ -5,7 +5,11 @@
 ## 安裝
 
 ```bash
-/plugin install miles990/self-evolving-agent#evolve-plugin
+# Step 1: 添加 marketplace
+/plugin marketplace add miles990/evolve-plugin
+
+# Step 2: 安裝 plugin
+/plugin install evolve@evolve-plugin
 ```
 
 ## 使用
