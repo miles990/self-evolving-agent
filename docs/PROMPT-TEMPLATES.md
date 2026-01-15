@@ -87,7 +87,6 @@
 使用 /evolve skill，讓這個生態系統變得更智能：
 
 專案範圍：
-- /Users/user/Workspace/skillpkg
 - /Users/user/Workspace/self-evolving-agent
 - /Users/user/Workspace/claude-domain-skills
 - /Users/user/Workspace/claude-software-skills
@@ -119,9 +118,8 @@
 使用 /evolve skill，自主進化這個生態系統：
 
 專案範圍：
-- /Users/user/Workspace/skillpkg - 技能包管理器
 - /Users/user/Workspace/self-evolving-agent - /evolve 核心技能
-- /Users/user/Workspace/claude-domain-skills - 16 個領域知識技能
+- /Users/user/Workspace/claude-domain-skills - 領域知識技能
 - /Users/user/Workspace/claude-software-skills - 軟體工程技能
 - /Users/user/Workspace/claude-starter-kit - CLI 腳手架工具
 

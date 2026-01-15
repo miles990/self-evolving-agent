@@ -4,11 +4,10 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
-- [skillpkg Archive 與 Plugin Migration](learnings/2026-01-15-skillpkg-archive-and-plugin-migration.md) - skillpkg, plugin, migration, archive, claude-code
 - [Galgame Skill 通用化經驗](learnings/2026-01-13-galgame-skill-generalization.md) - skill-design, generalization, galgame, character-design, abstraction
 - [Flame Game Engine Skill 開發](learnings/2026-01-12-flame-game-engine-skill.md) - flame, flutter, dart, 2d-games, skill-creation
-- [skillpkg 分層載入機制研究](learnings/2026-01-12-skillpkg-layered-loading-research.md) - skillpkg, layered-loading, token-optimization, architecture
-- [Evolve Token 優化研究](learnings/2026-01-12-evolve-token-optimization.md) - evolve, token, optimization, skillpkg
+- ~~[skillpkg 分層載入機制研究](learnings/2026-01-12-skillpkg-layered-loading-research.md)~~ - ⚠️ 已封存 (skillpkg 已棄用)
+- ~~[Evolve Token 優化研究](learnings/2026-01-12-evolve-token-optimization.md)~~ - ⚠️ 已封存 (skillpkg 已棄用)
 - [深度訪談模式 - Benson Sun 技巧](learnings/2026-01-12-deep-interview-mode.md) - goal-analysis, deep-interview, spec, requirements, benson-sun
 - [code-simplifier Plugin 整合](learnings/2026-01-12-code-simplifier-integration.md) - code-simplifier, plugin, refactoring, technical-debt, boris-cherny
 - [自我進化流程：修改 Skill 的正確順序](learnings/2026-01-12-self-evolution-workflow.md) - self-evolution, skill-modification, workflow, source-of-truth
