@@ -187,6 +187,26 @@ Plan 階段應考慮：
 | 重複失敗率 | 相同 root_cause 的失敗 / 總失敗 | < 10% |
 | 修復成功率 | outcome=success 的比例 | > 90% |
 
+## Memory MCP 整合
+
+除了存入 `.claude/memory/lessons/`，也同步到 Memory MCP 以加速搜尋：
+
+```python
+# 記錄失敗到 SQLite（供跨專案搜尋）
+failure_record({
+    "error_pattern": "[錯誤類型，如 TypeError: Cannot read properties]",
+    "error_message": "[完整錯誤訊息]",
+    "solution": "[採取的解決方案]",
+    "skill_name": "evolve",
+    "project_path": "/path/to/project"
+})
+```
+
+**效益**：
+- 下次遇到類似錯誤時，CP1 的 `failure_search` 可快速找到解法
+- 跨專案共享失敗經驗，避免在不同專案重複踩坑
+- FTS5 搜尋比 Grep 快 5-6x，Token 節省 91%
+
 ## 護欄
 
 - ❌ 不可跳過 CP5（失敗後必須執行）
@@ -194,3 +214,4 @@ Plan 階段應考慮：
 - ❌ 不可重複相同 root_cause 超過 3 次（必須系統性解決）
 - ✅ 每個 Lesson 必須有 tags 方便搜尋
 - ✅ 每個 Lesson 必須記錄 time_to_fix 用於效率分析
+- ✅ 同步到 Memory MCP 以加速跨專案搜尋（若可用）

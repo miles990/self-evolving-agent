@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [Memory MCP 整合設計](learnings/2026-01-16-memory-mcp-integration.md) - memory, mcp, integration, sqlite, evolve
 - [Galgame Skill 通用化經驗](learnings/2026-01-13-galgame-skill-generalization.md) - skill-design, generalization, galgame, character-design, abstraction
 - [Flame Game Engine Skill 開發](learnings/2026-01-12-flame-game-engine-skill.md) - flame, flutter, dart, 2d-games, skill-creation
 - ~~[skillpkg 分層載入機制研究](learnings/2026-01-12-skillpkg-layered-loading-research.md)~~ - ⚠️ 已封存 (skillpkg 已棄用)
@@ -21,6 +22,12 @@
 - [Boris Cherny Claude Code Tips](learnings/2025-01-07-boris-cherny-claude-code-tips.md) - claude-code, best-practices, verification, subagents, large-codebase, file-suggestion
 - [Claude Starter Kit CLI](learnings/2025-01-07-claude-starter-kit-cli.md) - cli, scaffold, npx, multi-select domains
 <!-- LEARNINGS_END -->
+
+## 北極星與計劃
+<!-- PLANS_START -->
+- [北極星: SQLite Memory 系統](north-star/sqlite-memory-system.md) - sqlite, memory, ecosystem, token-optimization
+- [PDCA Plan: SQLite 統一架構](plans/sqlite-unified-architecture.md) - sqlite, mcp-server, skillpkg, architecture
+<!-- PLANS_END -->
 
 ## 重要決策
 <!-- DECISIONS_START -->
