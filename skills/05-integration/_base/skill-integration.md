@@ -4,14 +4,18 @@
 
 ## 智能安裝流程
 
-在習得新 skill 前，先檢查現有安裝狀態：
+在習得新 skill 前，先檢查現有安裝狀態和版本：
 
 ```
 Step 0: 檢查已安裝狀態
         Read("~/.claude/plugins/installed_plugins.json")
         Read("~/.claude/plugins/known_marketplaces.json")
                ↓
-        已安裝 → 直接使用 Skill({ skill: "..." })
+Step 1: 版本檢查（若已安裝）
+        比對 installed version vs marketplace latest version
+               ↓
+        已安裝且最新 → 直接使用
+        已安裝但過期 → /plugin update ...
         未安裝但有 marketplace → /plugin install ...
         無 marketplace → /plugin marketplace add ...
 ```
@@ -21,18 +25,41 @@ Step 0: 檢查已安裝狀態
 ```python
 # 讀取已安裝 plugins
 installed = Read("~/.claude/plugins/installed_plugins.json")
-# 結構: { "plugins": { "name@marketplace": [...] } }
+# 結構: { "plugins": { "name@marketplace": [{ "version": "x.y.z", ... }] } }
 
 # 讀取已添加 marketplaces
 marketplaces = Read("~/.claude/plugins/known_marketplaces.json")
-# 結構: { "marketplace-name": { "source": {...} } }
+# 結構: { "marketplace-name": { "source": {...}, "installLocation": "..." } }
+```
+
+### 版本檢查
+
+```python
+# 已安裝版本
+installed_version = installed["plugins"]["name@marketplace"][0]["version"]
+
+# 最新版本（從 marketplace 讀取）
+marketplace_path = marketplaces["marketplace-name"]["installLocation"]
+# 方式 1: 從 plugin.json 讀取
+latest = Read(f"{marketplace_path}/{plugin-name}/.claude-plugin/plugin.json")
+latest_version = latest["version"]
+
+# 方式 2: 從 marketplace.json 讀取
+marketplace_json = Read(f"{marketplace_path}/.claude-plugin/marketplace.json")
+latest_version = next(p["version"] for p in marketplace_json["plugins"] if p["name"] == plugin_name)
+
+# 比對
+if installed_version != latest_version:
+    print(f"⚠️ 有新版本可用: {installed_version} → {latest_version}")
+    # /plugin update {plugin-name}
 ```
 
 ### 智能決策
 
 | 狀態 | 行動 |
 |------|------|
-| Plugin 已安裝 | 直接使用 `Skill({ skill: "..." })` |
+| Plugin 已安裝且最新 | 直接使用 `Skill({ skill: "..." })` |
+| Plugin 已安裝但過期 | `/plugin update {name}` 後使用 |
 | Marketplace 已添加但 plugin 未安裝 | `/plugin install {name}@{marketplace}` |
 | Marketplace 未添加 | 先 `/plugin marketplace add ...` 再安裝 |
 | 找不到適合的 skill | WebSearch 搜尋或降級執行 |
@@ -101,18 +128,22 @@ Step 0: 檢查已安裝狀態
         Read("~/.claude/plugins/installed_plugins.json")
         → 檢查是否有 finance@claude-domain-skills
                     ↓
-Step 1: 若未安裝，檢查 marketplace
+Step 1: 版本檢查（若已安裝）
+        比對 installed.version vs marketplace latest version
+        → 過期則 /plugin update finance
+                    ↓
+Step 2: 若未安裝，檢查 marketplace
         Read("~/.claude/plugins/known_marketplaces.json")
         → 檢查是否有 claude-domain-skills
                     ↓
-Step 2: 安裝（若需要）
+Step 3: 安裝（若需要）
         /plugin marketplace add miles990/claude-domain-skills  # 若無
         /plugin install finance@claude-domain-skills
                     ↓
-Step 3: 使用 Skill
+Step 4: 使用 Skill
         Skill({ skill: "quant-trading" })
                     ↓
-Step 4: 帶著領域知識執行任務
+Step 5: 帶著領域知識執行任務
 ```
 
 ## 研究模式
