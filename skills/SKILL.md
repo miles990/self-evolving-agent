@@ -1,14 +1,14 @@
 ---
 name: evolve
-version: 5.0.0
+version: 5.1.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
-keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation]
 ---
 
-# Self-Evolving Agent v5.0.0
+# Self-Evolving Agent v5.1.0
 
-> **北極星錨定** → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → 直到成功
+> **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
 
 ## 快速導覽
 
@@ -73,19 +73,26 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ## 執行流程概覽
 
-**Self-Evolving Loop v4.5**
+**Self-Evolving Loop v5.1**
 
 1. 🌟 **CP0: 北極星錨定** — 願景、完成標準、不做清單、動機
-2. **PSB System** — Plan → Setup → Build（環境準備）
-3. **目標分析** — 深度訪談 + 架構等級判斷（Level 2 強制）
-4. **能力評估 → Skill 習得**
-5. **PDCA Cycle** — Plan → Do → Check → Act（含多策略選擇）
+2. 🔒 **CP0.5: Worktree 隔離**（條件觸發）— Level 2 / autonomous / 並行任務
+3. **PSB System** — Plan → Setup → Build（環境準備）
+4. **目標分析** — 深度訪談 + 架構等級判斷（Level 2 強制）
+5. **能力評估 → Skill 習得**
+6. **PDCA Cycle** — Plan → Do → Check → Act（含多策略選擇）
    - CP3: 方向校正（對照北極星）
-6. **Git-based Memory** — 記錄學習經驗
-7. 🏥 **CP6: 專案健檢**（每 5 次迭代）— Scope、方向、終止檢查
+7. **Git-based Memory** — 記錄學習經驗
+8. 🏥 **CP6: 專案健檢**（每 5 次迭代）— Scope、方向、終止檢查
+9. 🏁 **CP6.5: Worktree 完成**（條件觸發）— 合併/清理
 
 ↻ 重複直到：目標達成 或 達到最大迭代次數
 
+> 💡 **v5.1 新增**：Worktree 隔離環境 — 高風險任務的安全邊界
+> - CP0.5：Worktree 準備 → [02-checkpoints/_base/cp0.5-worktree-setup.md](./02-checkpoints/_base/cp0.5-worktree-setup.md)
+> - CP6.5：Worktree 完成 → [02-checkpoints/_base/cp6.5-worktree-completion.md](./02-checkpoints/_base/cp6.5-worktree-completion.md)
+> - 概述：[06-scaling/_base/isolated-environments.md](./06-scaling/_base/isolated-environments.md)
+>
 > 💡 **v4.4 新增**：北極星系統 — 解決「做到後面迷失方向」的問題
 > - CP0：北極星錨定 → [02-checkpoints/_base/cp0-north-star.md](./02-checkpoints/_base/cp0-north-star.md)
 > - CP3：方向校正 → [02-checkpoints/_base/cp3-milestone-confirm.md](./02-checkpoints/_base/cp3-milestone-confirm.md)
@@ -111,6 +118,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | 檢查點 | 時機 | 動作 |
 |--------|------|------|
 | **CP0** 🌟 | 專案/任務開始前 | 北極星錨定（建立或讀取） |
+| **CP0.5** 🔒 | CP0 後（條件觸發） | Worktree 隔離環境準備 |
 | **CP1** | 任務開始前 | 搜尋 .claude/memory/ 查找相關經驗 |
 | **CP1.5** | 寫程式碼前 | 一致性檢查（兩階段） |
 | **CP2** | 程式碼變更後 | 編譯 + 測試驗證 |
@@ -119,6 +127,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | **CP4** | 迭代完成後 | 涌現機會檢查（選擇性） |
 | **CP5** | PDCA Check 失敗時 | 失敗後驗屍，生成結構化 Lesson |
 | **CP6** 🏥 | 每 5 次迭代後 | 專案健檢（Scope、方向、終止檢查） |
+| **CP6.5** 🏁 | 任務完成時（條件觸發） | Worktree 合併/清理 |
 
 ### CP1.5 兩階段設計
 
