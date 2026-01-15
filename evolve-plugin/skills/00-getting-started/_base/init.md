@@ -9,7 +9,7 @@
 | ✅ | Git Repo | 版本控制 |
 | ✅ | `.claude/memory/` | 記憶儲存 |
 | 建議 | `CLAUDE.md` | 專案約束 |
-| 可選 | MCP 配置 | 擴展能力（skillpkg, context7） |
+| 可選 | MCP 配置 | 擴展能力（context7, PAL） |
 
 ## 記憶系統初始化
 

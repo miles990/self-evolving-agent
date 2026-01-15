@@ -207,29 +207,29 @@ EOF
 
 ## 整合問題
 
-### skillpkg 找不到 skill
+### Plugin 安裝失敗
 
-**症狀**: `skillpkg install` 失敗
+**症狀**: `/plugin install` 失敗
 
 **解決方案**:
 
-1. **確認 source 格式**
+1. **確認 marketplace 已添加**
    ```bash
-   # 正確格式
-   skillpkg install github:miles990/self-evolving-agent
+   # 先添加 marketplace
+   /plugin marketplace add miles990/evolve-plugin
 
-   # 錯誤格式
-   skillpkg install self-evolving-agent  # 缺少 source prefix
+   # 再安裝
+   /plugin install evolve@evolve-plugin
    ```
 
 2. **檢查網路**
    ```bash
-   curl -I https://github.com/miles990/self-evolving-agent
+   curl -I https://github.com/miles990/evolve-plugin
    ```
 
 ### MCP 工具無法使用
 
-**症狀**: skillpkg、PAL、spec-workflow 工具不可用
+**症狀**: PAL、spec-workflow 工具不可用
 
 **解決方案**:
 

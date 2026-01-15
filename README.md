@@ -94,12 +94,6 @@ git clone https://github.com/miles990/self-evolving-agent.git
 cp -r self-evolving-agent/skills /path/to/your/project/.claude/skills/evolve
 ```
 
-**Use with [skillpkg](https://github.com/anthropics/skillpkg)** — Claude Code 的 skill 套件管理器
-
-```bash
-skillpkg install github:miles990/self-evolving-agent
-```
-
 ## 核心哲學
 
 > 給定目標，自主迭代直到完成。從失敗中學習，記憶經驗。北極星錨定，避免迷失方向。
@@ -130,7 +124,6 @@ skillpkg install github:miles990/self-evolving-agent
 | [claude-starter-kit](https://github.com/miles990/claude-starter-kit) | CLI 工具，快速初始化專案（內建此 skill） |
 | [claude-domain-skills](https://github.com/miles990/claude-domain-skills) | 16 non-technical domain skills |
 | [claude-software-skills](https://github.com/miles990/claude-software-skills) | Software development skills |
-| [skillpkg](https://github.com/anthropics/skillpkg) | Skill package manager |
 
 **References**
 

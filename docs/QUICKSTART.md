@@ -17,10 +17,14 @@ curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/i
 curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/install.sh | bash -s -- --target /path/to/project
 ```
 
-### 方法二：skillpkg
+### 方法二：Plugin（推薦）
 
 ```bash
-skillpkg install github:miles990/self-evolving-agent
+# 添加 marketplace
+/plugin marketplace add miles990/evolve-plugin
+
+# 安裝
+/plugin install evolve@evolve-plugin
 ```
 
 ### 方法三：手動安裝

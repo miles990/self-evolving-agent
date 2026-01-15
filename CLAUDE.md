@@ -11,7 +11,7 @@
 - **語言**: Markdown (Skill 定義)、Bash (腳本)
 - **架構**: 原子化模組設計
 - **記憶系統**: Git-based (.claude/memory/)
-- **整合**: skillpkg MCP、PAL MCP、spec-workflow MCP
+- **整合**: PAL MCP、spec-workflow MCP、Claude Code Plugin
 
 ## 目錄結構
 

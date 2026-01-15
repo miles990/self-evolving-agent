@@ -12,7 +12,7 @@
 - [ ] **3. CLAUDE.md 已配置**：專案規範、技術棧、約定
 - [ ] **4. 記憶系統已初始化**：`.claude/memory/` + `index.md`
 - [ ] **5. 自動化文件**（可選）：架構文件、變更日誌
-- [ ] **6. MCP 連接**（可選）：skillpkg、context7、PAL
+- [ ] **6. MCP 連接**（可選）：context7、PAL
 - [ ] **7. Slash Commands**（可選）：/evolve 等觸發詞
 - [ ] **8. 權限配置**（推薦）：`/permissions` 精細管理
 

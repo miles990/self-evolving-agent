@@ -4,6 +4,8 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [skillpkg Archive 與 Plugin Migration](learnings/2026-01-15-skillpkg-archive-and-plugin-migration.md) - skillpkg, plugin, migration, archive, claude-code
+- [Galgame Skill 通用化經驗](learnings/2026-01-13-galgame-skill-generalization.md) - skill-design, generalization, galgame, character-design, abstraction
 - [Flame Game Engine Skill 開發](learnings/2026-01-12-flame-game-engine-skill.md) - flame, flutter, dart, 2d-games, skill-creation
 - [skillpkg 分層載入機制研究](learnings/2026-01-12-skillpkg-layered-loading-research.md) - skillpkg, layered-loading, token-optimization, architecture
 - [Evolve Token 優化研究](learnings/2026-01-12-evolve-token-optimization.md) - evolve, token, optimization, skillpkg

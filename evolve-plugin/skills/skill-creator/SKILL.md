@@ -126,3 +126,29 @@ GitHub: https://github.com/<user>/<repo>
 ```bash
 ./scripts/publish-skill.sh <skill-directory> [--new-repo]
 ```
+
+## Plugin 格式轉換
+
+將 Skills 倉庫轉換為 Claude Code Plugin Marketplace 格式：
+
+```bash
+./scripts/convert-to-plugin.sh <skills-repo-path> [--marketplace|--category]
+```
+
+**模式：**
+- `--marketplace`：建立 marketplace.json，頂層目錄成為 plugin（推薦）
+- `--category`：為每個頂層分類建立獨立的 plugin.json
+
+**範例：**
+```bash
+# 轉換整個 Skills 倉庫為 marketplace
+./scripts/convert-to-plugin.sh ~/Workspace/my-skills --marketplace
+
+# 輸出：
+# ✅ marketplace.json 已建立
+# ✅ 各分類 plugin.json 已建立
+#
+# 安裝指令:
+#   /plugin marketplace add <user>/my-skills
+#   /plugin install <plugin-name>@my-skills
+```

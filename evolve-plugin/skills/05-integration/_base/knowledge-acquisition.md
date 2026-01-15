@@ -167,17 +167,13 @@ PDCA Check 失敗: 不知道如何設計量子閘
 
 ## 載入方式
 
-```python
-# 安裝（如果尚未安裝）
-mcp__skillpkg__install_skill({
-    "source": "github:miles990/claude-domain-skills#methodology/knowledge-acquisition-4c",
-    "scope": "global"
-})
+```bash
+# 使用 Plugin 安裝
+/plugin marketplace add miles990/claude-domain-skills
+/plugin install knowledge-acquisition-4c@claude-domain-skills
 
-# 載入
-mcp__skillpkg__load_skill({
-    "id": "knowledge-acquisition-4c"
-})
+# 或使用 Skill 工具載入
+Skill({ skill: "knowledge-acquisition-4c" })
 ```
 
 ## 注意事項

@@ -65,10 +65,11 @@ Grep(
 
 若有能力差距，嘗試習得：
 
-```python
-# 搜尋可用的 skill
-mcp__skillpkg__search_skills({
-    "query": "[能力關鍵字]",
-    "source": "all"
-})
+```bash
+# 使用 Claude Code Plugin 搜尋
+/plugin
+# → 選擇 Discover tab 搜尋相關 skill
+
+# 或使用 WebSearch
+WebSearch({ query: "Claude Code skill [能力關鍵字]" })
 ```
