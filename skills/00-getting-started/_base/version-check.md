@@ -345,4 +345,3 @@ CP1 ~ CP6 ...
 
 - [PSB 環境準備](./psb-setup.md)
 - [GitHub: self-evolving-agent](https://github.com/miles990/self-evolving-agent)
-- [GitHub: evolve-plugin](https://github.com/miles990/evolve-plugin)

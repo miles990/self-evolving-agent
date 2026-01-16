@@ -215,8 +215,8 @@ EOF
 
 1. **確認 marketplace 已添加**
    ```bash
-   # 先添加 marketplace
-   /plugin marketplace add miles990/evolve-plugin
+   # 先添加 marketplace（從 self-evolving-agent repo 的 evolve-plugin 子目錄）
+   /plugin marketplace add miles990/self-evolving-agent#evolve-plugin
 
    # 再安裝
    /plugin install evolve@evolve-plugin
@@ -224,7 +224,7 @@ EOF
 
 2. **檢查網路**
    ```bash
-   curl -I https://github.com/miles990/evolve-plugin
+   curl -I https://github.com/miles990/self-evolving-agent
    ```
 
 ### MCP 工具無法使用

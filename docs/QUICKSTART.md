@@ -20,8 +20,8 @@ curl -fsSL https://raw.githubusercontent.com/miles990/self-evolving-agent/main/i
 ### 方法二：Plugin（推薦）
 
 ```bash
-# 添加 marketplace
-/plugin marketplace add miles990/evolve-plugin
+# 添加 marketplace（從 self-evolving-agent repo 的 evolve-plugin 子目錄）
+/plugin marketplace add miles990/self-evolving-agent#evolve-plugin
 
 # 安裝
 /plugin install evolve@evolve-plugin
