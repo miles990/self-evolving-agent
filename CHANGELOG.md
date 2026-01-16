@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.5.0] - 2026-01-16
+
+### Added
+- **智能 Skill 生態系 MVP**
+  - 新增 `scripts/sync-skills.sh` 從 GitHub 同步 skill 索引到 sqlite-memory
+  - 新增 `skills/03-memory/_base/scope-detection.md` Scope 自動判斷指南
+  - 新增 `skills/05-integration/_base/skill-ecosystem.md` 生態系整合文檔
+  - 支援 78 個 skills（54 software + 24 domain）自動索引
+
+### Changed
+- **CP1 強化**：加入 Skill 推薦功能（自動搜尋並推薦相關 skill）
+
+### Features
+- 自動發現：從 GitHub repos 同步 skill metadata
+- 智能推薦：根據任務關鍵字推薦相關 skill
+- 經驗共享：透過 scope（global/project:xxx）實現跨專案學習
+
+---
+
 ## [5.4.0] - 2026-01-16
 
 ### Added
