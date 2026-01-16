@@ -9,6 +9,8 @@
 #   ./scripts/sync-skills.sh --software   # 只同步 software skills
 #   ./scripts/sync-skills.sh --domain     # 只同步 domain skills
 #   ./scripts/sync-skills.sh --list       # 列出已索引的 skills
+#   ./scripts/sync-skills.sh --local      # 強制使用本地 repo（如果存在）
+#   ./scripts/sync-skills.sh --remote     # 強制使用遠端 repo（clone 到 cache）
 
 set -e
 
@@ -17,6 +19,12 @@ CACHE_DIR="${HOME}/.claude/skill-cache"
 SOFTWARE_REPO="https://github.com/miles990/claude-software-skills.git"
 DOMAIN_REPO="https://github.com/miles990/claude-domain-skills.git"
 DB_PATH="${HOME}/.claude/claude.db"
+
+# 本地 repo 路徑（優先使用）
+# 會從 sqlite-memory 的 config:ecosystem-repos-locations 自動讀取
+# 或使用以下預設路徑
+LOCAL_SOFTWARE_REPO=""
+LOCAL_DOMAIN_REPO=""
 
 # 顏色
 RED='\033[0;31m'
@@ -32,6 +40,58 @@ log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
 # 確保快取目錄存在
 mkdir -p "$CACHE_DIR"
+
+# 從 sqlite-memory 讀取本地 repo 路徑
+detect_local_repos() {
+    if [[ ! -f "$DB_PATH" ]]; then
+        return 1
+    fi
+
+    local config_content
+    config_content=$(sqlite3 "$DB_PATH" "SELECT content FROM memory WHERE key = 'config:ecosystem-repos-locations';" 2>/dev/null) || return 1
+
+    if [[ -z "$config_content" ]]; then
+        return 1
+    fi
+
+    # 解析 config 中的路徑
+    local sw_path dm_path
+    sw_path=$(echo "$config_content" | grep -E "claude-software-skills:" | sed 's/.*claude-software-skills:[[:space:]]*//' | tr -d '\n\r')
+    dm_path=$(echo "$config_content" | grep -E "claude-domain-skills:" | sed 's/.*claude-domain-skills:[[:space:]]*//' | tr -d '\n\r')
+
+    # 驗證路徑存在
+    if [[ -n "$sw_path" ]] && [[ -d "$sw_path/.git" ]]; then
+        LOCAL_SOFTWARE_REPO="$sw_path"
+        log_info "偵測到本地 software-skills: $sw_path"
+    fi
+
+    if [[ -n "$dm_path" ]] && [[ -d "$dm_path/.git" ]]; then
+        LOCAL_DOMAIN_REPO="$dm_path"
+        log_info "偵測到本地 domain-skills: $dm_path"
+    fi
+}
+
+# 嘗試常見路徑
+try_common_paths() {
+    local common_paths=(
+        "${HOME}/Workspace"
+        "${HOME}/Projects"
+        "${HOME}/Code"
+        "${HOME}/Development"
+        "${HOME}/dev"
+    )
+
+    for base in "${common_paths[@]}"; do
+        if [[ -z "$LOCAL_SOFTWARE_REPO" ]] && [[ -d "${base}/claude-software-skills/.git" ]]; then
+            LOCAL_SOFTWARE_REPO="${base}/claude-software-skills"
+            log_info "找到本地 software-skills: $LOCAL_SOFTWARE_REPO"
+        fi
+        if [[ -z "$LOCAL_DOMAIN_REPO" ]] && [[ -d "${base}/claude-domain-skills/.git" ]]; then
+            LOCAL_DOMAIN_REPO="${base}/claude-domain-skills"
+            log_info "找到本地 domain-skills: $LOCAL_DOMAIN_REPO"
+        fi
+    done
+}
 
 # 轉義 SQL 字串中的單引號
 escape_sql() {
@@ -133,29 +193,67 @@ triggers: ${triggers}"
     return 0
 }
 
-# 同步單個 repo
+# 同步單個 repo（支援本地優先）
+# 輸出：將路徑寫入全域變數 SYNC_RESULT_PATH
 sync_repo() {
     local repo_url="$1"
     local repo_name="$2"
+    local local_path="$3"
+    local force_mode="$4"  # "local", "remote", or ""
     local cache_path="$CACHE_DIR/$repo_name"
 
     log_info "同步 $repo_name..."
 
-    if [[ -d "$cache_path" ]]; then
-        # 更新現有 repo
-        log_info "更新快取: $cache_path"
-        (cd "$cache_path" && git pull --quiet) || {
-            log_warn "更新失敗，重新克隆"
-            rm -rf "$cache_path"
-            git clone --quiet --depth 1 "$repo_url" "$cache_path"
-        }
+    # 決定使用哪個路徑
+    local use_path=""
+    local source_type=""
+
+    if [[ "$force_mode" == "local" ]]; then
+        # 強制本地模式
+        if [[ -n "$local_path" ]] && [[ -d "$local_path/.git" ]]; then
+            use_path="$local_path"
+            source_type="local (forced)"
+        else
+            log_error "本地 repo 不存在: $local_path"
+            return 1
+        fi
+    elif [[ "$force_mode" == "remote" ]]; then
+        # 強制遠端模式
+        use_path="$cache_path"
+        source_type="remote (forced)"
     else
-        # 克隆新 repo
-        log_info "克隆 repo: $repo_url"
-        git clone --quiet --depth 1 "$repo_url" "$cache_path"
+        # 自動模式：優先本地
+        if [[ -n "$local_path" ]] && [[ -d "$local_path/.git" ]]; then
+            use_path="$local_path"
+            source_type="local (auto)"
+            # 更新本地 repo
+            log_info "使用本地 repo，執行 git pull..."
+            (cd "$local_path" && git pull --quiet) || log_warn "git pull 失敗，使用現有版本"
+        else
+            use_path="$cache_path"
+            source_type="remote (auto)"
+        fi
     fi
 
-    log_success "同步完成: $repo_name"
+    # 如果使用 cache，需要 clone/pull
+    if [[ "$use_path" == "$cache_path" ]]; then
+        if [[ -d "$cache_path" ]]; then
+            log_info "更新快取: $cache_path"
+            (cd "$cache_path" && git pull --quiet) || {
+                log_warn "更新失敗，重新克隆"
+                rm -rf "$cache_path"
+                git clone --quiet --depth 1 "$repo_url" "$cache_path"
+            }
+        else
+            log_info "克隆 repo: $repo_url"
+            git clone --quiet --depth 1 "$repo_url" "$cache_path"
+        fi
+    fi
+
+    log_success "同步完成: $repo_name [$source_type]"
+
+    # 使用全域變數返回路徑（避免與 log 輸出混淆）
+    SYNC_RESULT_PATH="$use_path"
 }
 
 # 索引 skills 到 sqlite-memory
@@ -184,7 +282,9 @@ index_skills() {
     done < <(find "$cache_path" -name "SKILL.md" -type f 2>/dev/null)
 
     log_success "索引完成: $count skills"
-    echo "$count"
+
+    # 使用全域變數返回數量（避免與 log 輸出混淆）
+    INDEX_RESULT_COUNT=$count
 }
 
 # 列出已索引的 skills
@@ -221,6 +321,7 @@ main() {
     local sync_domain=false
     local list_only=false
     local clear_only=false
+    local force_mode=""  # "", "local", "remote"
 
     # 解析參數
     while [[ $# -gt 0 ]]; do
@@ -241,6 +342,14 @@ main() {
                 clear_only=true
                 shift
                 ;;
+            --local)
+                force_mode="local"
+                shift
+                ;;
+            --remote)
+                force_mode="remote"
+                shift
+                ;;
             --help|-h)
                 echo "用法: $0 [選項]"
                 echo ""
@@ -249,7 +358,14 @@ main() {
                 echo "  --domain     只同步 domain skills"
                 echo "  --list       列出已索引的 skills"
                 echo "  --clear      清除所有索引"
+                echo "  --local      強制使用本地 repo"
+                echo "  --remote     強制使用遠端 repo（clone 到 cache）"
                 echo "  --help       顯示此幫助"
+                echo ""
+                echo "自動偵測優先順序："
+                echo "  1. sqlite-memory config:ecosystem-repos-locations"
+                echo "  2. 常見開發目錄（~/Workspace, ~/Projects 等）"
+                echo "  3. skill-cache（從 GitHub clone）"
                 exit 0
                 ;;
             *)
@@ -276,6 +392,14 @@ main() {
         exit 0
     fi
 
+    # 自動偵測本地 repo（除非強制遠端模式）
+    if [[ "$force_mode" != "remote" ]]; then
+        log_info "偵測本地 repo..."
+        detect_local_repos
+        try_common_paths
+        echo ""
+    fi
+
     # 如果沒有指定，同步所有
     if ! $sync_software && ! $sync_domain; then
         sync_software=true
@@ -285,21 +409,21 @@ main() {
     local total=0
 
     if $sync_software; then
-        sync_repo "$SOFTWARE_REPO" "claude-software-skills"
-        local sw_count
-        sw_count=$(index_skills "$CACHE_DIR/claude-software-skills" "claude-software-skills")
-        ((total += sw_count)) || true
+        sync_repo "$SOFTWARE_REPO" "claude-software-skills" "$LOCAL_SOFTWARE_REPO" "$force_mode"
+        local sw_path="$SYNC_RESULT_PATH"
+        index_skills "$sw_path" "claude-software-skills"
+        ((total += INDEX_RESULT_COUNT)) || true
     fi
 
     if $sync_domain; then
-        sync_repo "$DOMAIN_REPO" "claude-domain-skills"
-        local dm_count
-        dm_count=$(index_skills "$CACHE_DIR/claude-domain-skills" "claude-domain-skills")
-        ((total += dm_count)) || true
+        sync_repo "$DOMAIN_REPO" "claude-domain-skills" "$LOCAL_DOMAIN_REPO" "$force_mode"
+        local dm_path="$SYNC_RESULT_PATH"
+        index_skills "$dm_path" "claude-domain-skills"
+        ((total += INDEX_RESULT_COUNT)) || true
     fi
 
     echo ""
-    log_success "同步完成！"
+    log_success "同步完成！共 $total 個 skills"
     log_info "使用 memory_search 搜尋 skills"
 }
 
