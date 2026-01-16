@@ -163,6 +163,22 @@ PATCH = Bug 修復
 
 ## Step 5: 執行更新
 
+### ⚠️ 重要：不要在背景執行更新
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚠️ 警告：/plugin 命令需要互動式終端                            │
+│                                                                 │
+│  /plugin install 和 /plugin update 命令：                       │
+│  • 可能需要用戶確認                                             │
+│  • 無法在背景進程中執行                                         │
+│  • 在背景執行會導致進程卡住                                     │
+│                                                                 │
+│  ✅ 正確做法：提示用戶手動執行命令                              │
+│  ❌ 錯誤做法：使用 Bash 工具在背景執行 /plugin 命令             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ### 更新方式判斷
 
 ```
@@ -175,25 +191,39 @@ PATCH = Bug 修復
 │  ↓    ↓                ↓                                        │
 │ Git  Plugin        手動複製                                     │
 │  ↓    ↓                ↓                                        │
-│ pull reinstall    提示手動更新                                  │
+│ pull 提示手動執行  提示手動更新                                  │
+│      /plugin                                                    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### 方式 A：Git 更新
+### 方式 A：Git 更新（可自動執行）
 
 ```bash
-# 若是 git clone 安裝
+# 若是 git clone 安裝，可以自動執行
 cd /path/to/self-evolving-agent
 git fetch origin
 git pull origin main
 ```
 
-### 方式 B：Claude Code Plugin 更新（推薦）
+### 方式 B：Claude Code Plugin 更新（僅提示）
 
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  📋 請手動執行以下命令更新 plugin：                              │
+│                                                                 │
+│  /plugin update evolve@evolve-plugin                            │
+│                                                                 │
+│  或重新安裝：                                                   │
+│  /plugin install evolve@evolve-plugin                           │
+│                                                                 │
+│  ⚠️ 這些命令必須由用戶在終端機中手動輸入執行                    │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**絕對禁止**：
 ```bash
-# 若透過 Plugin Marketplace 安裝
-# 重新安裝以取得最新版本：
-/plugin install evolve@evolve-plugin
+# ❌ 不要這樣做 - 會導致進程卡住
+claude /plugin update evolve@evolve-plugin  # 禁止！
 ```
 
 ## 更新後驗證
@@ -288,13 +318,16 @@ evolve:
 }
 ```
 
-### 自動更新（不詢問）
+### 自動更新（僅限 Git 安裝）
 
 ```yaml
 # CLAUDE.md
 evolve:
-  auto_update: true  # 自動更新，不詢問
+  auto_update: true  # 自動執行 git pull（僅限 Git 安裝）
 ```
+
+> ⚠️ **注意**：自動更新僅對 Git 安裝方式有效。
+> Plugin 安裝方式無法自動更新，會改為提示用戶手動執行。
 
 ## 與其他檢查點的關係
 
