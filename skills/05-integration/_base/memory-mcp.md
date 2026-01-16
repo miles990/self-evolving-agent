@@ -200,27 +200,20 @@ npm install && npm run build
 
 ## 配置
 
-在 `~/.claude/.mcp.json` 加入：
+使用 CLI 安裝（推薦）：
 
-```json
-{
-  "mcpServers": {
-    "memory": {
-      "command": "npx",
-      "args": ["sqlite-memory-mcp"]
-    }
-  }
-}
+```bash
+claude mcp add --transport stdio --scope user sqlite-memory -- npx sqlite-memory-mcp
 ```
 
-或如果從源碼安裝：
+或在專案 `.mcp.json` 加入：
 
 ```json
 {
   "mcpServers": {
-    "memory": {
-      "command": "node",
-      "args": ["/path/to/claude-memory-mcp/dist/index.js"]
+    "sqlite-memory": {
+      "command": "npx",
+      "args": ["sqlite-memory-mcp"]
     }
   }
 }
