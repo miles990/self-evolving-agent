@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.6.0] - 2026-01-17
+
+### Changed
+- **Plugin 架構簡化**
+  - 整合 `evolve-plugin/` 子目錄到根目錄
+  - `.claude-plugin/` 現在直接在 repo 根目錄
+  - 安裝方式簡化為 `/plugin marketplace add miles990/self-evolving-agent`
+
+### Updated
+- **Marketplace 名稱變更**
+  - 舊：`/plugin marketplace add miles990/self-evolving-agent#evolve-plugin`
+  - 新：`/plugin marketplace add miles990/self-evolving-agent`
+  - 舊：`/plugin install evolve@evolve-plugin`
+  - 新：`/plugin install evolve@self-evolving-agent`
+
+### Fixed
+- 更新所有文檔中的 marketplace 引用
+- 更新版本腳本 (update-version.sh, check-version.sh) 指向正確路徑
+
+---
+
 ## [5.5.0] - 2026-01-16
 
 ### Added

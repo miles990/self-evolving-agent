@@ -14,9 +14,8 @@ echo ""
 # 檔案列表
 FILES=(
   "skills/SKILL.md"
-  "evolve-plugin/skills/SKILL.md"
-  "evolve-plugin/.claude-plugin/plugin.json"
-  "evolve-plugin/.claude-plugin/marketplace.json"
+  ".claude-plugin/plugin.json"
+  ".claude-plugin/marketplace.json"
 )
 
 # 收集所有版本

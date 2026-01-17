@@ -82,7 +82,7 @@ if installed_version != latest_version:
 | `claude-plugins-official` | 官方工具 | 預設已添加 |
 | `miles990/claude-software-skills` | 軟體開發 | `/plugin marketplace add miles990/claude-software-skills` |
 | `miles990/claude-domain-skills` | 領域知識 | `/plugin marketplace add miles990/claude-domain-skills` |
-| `miles990/self-evolving-agent#evolve-plugin` | 自我進化 | `/plugin marketplace add miles990/self-evolving-agent#evolve-plugin` |
+| `miles990/self-evolving-agent` | 自我進化 | `/plugin marketplace add miles990/self-evolving-agent` |
 
 ## 基本操作
 

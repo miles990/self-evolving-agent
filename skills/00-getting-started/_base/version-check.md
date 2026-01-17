@@ -82,7 +82,7 @@ grep "^version:" /path/to/skills/SKILL.md | head -1
 
 ```bash
 # 檢查 Claude Code Plugin 安裝路徑
-cat ~/.claude/plugins/installed_plugins.json | jq '.plugins["evolve@evolve-plugin"]'
+cat ~/.claude/plugins/installed_plugins.json | jq '.plugins["evolve@self-evolving-agent"]'
 # 輸出會包含 version 欄位
 ```
 
@@ -105,7 +105,7 @@ cat ~/.claude/plugins/installed_plugins.json | jq '.plugins["evolve@evolve-plugi
 3. **marketplace.json**
    ```bash
    # 取得 plugin 版本
-   curl -s https://raw.githubusercontent.com/miles990/self-evolving-agent/main/evolve-plugin/.claude-plugin/marketplace.json | jq -r '.plugins[0].version'
+   curl -s https://raw.githubusercontent.com/miles990/self-evolving-agent/main/.claude-plugin/marketplace.json | jq -r '.plugins[0].version'
    ```
 
 ## Step 3: 版本比較
@@ -211,10 +211,10 @@ git pull origin main
 ┌─────────────────────────────────────────────────────────────────┐
 │  📋 請手動執行以下命令更新 plugin：                              │
 │                                                                 │
-│  /plugin update evolve@evolve-plugin                            │
+│  /plugin update evolve@self-evolving-agent                            │
 │                                                                 │
 │  或重新安裝：                                                   │
-│  /plugin install evolve@evolve-plugin                           │
+│  /plugin install evolve@self-evolving-agent                           │
 │                                                                 │
 │  ⚠️ 這些命令必須由用戶在終端機中手動輸入執行                    │
 └─────────────────────────────────────────────────────────────────┘
@@ -223,7 +223,7 @@ git pull origin main
 **絕對禁止**：
 ```bash
 # ❌ 不要這樣做 - 會導致進程卡住
-claude /plugin update evolve@evolve-plugin  # 禁止！
+claude /plugin update evolve@self-evolving-agent  # 禁止！
 ```
 
 ## 更新後驗證
@@ -291,7 +291,7 @@ version: 5.1.0
 │                                                                 │
 │  建議：                                                         │
 │  • 手動執行：git pull origin main                              │
-│  • 或重新安裝：/plugin install evolve@evolve-plugin            │
+│  • 或重新安裝：/plugin install evolve@self-evolving-agent            │
 │                                                                 │
 │  → 繼續使用當前版本執行任務                                     │
 └─────────────────────────────────────────────────────────────────┘

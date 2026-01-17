@@ -14,9 +14,8 @@ if [ -z "$NEW_VERSION" ]; then
   echo ""
   echo "會更新以下檔案:"
   echo "  - skills/SKILL.md"
-  echo "  - evolve-plugin/skills/SKILL.md"
-  echo "  - evolve-plugin/.claude-plugin/plugin.json"
-  echo "  - evolve-plugin/.claude-plugin/marketplace.json"
+  echo "  - .claude-plugin/plugin.json"
+  echo "  - .claude-plugin/marketplace.json"
   exit 1
 fi
 
@@ -36,9 +35,8 @@ echo ""
 # 檔案列表
 FILES=(
   "skills/SKILL.md"
-  "evolve-plugin/skills/SKILL.md"
-  "evolve-plugin/.claude-plugin/plugin.json"
-  "evolve-plugin/.claude-plugin/marketplace.json"
+  ".claude-plugin/plugin.json"
+  ".claude-plugin/marketplace.json"
 )
 
 # 顯示當前版本
@@ -57,17 +55,13 @@ echo "📝 更新 skills/SKILL.md..."
 sed -i '' "s/^version: [0-9]\+\.[0-9]\+\.[0-9]\+$/version: $NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
 sed -i '' "s/Self-Evolving Agent v[0-9]\+\.[0-9]\+\.[0-9]\+/Self-Evolving Agent v$NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
 
-# 同步到 evolve-plugin/skills/SKILL.md
-echo "📝 同步 evolve-plugin/skills/SKILL.md..."
-cp "$REPO_ROOT/skills/SKILL.md" "$REPO_ROOT/evolve-plugin/skills/SKILL.md"
+# 更新 .claude-plugin/plugin.json
+echo "📝 更新 .claude-plugin/plugin.json..."
+sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/plugin.json"
 
-# 更新 evolve-plugin/.claude-plugin/plugin.json
-echo "📝 更新 evolve-plugin/.claude-plugin/plugin.json..."
-sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/evolve-plugin/.claude-plugin/plugin.json"
-
-# 更新 evolve-plugin/.claude-plugin/marketplace.json
-echo "📝 更新 evolve-plugin/.claude-plugin/marketplace.json..."
-sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/evolve-plugin/.claude-plugin/marketplace.json"
+# 更新 .claude-plugin/marketplace.json
+echo "📝 更新 .claude-plugin/marketplace.json..."
+sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/marketplace.json"
 
 echo ""
 echo "✅ 版本更新完成！"
