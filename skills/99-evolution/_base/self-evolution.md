@@ -2,6 +2,48 @@
 
 > 讓系統從「會做」進化到「會教自己怎麼做」
 
+## 調整 Evolve Skill 流程
+
+**當用戶說「調整 evolve skill」時，必須遵循以下流程：**
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Evolve Skill 修改流程（不可跳過）                               │
+│                                                                 │
+│  1. 🔴 在本地 self-evolving-agent 專案修改                      │
+│     - 確認當前目錄是 self-evolving-agent                        │
+│     - 直接編輯 skills/ 下的相關檔案                             │
+│                                                                 │
+│  2. 驗證修改                                                    │
+│     - 檢查語法和格式正確                                        │
+│     - 確認邏輯一致性                                            │
+│                                                                 │
+│  3. Commit & Push                                               │
+│     - git add <modified files>                                  │
+│     - git commit -m "feat/fix/docs: 描述變更"                   │
+│     - git push                                                  │
+│                                                                 │
+│  4. 🟢 從遠端更新（在其他使用專案中）                           │
+│     - 若在其他專案使用 evolve skill，需從遠端抓取更新           │
+│     - /plugin marketplace update evolve-plugin                  │
+│     - 或手動 git pull self-evolving-agent repo                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+> ⚠️ **重要**：不要直接修改 `~/.claude/plugins/` 中的檔案，
+> 永遠在 self-evolving-agent 本地專案中修改後再同步。
+
+### 修改前確認清單
+
+- [ ] 確認在 self-evolving-agent 專案目錄中
+- [ ] 確認要修改的檔案路徑
+- [ ] 了解變更的影響範圍
+
+### 修改後確認清單
+
+- [ ] 變更已 commit 並 push
+- [ ] 在需要的專案中更新到最新版本
+
 ## 四大自我進化能力
 
 | 能力 | 說明 | 觸發時機 |
