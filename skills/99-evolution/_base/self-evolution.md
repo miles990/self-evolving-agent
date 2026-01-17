@@ -23,15 +23,51 @@
 │     - git commit -m "feat/fix/docs: 描述變更"                   │
 │     - git push                                                  │
 │                                                                 │
-│  4. 🟢 從遠端更新（在其他使用專案中）                           │
-│     - 若在其他專案使用 evolve skill，需從遠端抓取更新           │
-│     - /plugin marketplace update evolve-plugin                  │
-│     - 或手動 git pull self-evolving-agent repo                  │
+│  4. 🟢 使用 Plugin Marketplace 更新（優先方式）                 │
+│     a) 更新 marketplace 索引                                    │
+│        /plugin marketplace update                               │
+│                                                                 │
+│     b) 更新 evolve plugin                                       │
+│        /plugin update evolve@evolve-plugin                      │
+│                                                                 │
+│     c) 驗證更新成功                                             │
+│        /plugin list → 確認版本號已更新                          │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-> ⚠️ **重要**：不要直接修改 `~/.claude/plugins/` 中的檔案，
-> 永遠在 self-evolving-agent 本地專案中修改後再同步。
+> ⚠️ **重要**：
+> - 不要直接修改 `~/.claude/plugins/` 中的檔案
+> - 永遠在 self-evolving-agent 本地專案中修改後再同步
+> - **優先使用 Plugin Marketplace 來控管版本更新**
+
+### Plugin Marketplace 控管指令
+
+| 操作 | 指令 |
+|------|------|
+| 更新 marketplace 索引 | `/plugin marketplace update` |
+| 更新 evolve plugin | `/plugin update evolve@evolve-plugin` |
+| 查看已安裝版本 | `/plugin list` |
+| 查看 plugin 詳情 | `/plugin info evolve@evolve-plugin` |
+
+### 版本控管最佳實踐
+
+```
+修改完成後的標準流程：
+
+1. 更新 marketplace.json 版本號（若有重大變更）
+   skills/evolve-plugin/.claude-plugin/marketplace.json
+   → "version": "x.y.z"
+
+2. Commit & Push 到 GitHub
+
+3. 在目標專案中執行更新
+   /plugin marketplace update
+   /plugin update evolve@evolve-plugin
+
+4. 確認更新成功
+   /plugin list
+   → evolve@evolve-plugin vX.Y.Z ✓
+```
 
 ### 修改前確認清單
 
@@ -42,7 +78,10 @@
 ### 修改後確認清單
 
 - [ ] 變更已 commit 並 push
-- [ ] 在需要的專案中更新到最新版本
+- [ ] marketplace.json 版本號已更新（若為重大變更）
+- [ ] 使用 `/plugin marketplace update` 更新索引
+- [ ] 使用 `/plugin update` 更新到最新版本
+- [ ] 使用 `/plugin list` 確認版本正確
 
 ## 四大自我進化能力
 
