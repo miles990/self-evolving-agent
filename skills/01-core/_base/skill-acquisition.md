@@ -2,6 +2,18 @@
 
 > 遇到無法完成的任務時，自動搜尋並學習新技能
 
+## 「Skill 庫」定義
+
+**當用戶提到「skill 庫」時，專指以下兩個 repo：**
+
+| 優先順序 | Repo | 領域 | 連結 |
+|---------|------|------|------|
+| 1 | **claude-software-skills** | 軟體開發 | https://github.com/miles990/claude-software-skills |
+| 2 | **claude-domain-skills** | 專業領域 | https://github.com/miles990/claude-domain-skills |
+
+> ⚠️ **重要**：搜尋 skill 時**必須先在這兩個 repo 搜尋**。
+> 只有**確認都找不到後**，才詢問用戶是否透過其他管道（如 WebSearch、Context7、其他 marketplace）尋找。
+
 ## 習得流程
 
 ```
@@ -17,11 +29,19 @@
 │     - 有經驗 → 直接應用                                         │
 │     - 無經驗 → 繼續步驟 3                                       │
 │                                                                 │
-│  3. 搜尋可用 Skill（優先搜尋 priority repos）                   │
-│     search_skills({ query: "Y", source: "priority" })           │
-│     - 優先搜尋 miles990/claude-software-skills                  │
-│     - 優先搜尋 miles990/claude-domain-skills                    │
-│     - 評估推薦的 skill 是否適用                                 │
+│  3. 🔴 優先搜尋「Skill 庫」（必須先執行）                       │
+│     search_skills({ query: "Y", source: "skill-library" })      │
+│     a) 先搜尋 miles990/claude-software-skills                   │
+│     b) 再搜尋 miles990/claude-domain-skills                     │
+│     c) 評估推薦的 skill 是否適用                                │
+│        - 找到適用 → 步驟 4                                      │
+│        - 確認都沒找到 → 步驟 3.5                                │
+│                                                                 │
+│  3.5 🟡 詢問用戶其他管道（僅在 skill 庫找不到時）               │
+│      「在 skill 庫中未找到適合的 skill，是否要：」              │
+│      - WebSearch 搜尋其他 skill                                 │
+│      - 詢問其他 marketplace                                     │
+│      - 繼續使用現有知識嘗試                                     │
 │                                                                 │
 │  4. 安裝 Skill                                                  │
 │     install_skill({ source: "best-skill-name" })                │
@@ -50,18 +70,35 @@
 ```
 用戶任務：「幫我建立一個量化交易回測系統」
 
-Step 1: search_skills({ query: "量化交易", source: "priority" })
-        → 優先搜尋 miles990/claude-software-skills
-        → 優先搜尋 miles990/claude-domain-skills
+Step 1: 🔴 先搜尋 Skill 庫
+        search_skills({ query: "量化交易", source: "skill-library" })
+        → 第一順位：搜尋 miles990/claude-software-skills
+        → 第二順位：搜尋 miles990/claude-domain-skills
         → 分析關鍵詞：量化、交易、回測
 
 Step 2: 獲得推薦結果
-        domain_skills: quant-trading (from claude-domain-skills)
-        software_skills: python, database (from claude-software-skills)
+        domain_skills: quant-trading (from claude-domain-skills) ✓
+        software_skills: python, database (from claude-software-skills) ✓
+        → 在 skill 庫找到！直接進入安裝步驟
 
 Step 3: 安裝並載入
         install_skill({ source: "github:miles990/claude-domain-skills#finance/quant-trading" })
         load_skill("quant-trading")
+
+---
+
+用戶任務：「幫我建立一個火星殖民模擬器」
+
+Step 1: 🔴 先搜尋 Skill 庫
+        search_skills({ query: "火星殖民模擬", source: "skill-library" })
+        → 搜尋 claude-software-skills... 無匹配
+        → 搜尋 claude-domain-skills... 無匹配
+
+Step 2: 🟡 確認未找到，詢問用戶
+        「在 skill 庫中未找到『火星殖民模擬』相關的 skill，是否要：」
+        1. WebSearch 搜尋其他 Claude Code skill
+        2. 嘗試用現有的 game-design skill 作為基礎
+        3. 直接使用我現有的知識開始嘗試
 ```
 
 ### 研究模式

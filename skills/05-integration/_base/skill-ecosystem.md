@@ -2,6 +2,39 @@
 
 > 自動發現、推薦、組合最適合的 Skill
 
+## 「Skill 庫」定義
+
+**重要：當用戶提到「skill 庫」時，專指以下兩個官方 repo：**
+
+| 優先順序 | Repo | 領域 | 連結 |
+|---------|------|------|------|
+| 🥇 1 | **claude-software-skills** | 軟體開發 | https://github.com/miles990/claude-software-skills |
+| 🥈 2 | **claude-domain-skills** | 專業領域 | https://github.com/miles990/claude-domain-skills |
+
+### 搜尋規則
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  Skill 搜尋優先順序（不可跳過）                                  │
+│                                                                 │
+│  1. 🔴 必須先搜尋 Skill 庫                                      │
+│     ├─ miles990/claude-software-skills                         │
+│     └─ miles990/claude-domain-skills                           │
+│                                                                 │
+│  2. 評估結果                                                    │
+│     ├─ 找到合適 → 安裝使用                                      │
+│     └─ 確認沒找到 → 步驟 3                                      │
+│                                                                 │
+│  3. 🟡 詢問用戶其他管道（僅在 skill 庫找不到時）                │
+│     「在 skill 庫中未找到相關 skill，是否要透過其他方式尋找？」 │
+│     - WebSearch 搜尋                                            │
+│     - 其他 marketplace                                          │
+│     - 使用現有知識嘗試                                          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+> ⚠️ **禁止**：未先搜尋 skill 庫就直接使用其他管道尋找 skill
+
 ## 概覽
 
 智能 Skill 生態系讓 AI 能夠：

@@ -2,6 +2,17 @@
 
 > 使用 Claude Code Plugin 系統搜尋、安裝、載入 skills
 
+## 「Skill 庫」優先搜尋
+
+**重要：搜尋 skill 時必須優先檢查以下兩個 repo：**
+
+| 優先順序 | Repo | 連結 |
+|---------|------|------|
+| 🥇 1 | claude-software-skills | https://github.com/miles990/claude-software-skills |
+| 🥈 2 | claude-domain-skills | https://github.com/miles990/claude-domain-skills |
+
+只有在這兩個 repo 都確認沒有合適的 skill 後，才詢問用戶是否透過其他管道尋找。
+
 ## 智能安裝流程
 
 在習得新 skill 前，先檢查現有安裝狀態和版本：
@@ -124,26 +135,48 @@ claude plugin marketplace update
 ```
 用戶任務：「幫我建立一個量化交易回測系統」
                     ↓
-Step 0: 檢查已安裝狀態
+Step 0: 🔴 優先搜尋 Skill 庫
+        分析任務關鍵詞：量化、交易、回測
+        → 先搜尋 miles990/claude-software-skills
+        → 再搜尋 miles990/claude-domain-skills
+        → 找到 finance/quant-trading ✓
+                    ↓
+Step 1: 檢查已安裝狀態
         Read("~/.claude/plugins/installed_plugins.json")
         → 檢查是否有 finance@claude-domain-skills
                     ↓
-Step 1: 版本檢查（若已安裝）
+Step 2: 版本檢查（若已安裝）
         比對 installed.version vs marketplace latest version
         → 過期則 /plugin update finance
                     ↓
-Step 2: 若未安裝，檢查 marketplace
+Step 3: 若未安裝，檢查 marketplace
         Read("~/.claude/plugins/known_marketplaces.json")
         → 檢查是否有 claude-domain-skills
                     ↓
-Step 3: 安裝（若需要）
+Step 4: 安裝（若需要）
         /plugin marketplace add miles990/claude-domain-skills  # 若無
         /plugin install finance@claude-domain-skills
                     ↓
-Step 4: 使用 Skill
+Step 5: 使用 Skill
         Skill({ skill: "quant-trading" })
                     ↓
-Step 5: 帶著領域知識執行任務
+Step 6: 帶著領域知識執行任務
+
+---
+
+用戶任務：「幫我建立區塊鏈智能合約審計工具」
+                    ↓
+Step 0: 🔴 優先搜尋 Skill 庫
+        分析任務關鍵詞：區塊鏈、智能合約、審計
+        → 搜尋 claude-software-skills... 無直接匹配
+        → 搜尋 claude-domain-skills... 無直接匹配
+                    ↓
+Step 1: 🟡 Skill 庫未找到，詢問用戶
+        「在 skill 庫中未找到『區塊鏈智能合約審計』相關的 skill，
+         是否要透過其他方式尋找？」
+        1. WebSearch 搜尋其他 Claude Code skill
+        2. 嘗試用 security-practices skill 作為基礎
+        3. 直接使用我現有的知識開始嘗試
 ```
 
 ## 研究模式
