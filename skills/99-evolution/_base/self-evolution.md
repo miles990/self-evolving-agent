@@ -18,13 +18,17 @@
 │     - 檢查語法和格式正確                                        │
 │     - 確認邏輯一致性                                            │
 │                                                                 │
-│  3. Commit & Push                                               │
+│  3. 更新版本號（若有重大變更）                                  │
+│     - 編輯 evolve-plugin/.claude-plugin/marketplace.json        │
+│     - 更新 "version": "x.y.z"                                   │
+│                                                                 │
+│  4. Commit & Push                                               │
 │     - git add <modified files>                                  │
 │     - git commit -m "feat/fix/docs: 描述變更"                   │
 │     - git push                                                  │
 │                                                                 │
-│  4. 🟢 使用 Plugin Marketplace 更新（優先方式）                 │
-│     a) 更新 marketplace 索引                                    │
+│  5. 🟢 使用 Plugin Marketplace 更新                             │
+│     a) 更新 marketplace（從 GitHub 抓取最新版本）               │
 │        /plugin marketplace update                               │
 │                                                                 │
 │     b) 更新 evolve plugin                                       │
@@ -38,12 +42,26 @@
 > ⚠️ **重要**：
 > - 不要直接修改 `~/.claude/plugins/` 中的檔案
 > - 永遠在 self-evolving-agent 本地專案中修改後再同步
-> - **優先使用 Plugin Marketplace 來控管版本更新**
+> - Marketplace 來源必須指向 `miles990/self-evolving-agent#evolve-plugin`
+
+### Marketplace 設定
+
+**正確的 Marketplace 來源：**
+```
+miles990/self-evolving-agent#evolve-plugin
+```
+
+**首次安裝（若尚未添加 marketplace）：**
+```bash
+/plugin marketplace add miles990/self-evolving-agent#evolve-plugin
+/plugin install evolve@evolve-plugin
+```
 
 ### Plugin Marketplace 控管指令
 
 | 操作 | 指令 |
 |------|------|
+| 添加 marketplace | `/plugin marketplace add miles990/self-evolving-agent#evolve-plugin` |
 | 更新 marketplace 索引 | `/plugin marketplace update` |
 | 更新 evolve plugin | `/plugin update evolve@evolve-plugin` |
 | 查看已安裝版本 | `/plugin list` |
@@ -54,17 +72,20 @@
 ```
 修改完成後的標準流程：
 
-1. 更新 marketplace.json 版本號（若有重大變更）
-   skills/evolve-plugin/.claude-plugin/marketplace.json
+1. 在本地 self-evolving-agent 專案修改 skills/ 檔案
+
+2. 更新 marketplace.json 版本號
+   evolve-plugin/.claude-plugin/marketplace.json
    → "version": "x.y.z"
 
-2. Commit & Push 到 GitHub
+3. Commit & Push 到 GitHub
+   git add . && git commit -m "feat: ..." && git push
 
-3. 在目標專案中執行更新
+4. 在任意專案中執行更新（從 GitHub 抓取）
    /plugin marketplace update
    /plugin update evolve@evolve-plugin
 
-4. 確認更新成功
+5. 確認更新成功
    /plugin list
    → evolve@evolve-plugin vX.Y.Z ✓
 ```
@@ -77,10 +98,10 @@
 
 ### 修改後確認清單
 
-- [ ] 變更已 commit 並 push
-- [ ] marketplace.json 版本號已更新（若為重大變更）
-- [ ] 使用 `/plugin marketplace update` 更新索引
-- [ ] 使用 `/plugin update` 更新到最新版本
+- [ ] 變更已 commit 並 push 到 GitHub
+- [ ] marketplace.json 版本號已更新
+- [ ] 使用 `/plugin marketplace update` 從 GitHub 抓取最新版本
+- [ ] 使用 `/plugin update` 更新本地安裝
 - [ ] 使用 `/plugin list` 確認版本正確
 
 ## 四大自我進化能力

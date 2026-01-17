@@ -1,6 +1,6 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-5.4.0-blue)](./skills/SKILL.md)
+[![Version](https://img.shields.io/badge/version-5.6.0-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
@@ -76,6 +76,20 @@ flowchart LR
 
 # Step 2: 安裝 plugin
 /plugin install evolve@evolve-plugin
+```
+
+**更新到最新版本**
+
+```bash
+# Step 1: 從 GitHub 更新 marketplace 索引
+/plugin marketplace update
+
+# Step 2: 更新 plugin
+/plugin update evolve@evolve-plugin
+
+# Step 3: 確認版本
+/plugin list
+# → evolve@evolve-plugin v5.6.0 ✓
 ```
 
 **One-line install（傳統 Skill 版本）**
