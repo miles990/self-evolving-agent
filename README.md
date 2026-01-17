@@ -1,6 +1,6 @@
 # Self-Evolving Agent
 
-[![Version](https://img.shields.io/badge/version-5.4.0-blue)](./skills/SKILL.md)
+[![Version](https://img.shields.io/badge/version-5.6.0-blue)](./skills/SKILL.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 [![Architecture](https://img.shields.io/badge/architecture-atomic-purple)](./skills/)
 
@@ -71,11 +71,18 @@ flowchart LR
 **Plugin 版本（推薦）** — 含 Hooks 自動提醒
 
 ```bash
-# Step 1: 添加 marketplace（從 self-evolving-agent repo 的 evolve-plugin 子目錄）
-/plugin marketplace add miles990/self-evolving-agent#evolve-plugin
+# Step 1: 添加 marketplace
+/plugin marketplace add miles990/self-evolving-agent
 
 # Step 2: 安裝 plugin
-/plugin install evolve@evolve-plugin
+/plugin install evolve@self-evolving-agent
+```
+
+**更新到最新版本**
+
+```bash
+/plugin marketplace update
+/plugin update evolve@self-evolving-agent
 ```
 
 **One-line install（傳統 Skill 版本）**
