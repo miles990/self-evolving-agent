@@ -219,6 +219,66 @@ Hooks 會強制提醒以下核心紀律：
 | NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST | Edit/Write 程式碼 | PostToolUse |
 | NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST | Bash 失敗 | PostToolUse |
 | NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE | 會話結束 | Stop |
+| NO RELEASE WITHOUT VERSION CONSISTENCY CHECK | 發布前 | PreToolUse |
+
+## Release Hooks（版本發布）
+
+### 版本發布強制檢查
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "condition": "file_path =~ '(SKILL\\.md|plugin\\.json|marketplace\\.json|CHANGELOG\\.md)'",
+        "command": "./scripts/evolve-hooks.sh post-version-update"
+      },
+      {
+        "matcher": "Bash",
+        "condition": "command =~ 'git tag'",
+        "command": "./scripts/evolve-hooks.sh post-git-tag"
+      }
+    ]
+  }
+}
+```
+
+### Release Hooks 類型
+
+| Hook | 觸發時機 | 提醒內容 |
+|------|----------|----------|
+| `post-version-update` | 修改版本相關文件後 | 執行 check-version.sh |
+| `post-git-tag` | 建立 git tag 後 | 推送 tag、建立 release |
+| `pre-release` | 發布前手動調用 | 完整發布檢查清單 |
+
+### 手動調用發布檢查
+
+```bash
+# 發布前顯示完整檢查清單
+./scripts/evolve-hooks.sh pre-release
+```
+
+輸出：
+```
+🚀 [Release] 發布前強制檢查清單
+
+   發布前檢查：
+   [ ] git status 工作區乾淨
+   [ ] ./scripts/check-version.sh 版本一致
+   [ ] CHANGELOG.md 已更新
+   [ ] ./scripts/check-env.sh 環境正常
+
+   發布流程：
+   1. ./scripts/update-version.sh X.Y.Z
+   2. 更新 CHANGELOG.md
+   3. git commit
+   4. git tag vX.Y.Z
+   5. git push && git push --tags
+   6. gh release create vX.Y.Z
+
+   鐵律: NO RELEASE WITHOUT VERSION CONSISTENCY CHECK
+```
 
 ## Boris Tip 整合
 

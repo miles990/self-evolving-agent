@@ -26,6 +26,8 @@ ICON_STAR="🌟"
 ICON_DEBUG="🔧"
 ICON_TEST="🧪"
 ICON_MEMORY="📝"
+ICON_RELEASE="🚀"
+ICON_TAG="🏷️"
 
 # ====================
 # PostToolUse Hooks
@@ -46,6 +48,13 @@ post_edit_write() {
     if [[ "$file" =~ \.claude/memory/ ]]; then
         echo -e "${BLUE}${ICON_MEMORY} [CP3.5] Memory 文件已變更 - 記得同步 index.md！${NC}"
         echo -e "   ${CYAN}執行: Edit .claude/memory/index.md 新增條目${NC}"
+        echo ""
+    fi
+
+    # 檢查是否為版本相關文件
+    if [[ "$file" =~ (SKILL\.md|plugin\.json|marketplace\.json|README\.md|CHANGELOG\.md) ]]; then
+        echo -e "${YELLOW}${ICON_RELEASE} [Release] 版本相關文件已變更${NC}"
+        echo -e "   ${CYAN}確認版本一致性: ./scripts/check-version.sh${NC}"
         echo ""
     fi
 }
@@ -130,6 +139,47 @@ stop_memory_reminder() {
 }
 
 # ====================
+# Release Hooks
+# ====================
+
+pre_release_check() {
+    echo -e "${YELLOW}${ICON_RELEASE} [Release] 發布前強制檢查清單${NC}"
+    echo ""
+    echo -e "   ${CYAN}發布前檢查：${NC}"
+    echo -e "   [ ] git status 工作區乾淨"
+    echo -e "   [ ] ./scripts/check-version.sh 版本一致"
+    echo -e "   [ ] CHANGELOG.md 已更新"
+    echo -e "   [ ] ./scripts/check-env.sh 環境正常"
+    echo ""
+    echo -e "   ${CYAN}發布流程：${NC}"
+    echo -e "   1. ./scripts/update-version.sh X.Y.Z"
+    echo -e "   2. 更新 CHANGELOG.md"
+    echo -e "   3. git commit"
+    echo -e "   4. git tag vX.Y.Z"
+    echo -e "   5. git push && git push --tags"
+    echo -e "   6. gh release create vX.Y.Z"
+    echo ""
+    echo -e "   ${RED}鐵律: NO RELEASE WITHOUT VERSION CONSISTENCY CHECK${NC}"
+    echo ""
+}
+
+post_git_tag() {
+    echo -e "${GREEN}${ICON_TAG} [Release] Git Tag 已建立${NC}"
+    echo -e "   ${CYAN}下一步：${NC}"
+    echo -e "   [ ] git push --tags"
+    echo -e "   [ ] gh release create vX.Y.Z --generate-notes"
+    echo ""
+}
+
+post_version_update() {
+    echo -e "${GREEN}${ICON_CHECK} [Release] 版本已更新${NC}"
+    echo -e "   ${CYAN}強制檢查：${NC}"
+    echo -e "   [ ] 執行 ./scripts/check-version.sh 驗證一致性"
+    echo -e "   [ ] 確認 CHANGELOG.md 已更新"
+    echo ""
+}
+
+# ====================
 # 主邏輯
 # ====================
 
@@ -155,6 +205,15 @@ case "$HOOK_TYPE" in
     "stop-memory")
         stop_memory_reminder
         ;;
+    "pre-release")
+        pre_release_check
+        ;;
+    "post-git-tag")
+        post_git_tag
+        ;;
+    "post-version-update")
+        post_version_update
+        ;;
     *)
         echo "Usage: evolve-hooks.sh <hook-type> [tool-name] [exit-code] [file-path]"
         echo ""
@@ -166,5 +225,10 @@ case "$HOOK_TYPE" in
         echo "  pre-code-write      - Before writing code"
         echo "  stop-verification   - Before claiming completion"
         echo "  stop-memory         - Session end reminder"
+        echo ""
+        echo "Release hooks:"
+        echo "  pre-release         - Before release (shows checklist)"
+        echo "  post-git-tag        - After creating git tag"
+        echo "  post-version-update - After updating version"
         ;;
 esac
