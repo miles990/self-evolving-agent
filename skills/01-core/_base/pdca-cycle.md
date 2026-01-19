@@ -1,6 +1,12 @@
 # PDCA 執行循環
 
 > Plan → Do → Check → Act 的迭代執行
+>
+> 🔗 **v5.9 Superpowers 整合**：
+> - **Plan**: Level 2 使用 `superpowers:writing-plans`
+> - **Do**: 強制使用 `superpowers:test-driven-development`
+> - **Check**: 強制使用 `superpowers:verification-before-completion`
+> - 詳見：[05-integration/_base/superpowers-integration.md](../../05-integration/_base/superpowers-integration.md)
 
 ## 流程
 
@@ -11,17 +17,56 @@
 ### Do（執行）
 - 按計劃執行、記錄過程、收集中間結果
 
+🔗 **強制使用 TDD（不可跳過）**：
+
+```
+宣告：「我正在使用 superpowers:test-driven-development skill。」
+
+RED → GREEN → REFACTOR 循環：
+1. 先寫測試（RED）
+2. 看測試失敗（驗證 RED）
+3. 寫最小實作（GREEN）
+4. 看測試通過（驗證 GREEN）
+5. 重構（REFACTOR）
+6. 循環
+```
+
+**鐵律**：
+```
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+```
+
+如果先寫了程式碼再寫測試 → 刪除程式碼，從測試開始
+
 ### Check（評估）
 - 結果是否符合預期？失敗則分析原因
 - 評估：完全成功 / 部分成功 / 失敗
 
 🔑 **Boris Tip #13**: 給 Claude 驗證工作的方式，品質提升 2-3 倍
 
+🔗 **強制使用 verification-before-completion（不可跳過）**：
+
+```
+宣告：「我正在使用 superpowers:verification-before-completion skill。」
+
+鐵律：NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+```
+
 **自動化驗證策略**：
 - [ ] 執行測試：`npm test` / `pytest` / `go test`
 - [ ] 執行構建：`npm run build` / `tsc` / `cargo build`
 - [ ] Lint 檢查：`eslint` / `prettier --check`
 - [ ] 型別檢查：`tsc --noEmit`
+
+**禁止用語**：
+- ❌ "should work now"
+- ❌ "probably fixed"
+- ❌ "looks correct"
+
+**正確做法**：
+```
+✅ [執行測試命令] [看到: 34/34 pass] "所有測試通過"
+```
 
 **驗證失敗 → 不進入下一步，先修復**
 
@@ -48,6 +93,14 @@
 - [ ] 測試：需要寫測試嗎？測什麼？
 
 ### Level 2: 完整架構設計
+
+🔗 **強制使用 writing-plans**：
+
+```
+宣告：「我正在使用 superpowers:writing-plans skill 來撰寫實作計畫。」
+```
+
+計畫產出：`docs/plans/YYYY-MM-DD-<feature-name>.md`
 
 🏗️ **Level 2 架構設計流程**
 

@@ -1,14 +1,14 @@
 ---
 name: evolve
-version: 5.8.0
-description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
+version: 5.9.0
+description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。整合 superpowers 工作流紀律。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
-keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update, plugin, leann, semantic-search, skill-creation]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update, plugin, leann, semantic-search, skill-creation, superpowers, tdd, debugging, brainstorming]
 ---
 
-# Self-Evolving Agent v5.8.0
+# Self-Evolving Agent v5.9.0
 
-> [**版本檢查**] → **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
+> [**版本檢查**] → **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**🔗 brainstorming**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（**🔗 TDD + verification**）→ 診斷（**🔗 systematic-debugging**）→ 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
 
 ## 快速導覽
 
@@ -21,7 +21,7 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 | **02-checkpoints** | 強制檢查點（護欄） | [→](./02-checkpoints/) |
 | **03-memory** | 記憶系統操作 | [→](./03-memory/) |
 | **04-emergence** | 涌現機制 | [→](./04-emergence/) |
-| **05-integration** | 外部工具整合 | [→](./05-integration/) |
+| **05-integration** | 外部工具整合（含 **superpowers**） | [→](./05-integration/) |
 | **06-scaling** | 大規模專案優化 | [→](./06-scaling/) |
 | **99-evolution** | 自我進化機制 | [→](./99-evolution/) |
 
@@ -89,6 +89,13 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ↻ 重複直到：目標達成 或 達到最大迭代次數
 
+> 💡 **v5.9 新增**：Superpowers 工作流整合 — 強制執行紀律
+> - **brainstorming** → Goal Analysis（Level 1+ 強制）
+> - **TDD + verification** → PDCA Do/Check（任何程式碼變更強制）
+> - **systematic-debugging** → CP5 失敗驗屍（任何錯誤強制）
+> - **writing-plans** / **executing-plans** → PDCA Plan/Do（Level 2）
+> - 詳見：[05-integration/_base/superpowers-integration.md](./05-integration/_base/superpowers-integration.md)
+>
 > 💡 **v5.8 新增**：Skill 缺口處理 — 找不到適合 Skill 時自動詢問
 > - 相關度 < 0.5 時觸發詢問：研究並建立 / 組合現有 / 直接開始
 > - 整合 skill-creator 和 4C 知識習得法

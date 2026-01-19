@@ -3,6 +3,9 @@
 > 🚨 **強制檢查點** - PDCA Check 失敗時觸發
 >
 > 靈感來源：SAGE (Self-Attributing) + GEPA (Reflective Evaluation)
+>
+> 🔗 **v5.9 整合**：強制使用 `superpowers:systematic-debugging`
+> — 詳見：[05-integration/_base/superpowers-integration.md](../../05-integration/_base/superpowers-integration.md)
 
 ## 觸發條件
 
@@ -69,6 +72,65 @@ tags: [tag1, tag2, tag3]
 | C | Environment Issue | 依賴/配置/權限問題 | 修復環境、提示用戶 |
 | D | Strategy Error | 方向錯誤、方法不適用 | 切換策略 |
 | E | Resource Limit | 超時/額度/記憶體限制 | 分解任務、降級 |
+
+## Superpowers 整合：Systematic Debugging
+
+🔗 **強制使用 systematic-debugging（不可跳過）**：
+
+```
+宣告：「我正在使用 superpowers:systematic-debugging skill。」
+
+鐵律：NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+```
+
+### 四階段流程（不可跳過任何階段）
+
+```
+Phase 1: 根因調查（修復前必完成）
+├─ 仔細閱讀錯誤訊息（不要跳過）
+├─ 穩定重現問題（怎麼觸發？每次都發生？）
+├─ 檢查近期變更（git diff、最近 commits）
+└─ 收集證據（多組件系統要追蹤每層）
+
+Phase 2: 模式分析
+├─ 找到運作中的類似程式碼
+├─ 與參考實作比較（完整閱讀，不要略讀）
+└─ 識別差異
+
+Phase 3: 假設與測試
+├─ 形成單一假設（明確寫下）
+├─ 最小化測試（一次只改一個變數）
+└─ 驗證後才繼續
+
+Phase 4: 實作
+├─ 建立失敗測試案例（使用 TDD）
+├─ 實作單一修復
+└─ 驗證修復
+```
+
+### 紅旗清單（如果你在想以下內容，立即停止）
+
+| 想法 | 現實 | 行動 |
+|------|------|------|
+| 「先快速修復，之後再調查」 | 隨機修復浪費時間 | 回到 Phase 1 |
+| 「試著改改 X 看會不會好」 | 不理解 = 新 bug | 回到 Phase 1 |
+| 「同時改多處，跑測試」 | 無法隔離問題 | 回到 Phase 3 |
+| 「再試一次」（已試 2+ 次）| 3+ 次失敗 = 架構問題 | 質疑架構 |
+
+### 3+ 次修復失敗：質疑架構
+
+如果已嘗試 3 次以上修復仍然失敗：
+
+```
+STOP - 不要嘗試第 4 次修復
+
+詢問：
+- 這個模式是否根本有問題？
+- 我們是否「因為慣性而堅持」？
+- 應該重構架構還是繼續修症狀？
+
+與用戶討論後再行動
+```
 
 ## Post-Mortem 引導問題
 

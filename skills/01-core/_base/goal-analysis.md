@@ -4,6 +4,9 @@
 >
 > 💡 **核心洞察**：寫 spec 最大的問題是「你不知道自己漏了什麼」
 > — 來源：[@BensonTWN](https://x.com/BensonTWN/status/2010319050099110270)
+>
+> 🔗 **v5.9 整合**：Level 1+ 任務強制使用 `superpowers:brainstorming`
+> — 詳見：[05-integration/_base/superpowers-integration.md](../../05-integration/_base/superpowers-integration.md)
 
 ## 目標明確性檢查（優先執行）
 
@@ -80,13 +83,19 @@ goal_analysis:
 
 ### 觸發條件
 
-| 條件 | 是否觸發 |
-|------|----------|
-| 架構等級 Level 2 | ✅ 強制觸發 |
-| 架構等級 Level 1 + 用戶目標模糊 | ✅ 建議觸發 |
-| 架構等級 Level 0 | ❌ 跳過 |
-| 用戶明確說「快速完成」 | ❌ 跳過 |
-| 涉及 spec-workflow 的 requirements 階段 | ✅ 強制觸發 |
+| 條件 | 是否觸發 | Superpowers 整合 |
+|------|----------|------------------|
+| 架構等級 Level 2 | ✅ 強制觸發 | 🔗 `superpowers:brainstorming` |
+| 架構等級 Level 1 + 用戶目標模糊 | ✅ 建議觸發 | 🔗 `superpowers:brainstorming` |
+| 架構等級 Level 1 | ✅ 建議觸發 | 🔗 `superpowers:brainstorming` |
+| 架構等級 Level 0 | ❌ 跳過 | — |
+| 用戶明確說「快速完成」 | ❌ 跳過 | — |
+| 涉及 spec-workflow 的 requirements 階段 | ✅ 強制觸發 | 🔗 `superpowers:brainstorming` |
+
+> **重要**：觸發深度訪談時，必須先調用 `superpowers:brainstorming` skill
+> ```
+> 宣告：「我正在使用 superpowers:brainstorming skill 來探索設計。」
+> ```
 
 ### 訪談執行流程
 

@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.9.0] - 2026-01-19
+
+### Added
+- **Superpowers 工作流整合**
+  - 新增 `skills/05-integration/_base/superpowers-integration.md` 整合模組
+  - 將 superpowers 執行紀律強制整合進 evolve 流程
+  - 6 個強制整合點確保執行品質
+
+### Changed
+- **Goal Analysis 階段強化**
+  - Level 1+ 任務強制使用 `superpowers:brainstorming`
+  - 深度訪談與 brainstorming 協作流程
+
+- **PDCA Plan 階段強化**
+  - Level 2 任務強制使用 `superpowers:writing-plans`
+  - 計畫文件格式規範
+
+- **PDCA Do 階段強化**
+  - 強制使用 `superpowers:test-driven-development`
+  - 鐵律：NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+
+- **PDCA Check 階段強化**
+  - 強制使用 `superpowers:verification-before-completion`
+  - 鐵律：NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
+  - 禁止用語清單（should work now, probably fixed, looks correct）
+
+- **CP5 失敗驗屍強化**
+  - 強制使用 `superpowers:systematic-debugging`
+  - 鐵律：NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST
+  - 四階段流程：根因調查 → 模式分析 → 假設測試 → 實作
+  - 3+ 次修復失敗時強制質疑架構
+
+### Philosophy
+- **Superpowers 是 evolve 的「執行紀律層」**
+- 核心洞察：有紀律的執行 > 隨機嘗試
+- 解決方案：在各關鍵階段強制調用相應的 superpowers skill
+
+### Integration Points
+| 情境 | 必須調用的 Skill |
+|------|------------------|
+| Level 1+ 目標分析 | `superpowers:brainstorming` |
+| Level 2 計畫撰寫 | `superpowers:writing-plans` |
+| 任何程式碼變更 | `superpowers:test-driven-development` |
+| 任何完成宣告 | `superpowers:verification-before-completion` |
+| 任何失敗/錯誤 | `superpowers:systematic-debugging` |
+| 分支完成 | `superpowers:finishing-a-development-branch` |
+
+---
+
 ## [5.8.0] - 2026-01-19
 
 ### Added
