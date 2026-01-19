@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.8.0] - 2026-01-19
+
+### Added
+- **Skill 缺口處理流程**
+  - 當 Skill Discovery 找不到適合的 skill（相關度 < 0.5）時，自動詢問使用者
+  - 提供三個選項：研究並建立新 Skill、組合現有 Skill、直接開始
+  - 整合 skill-creator 和 4C 知識習得法
+
+### Changed
+- **CP1 檢查點更新**
+  - 新增「找不到適合 Skill」處理流程
+  - 明確的決策樹和選項說明
+- **skill-acquisition.md 更新**
+  - 更新 Step 3.5 的選項，加入「研究並建立」選項
+
+---
+
 ## [5.7.0] - 2026-01-19
 
 ### Added

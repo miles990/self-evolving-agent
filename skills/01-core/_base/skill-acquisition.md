@@ -37,11 +37,11 @@
 │        - 找到適用 → 步驟 4                                      │
 │        - 確認都沒找到 → 步驟 3.5                                │
 │                                                                 │
-│  3.5 🟡 詢問用戶其他管道（僅在 skill 庫找不到時）               │
+│  3.5 🟡 詢問用戶（僅在 skill 庫找不到時）                       │
 │      「在 skill 庫中未找到適合的 skill，是否要：」              │
-│      - WebSearch 搜尋其他 skill                                 │
-│      - 詢問其他 marketplace                                     │
-│      - 繼續使用現有知識嘗試                                     │
+│      - 🔬 研究並建立新 Skill（推薦）                            │
+│      - 🔄 嘗試組合現有 Skill                                    │
+│      - ⚡ 直接開始（不建立 Skill）                               │
 │                                                                 │
 │  4. 安裝 Skill                                                  │
 │     install_skill({ source: "best-skill-name" })                │
@@ -96,9 +96,13 @@ Step 1: 🔴 先搜尋 Skill 庫
 
 Step 2: 🟡 確認未找到，詢問用戶
         「在 skill 庫中未找到『火星殖民模擬』相關的 skill，是否要：」
-        1. WebSearch 搜尋其他 Claude Code skill
-        2. 嘗試用現有的 game-design skill 作為基礎
-        3. 直接使用我現有的知識開始嘗試
+        1. 🔬 研究並建立新 Skill（推薦）
+           → 觸發 /evolve --new-skill "mars-colonization-sim"
+           → 使用 4C 方法研究領域知識
+        2. 🔄 嘗試組合現有 Skill
+           → 結合 game-design + python 作為基礎
+        3. ⚡ 直接開始（不建立 Skill）
+           → 使用現有知識嘗試
 ```
 
 ### 研究模式

@@ -1,12 +1,12 @@
 ---
 name: evolve
-version: 5.7.0
+version: 5.8.0
 description: 自我進化 Agent：給定目標，自主學習並迭代改進直到完成。
 triggers: [evolve, 進化, 自我學習, 迭代改進, 達成目標, self-evolving, autonomous, goal-oriented, plan]
-keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update, plugin, leann, semantic-search]
+keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-planning, north-star, worktree, isolation, auto-update, plugin, leann, semantic-search, skill-creation]
 ---
 
-# Self-Evolving Agent v5.7.0
+# Self-Evolving Agent v5.8.0
 
 > [**版本檢查**] → **北極星錨定** → [**Worktree 隔離**] → PSB 環境檢查 → 目標分析（**深度訪談**）→ **自動領域識別** → 評估能力 → 習得技能 → PDCA 執行（含方向校正）→ 診斷 → 多策略重試 → Repo 記憶 → **定期健檢** → [**Worktree 完成**] → 直到成功
 
@@ -89,6 +89,11 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ↻ 重複直到：目標達成 或 達到最大迭代次數
 
+> 💡 **v5.8 新增**：Skill 缺口處理 — 找不到適合 Skill 時自動詢問
+> - 相關度 < 0.5 時觸發詢問：研究並建立 / 組合現有 / 直接開始
+> - 整合 skill-creator 和 4C 知識習得法
+> - 詳見：[02-checkpoints/_base/cp1-memory-search.md](./02-checkpoints/_base/cp1-memory-search.md#找不到適合-skill-時v58-新增)
+>
 > 💡 **v5.7 新增**：LEANN 語義搜尋 Skill Discovery — CP1 自動推薦相關 Skill
 > - 從任務描述理解概念，而非關鍵字匹配
 > - 設定：`./scripts/setup-skill-index.sh`
