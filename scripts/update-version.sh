@@ -37,6 +37,7 @@ FILES=(
   "skills/SKILL.md"
   ".claude-plugin/plugin.json"
   ".claude-plugin/marketplace.json"
+  "README.md"
 )
 
 # 顯示當前版本
@@ -63,6 +64,10 @@ sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERS
 echo "📝 更新 .claude-plugin/marketplace.json..."
 sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/marketplace.json"
 
+# 更新 README.md badge
+echo "📝 更新 README.md badge..."
+sed -i '' "s/version-[0-9]\+\.[0-9]\+\.[0-9]\+-blue/version-$NEW_VERSION-blue/" "$REPO_ROOT/README.md"
+
 echo ""
 echo "✅ 版本更新完成！"
 echo ""
@@ -85,4 +90,6 @@ echo ""
 echo "下一步:"
 echo "  1. 更新 CHANGELOG.md"
 echo "  2. git add -A && git commit -m 'chore: bump version to v$NEW_VERSION'"
-echo "  3. git push"
+echo "  3. git tag -a v$NEW_VERSION -m 'Release v$NEW_VERSION'"
+echo "  4. git push && git push --tags"
+echo "  5. gh release create v$NEW_VERSION --generate-notes"
