@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.9.1] - 2026-01-19
+
+### Added
+- **Release Hooks 強制執行**
+  - 新增 `pre-release`、`post-git-tag`、`post-version-update` hooks
+  - 版本相關文件變更時自動提醒檢查版本一致性
+  - 第四條鐵律：NO RELEASE WITHOUT VERSION CONSISTENCY CHECK
+
+- **版本發布檢查清單**
+  - 新增 `skills/99-evolution/_base/release-checklist.md`
+  - 完整的發布前/後檢查流程
+  - 緊急回滾指南
+
+### Fixed
+- 修復版本不一致問題（plugin.json、README.md badge 未同步）
+- 更新 `update-version.sh` 支援 README.md badge 更新
+
+---
+
 ## [5.9.0] - 2026-01-19
 
 ### Added

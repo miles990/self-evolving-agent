@@ -11,7 +11,7 @@
       "name": "evolve",
       "source": "./",
       "description": "Self-evolving agent + Skill creator - 自主學習、持續改進、建立新 Skill",
-      "version": "5.9.0"
+      "version": "5.9.1"
     }
   ]
 }
