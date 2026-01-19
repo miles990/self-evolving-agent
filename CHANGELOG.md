@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.7.0] - 2026-01-19
+
+### Added
+- **LEANN Skill Discovery 整合**
+  - 新增 `scripts/setup-skill-index.sh` 設定 LEANN 語義搜尋環境
+  - 新增 `skills/05-integration/_base/leann-skill-discovery.md` 整合指南
+  - 支援 79 個 skills 的向量語義索引
+
+### Changed
+- **CP1 強化**：加入 LEANN 語義搜尋 Skill 推薦
+  - 從任務描述理解概念，而非關鍵字匹配
+  - 搜尋「卡牌遊戲」→ 也找到 "deckbuilder", "roguelike" 相關 skill
+  - 自動降級到 FTS5 當 LEANN 不可用時
+
+### Features
+- 語義理解：理解任務概念而非關鍵字匹配
+- 向量索引：LEANN HNSW 後端，本地運行
+- 自動推薦：CP1 自動顯示相關度分數
+
+---
+
 ## [5.6.0] - 2026-01-17
 
 ### Changed
