@@ -10,6 +10,13 @@ All notable changes to this project will be documented in this file.
   - 將 superpowers 執行紀律強制整合進 evolve 流程
   - 6 個強制整合點確保執行品質
 
+- **Claude Code Hooks 強制執行腳本**
+  - 新增 `scripts/evolve-hooks.sh` 統一管理所有 hook 提醒
+  - PreToolUse: 北極星檢查 (CP0)、Memory 搜尋 (CP1)、程式碼前檢查 (CP1.5)
+  - PostToolUse: TDD 提醒、失敗診斷、測試驗證
+  - Stop: 完成驗證提醒、Memory 記錄提醒
+  - 更新 `hooks.md` 提供完整配置範例（腳本版 + 內嵌版）
+
 ### Changed
 - **Goal Analysis 階段強化**
   - Level 1+ 任務強制使用 `superpowers:brainstorming`
