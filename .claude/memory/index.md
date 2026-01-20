@@ -4,6 +4,7 @@
 
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [SDD 規格驅動開發 - 高見龍](learnings/2026-01-20-sdd-spec-driven-development.md) - sdd, spec-driven, methodology, ai-collaboration, kaochenlong
 - [版本發布工作流教訓](learnings/2026-01-20-release-workflow-lessons.md) - release, macos, sed, plugin-cache, bash, version-update
 - [Memory MCP 整合設計](learnings/2026-01-16-memory-mcp-integration.md) - memory, mcp, integration, sqlite, evolve
 - [Galgame Skill 通用化經驗](learnings/2026-01-13-galgame-skill-generalization.md) - skill-design, generalization, galgame, character-design, abstraction
