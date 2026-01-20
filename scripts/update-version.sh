@@ -53,20 +53,20 @@ echo ""
 
 # 更新 skills/SKILL.md
 echo "📝 更新 skills/SKILL.md..."
-sed -i '' "s/^version: [0-9]\+\.[0-9]\+\.[0-9]\+$/version: $NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
-sed -i '' "s/Self-Evolving Agent v[0-9]\+\.[0-9]\+\.[0-9]\+/Self-Evolving Agent v$NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
+sed -i '' -E "s/^version: [0-9]+\.[0-9]+\.[0-9]+$/version: $NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
+sed -i '' -E "s/Self-Evolving Agent v[0-9]+\.[0-9]+\.[0-9]+/Self-Evolving Agent v$NEW_VERSION/" "$REPO_ROOT/skills/SKILL.md"
 
 # 更新 .claude-plugin/plugin.json
 echo "📝 更新 .claude-plugin/plugin.json..."
-sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/plugin.json"
+sed -i '' -E "s/\"version\": \"[0-9]+\.[0-9]+\.[0-9]+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/plugin.json"
 
 # 更新 .claude-plugin/marketplace.json
 echo "📝 更新 .claude-plugin/marketplace.json..."
-sed -i '' "s/\"version\": \"[0-9]\+\.[0-9]\+\.[0-9]\+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/marketplace.json"
+sed -i '' -E "s/\"version\": \"[0-9]+\.[0-9]+\.[0-9]+\"/\"version\": \"$NEW_VERSION\"/" "$REPO_ROOT/.claude-plugin/marketplace.json"
 
 # 更新 README.md badge
 echo "📝 更新 README.md badge..."
-sed -i '' "s/version-[0-9]\+\.[0-9]\+\.[0-9]\+-blue/version-$NEW_VERSION-blue/" "$REPO_ROOT/README.md"
+sed -i '' -E "s/version-[0-9]+\.[0-9]+\.[0-9]+-blue/version-$NEW_VERSION-blue/" "$REPO_ROOT/README.md"
 
 echo ""
 echo "✅ 版本更新完成！"
