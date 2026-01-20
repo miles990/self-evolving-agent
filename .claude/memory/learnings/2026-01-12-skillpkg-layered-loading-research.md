@@ -1,6 +1,10 @@
+---
+date: "2026-01-12"
+tags: [skillpkg, token-optimization, research, evolve]
+---
+
 # skillpkg 分層載入機制研究
 
-> 研究日期：2026-01-12
 > 目的：找出 evolve skill token 優化方案
 
 ## 背景問題

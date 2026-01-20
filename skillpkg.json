@@ -1,6 +1,0 @@
-{
-  "name": "self-evolving-agent",
-  "version": "4.5.0",
-  "description": "A Claude Code skill for autonomous goal achievement through iterative learning",
-  "skills": {}
-}

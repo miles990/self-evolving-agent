@@ -1,3 +1,8 @@
+---
+date: "2026-01-13"
+tags: [galgame, skill-creation, abstraction, design-pattern]
+---
+
 # Galgame Skill 通用化經驗
 
 > 將專案專用 skill 抽象為通用框架的設計模式

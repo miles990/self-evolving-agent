@@ -36,6 +36,7 @@
 
 ## 失敗經驗
 <!-- FAILURES_START -->
+- [錯誤宣稱測試通過](failures/2026-01-20-false-test-pass-claim.md) - testing, verification, communication, false-positive
 <!-- FAILURES_END -->
 
 ## 推理模式

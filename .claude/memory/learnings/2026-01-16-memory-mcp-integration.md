@@ -1,7 +1,9 @@
-# Memory MCP 整合設計
+---
+date: "2026-01-16"
+tags: [memory, mcp, integration, sqlite, evolve]
+---
 
-> 建立日期：2026-01-16
-> 標籤：memory, mcp, integration, sqlite, evolve
+# Memory MCP 整合設計
 
 ## 情境
 

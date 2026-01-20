@@ -1,7 +1,9 @@
-# Flame Game Engine Skill 開發
+---
+date: "2026-01-12"
+tags: [flame, flutter, dart, 2d-games, skill-creation, game-development]
+---
 
-> 創建日期: 2026-01-12
-> 標籤: flame, flutter, dart, 2d-games, skill-creation, game-development
+# Flame Game Engine Skill 開發
 
 ## 背景
 

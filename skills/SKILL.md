@@ -89,39 +89,9 @@ keywords: [agent, learning, pdca, memory, skill-acquisition, emergence, unified-
 
 ↻ 重複直到：目標達成 或 達到最大迭代次數
 
-> 💡 **v5.9 新增**：Superpowers 工作流整合 — 強制執行紀律
-> - **brainstorming** → Goal Analysis（Level 1+ 強制）
-> - **TDD + verification** → PDCA Do/Check（任何程式碼變更強制）
-> - **systematic-debugging** → CP5 失敗驗屍（任何錯誤強制）
-> - **writing-plans** / **executing-plans** → PDCA Plan/Do（Level 2）
-> - 詳見：[05-integration/_base/superpowers-integration.md](./05-integration/_base/superpowers-integration.md)
+> **主要功能**：Superpowers 整合 | LEANN 語義搜尋 | Worktree 隔離 | 北極星系統 | 深度訪談
 >
-> 💡 **v5.8 新增**：Skill 缺口處理 — 找不到適合 Skill 時自動詢問
-> - 相關度 < 0.5 時觸發詢問：研究並建立 / 組合現有 / 直接開始
-> - 整合 skill-creator 和 4C 知識習得法
-> - 詳見：[02-checkpoints/_base/cp1-memory-search.md](./02-checkpoints/_base/cp1-memory-search.md#找不到適合-skill-時v58-新增)
->
-> 💡 **v5.7 新增**：LEANN 語義搜尋 Skill Discovery — CP1 自動推薦相關 Skill
-> - 從任務描述理解概念，而非關鍵字匹配
-> - 設定：`./scripts/setup-skill-index.sh`
-> - 整合說明：[05-integration/_base/leann-skill-discovery.md](./05-integration/_base/leann-skill-discovery.md)
->
-> 💡 **v5.2 新增**：版本檢查與自動更新 — 每次啟動時檢查新版本
-> - 版本檢查：[00-getting-started/_base/version-check.md](./00-getting-started/_base/version-check.md)
-> - 自動比較本地與遠端版本，詢問用戶是否更新
->
-> 💡 **v5.1 新增**：Worktree 隔離環境 — 高風險任務的安全邊界
-> - CP0.5：Worktree 準備 → [02-checkpoints/_base/cp0.5-worktree-setup.md](./02-checkpoints/_base/cp0.5-worktree-setup.md)
-> - CP6.5：Worktree 完成 → [02-checkpoints/_base/cp6.5-worktree-completion.md](./02-checkpoints/_base/cp6.5-worktree-completion.md)
-> - 概述：[06-scaling/_base/isolated-environments.md](./06-scaling/_base/isolated-environments.md)
->
-> 💡 **v4.4 新增**：北極星系統 — 解決「做到後面迷失方向」的問題
-> - CP0：北極星錨定 → [02-checkpoints/_base/cp0-north-star.md](./02-checkpoints/_base/cp0-north-star.md)
-> - CP3：方向校正 → [02-checkpoints/_base/cp3-milestone-confirm.md](./02-checkpoints/_base/cp3-milestone-confirm.md)
-> - CP6：專案健檢 → [02-checkpoints/_base/cp6-project-health-check.md](./02-checkpoints/_base/cp6-project-health-check.md)
->
-> 💡 **v4.3 新增**：深度訪談模式 — 「寫 spec 最大的問題是你不知道自己漏了什麼」
-> 詳見 [01-core/_base/goal-analysis.md](./01-core/_base/goal-analysis.md#深度訪談模式deep-interview)
+> 詳見：[CHANGELOG](../CHANGELOG.md) | [05-integration](./05-integration/) | [02-checkpoints](./02-checkpoints/)
 
 ### 架構考量三層設計
 
