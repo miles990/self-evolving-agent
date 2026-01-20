@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.10.0] - 2026-01-20
+
+### Added
+- **CP6.5 Worktree 完成流程增強**
+  - 新增 PR 合併策略選擇表（Rebase/Squash/Merge）
+  - 推薦使用 `gh pr merge --rebase` 取得線性歷史
+  - 視覺化說明 rebase vs merge 的歷史差異
+  - 保留直接合併選項給不需 PR 的專案
+
+- **版本發布工具改進**
+  - 新增 `sync-plugin-cache.sh` 自動同步腳本
+  - 修復 `update-version.sh` macOS sed 相容性
+
+### Documentation
+- 記錄 SDD 規格驅動開發學習筆記
+- 記錄版本發布工作流教訓
+
+---
+
 ## [5.9.2] - 2026-01-20
 
 ### Added
