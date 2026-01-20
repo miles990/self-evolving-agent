@@ -99,10 +99,38 @@ git tag -a vX.Y.Z -m "Release vX.Y.Z: [簡短描述]"
 
 ```bash
 git push origin main
-git push origin vX.Y.Z
+git push origin --tags
 ```
 
-### Step 6: 建立 GitHub Release
+### Step 6: 同步 Plugin Cache
+
+```bash
+# 同步到本地 plugin cache（Claude Code 啟動時會從這裡載入）
+./scripts/sync-plugin-cache.sh
+```
+
+此命令會：
+- 複製最新版本到 `~/.claude/plugins/cache/self-evolving-agent/evolve/{version}/`
+- 驗證版本一致性
+
+### Step 7: 同步專案內 Skill 目錄
+
+**重要**：`.claude/skills/evolve/` 是 Claude Code 載入 skill 的來源，必須同步！
+
+```bash
+# 同步專案內的 skill 目錄
+rm -rf .claude/skills/evolve
+cp -r skills .claude/skills/evolve
+
+# 驗證
+grep "^version:" .claude/skills/evolve/SKILL.md
+```
+
+> ⚠️ **常見問題**：發布後重啟 Claude Code，skill 版本仍是舊的
+> **原因**：`.claude/skills/evolve/` 未同步
+> **解法**：執行上述同步命令
+
+### Step 8: 建立 GitHub Release
 
 ```bash
 gh release create vX.Y.Z \
@@ -120,19 +148,28 @@ gh release create vX.Y.Z --generate-notes
 
 ### 1. 版本確認
 
+```bash
+# 快速檢查所有版本
+echo "skills/SKILL.md: $(grep '^version:' skills/SKILL.md)"
+echo "plugin.json: $(grep '"version"' .claude-plugin/plugin.json)"
+echo ".claude/skills: $(grep '^version:' .claude/skills/evolve/SKILL.md)"
+echo "plugin cache: $(cat ~/.claude/plugins/cache/self-evolving-agent/evolve/*/plugin.json 2>/dev/null | grep '"version"' | tail -1)"
+```
+
 - [ ] GitHub Release 頁面顯示正確版本
 - [ ] Git tag 存在且指向正確 commit
 - [ ] README badge 顯示新版本
+- [ ] **`.claude/skills/evolve/SKILL.md` 版本正確**
+- [ ] **Plugin cache 版本正確**
 
-### 2. Plugin 安裝測試
+### 2. 重啟驗證
 
 ```bash
-# 測試安裝
-claude mcp add-plugin self-evolving-agent -s miles990
-
-# 驗證版本
-/evolve --version
+# 重啟 Claude Code 後執行
+/evolve --version  # 或查看 skill 標題版本
 ```
+
+- [ ] Skill 標題顯示新版本
 
 ### 3. 功能測試
 
@@ -203,12 +240,21 @@ git tag -a v$VERSION -m "Release v$VERSION"
 
 # 5. 推送
 git push origin main
-git push origin v$VERSION
+git push origin --tags
 
-# 6. 建立 release
-gh release create v$VERSION --generate-notes
+# 6. 同步 plugin cache
+./scripts/sync-plugin-cache.sh
+
+# 7. 同步專案內 skill 目錄（重要！）
+rm -rf .claude/skills/evolve
+cp -r skills .claude/skills/evolve
+echo "✅ .claude/skills/evolve 已同步"
+
+# 8. 建立 release（可選）
+# gh release create v$VERSION --generate-notes
 
 echo "✅ v$VERSION 發布完成！"
+echo "📌 請重啟 Claude Code 以載入新版本"
 ```
 
 ## 相關文件
