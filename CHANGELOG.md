@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.9.2] - 2026-01-20
+
+### Added
+- **測試覆蓋率提升**
+  - 新增 `tests/test_checkpoints.bats` (16 tests) - 檢查點系統測試
+  - 新增 `tests/test_scripts.bats` (19 tests) - Shell 腳本測試
+  - 新增 `tests/test_memory.bats` (17 tests) - 記憶系統測試
+  - 測試總數：73 tests（100% 通過）
+
+- **Hooks 配置文檔**
+  - 新增 `hooks/README.md` 說明兩種 hook 機制
+
+- **失敗經驗記錄**
+  - 新增 `.claude/memory/failures/2026-01-20-false-test-pass-claim.md`
+
+### Changed
+- **Token 優化**
+  - SKILL.md 精簡 17%（185 → 154 行）
+  - 版本歷史改用動態摘要 + 連結
+
+### Fixed
+- 修復 `skills/02-checkpoints/README.md` 缺少 CP0、CP0.5、CP6、CP6.5
+- 修復 4 個 learning 文件的 YAML frontmatter 格式
+- 修復 `test_skills.bats` markdown 連結驗證邏輯
+
+### Removed
+- 移除已棄用的 `skillpkg.json` 和 `.skillpkg/` 目錄
+
+---
+
 ## [5.9.1] - 2026-01-19
 
 ### Added
