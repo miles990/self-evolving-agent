@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.10.1] - 2026-01-20
+
+### Fixed
+- **發布 SOP 完善**
+  - 新增 Step 6: 同步 plugin cache
+  - 新增 Step 7: 同步 `.claude/skills/evolve/` 目錄
+  - 新增發布後版本驗證命令
+  - 更新自動化腳本加入同步步驟
+  - 修復發布後 skill 版本未更新的問題
+
+---
+
 ## [5.10.0] - 2026-01-20
 
 ### Added
