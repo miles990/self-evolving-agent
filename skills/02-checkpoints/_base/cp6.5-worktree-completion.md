@@ -78,23 +78,48 @@
 │  1. 確認所有變更已提交                                          │
 │     git status  # 應該是 clean                                  │
 │                                                                 │
-│  2. 切換回主目錄                                                │
-│     cd /path/to/main/project                                    │
+│  2. 推送分支到遠端                                              │
+│     git push -u origin feature/{task-id}                        │
 │                                                                 │
-│  3. 合併分支                                                    │
-│     git merge feature/{task-id}                                 │
-│     # 或建立 PR                                                 │
+│  3. 建立並合併 PR（推薦使用 --rebase）                          │
 │     gh pr create --base main --head feature/{task-id}           │
+│     gh pr merge --rebase --delete-branch                        │
 │                                                                 │
-│  4. 清理 Worktree                                               │
+│  4. 切換回主目錄並同步                                          │
+│     cd /path/to/main/project                                    │
+│     git pull origin main                                        │
+│                                                                 │
+│  5. 清理 Worktree                                               │
 │     git worktree remove .worktrees/{task-id}                    │
-│     git branch -d feature/{task-id}                             │
+│     # 分支已被 --delete-branch 刪除                             │
 │                                                                 │
-│  5. 更新北極星                                                  │
+│  6. 更新北極星                                                  │
 │     標記完成標準為 [x]                                          │
 │     更新健康檢查記錄                                            │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+### PR 合併策略選擇
+
+| 策略 | 指令 | 歷史效果 | 適用場景 |
+|------|------|----------|----------|
+| **Rebase（推薦）** | `gh pr merge --rebase` | 線性歷史，無合併點 | 日常功能開發、小修復 |
+| Squash | `gh pr merge --squash` | 壓縮為單一 commit | 多個零散 commit 需整理 |
+| Merge | `gh pr merge --merge` | 保留分支歷史+合併點 | 大型功能需追蹤分支歷史 |
+
+```
+Rebase 效果（線性）：          Merge 效果（有合併點）：
+
+A─B─C─D─E (main)              A─B───────M (main)
+       ↑                           \   /
+    feature                         C─D (feature)
+```
+
+> 💡 **為何推薦 Rebase？**
+> - 產生乾淨的線性歷史
+> - `git log` 更易閱讀
+> - `git bisect` 更有效
+> - 沒有多餘的合併 commit
 
 ### 指令序列
 
@@ -105,21 +130,56 @@ git status
 # 若有未提交變更
 git add . && git commit -m "feat: complete {task-description}"
 
-# 2. 切換回主目錄
+# 2. 推送到遠端
+git push -u origin feature/{task-id}
+
+# 3. 建立 PR
+gh pr create --base main --head feature/{task-id} \
+  --title "feat: {task-description}" \
+  --body "## Summary
+- {變更摘要}
+
+## Test plan
+- [ ] {測試項目}"
+
+# 4. 合併 PR（選擇一種策略）
+gh pr merge --rebase --delete-branch     # 推薦：線性歷史
+# gh pr merge --squash --delete-branch   # 替代：壓縮 commits
+# gh pr merge --merge --delete-branch    # 替代：保留分支歷史
+
+# 5. 切換回主目錄並同步
 cd /path/to/main/project
 # 或
 cd $(git worktree list | grep -v ".worktrees" | head -1 | awk '{print $1}')
+git pull origin main
 
-# 3. 合併
+# 6. 清理 Worktree
+git worktree remove .worktrees/{task-id}
+# 本地分支可能已被遠端刪除同步，若還在則手動刪除
+git branch -d feature/{task-id} 2>/dev/null || true
+
+# 7. 驗證
+git worktree list  # 應該不再顯示該 worktree
+git branch -a      # 確認分支已清理
+```
+
+### 直接合併（不建 PR）
+
+若專案不需要 PR 流程，可直接在本地合併：
+
+```bash
+# 切換回主目錄
+cd /path/to/main/project
+
+# 直接 merge（會產生合併點）
 git merge feature/{task-id} --no-ff -m "Merge feature/{task-id}: {描述}"
 
-# 4. 清理
+# 或 rebase merge（線性歷史）
+git rebase feature/{task-id}
+
+# 清理
 git worktree remove .worktrees/{task-id}
 git branch -d feature/{task-id}
-
-# 5. 驗證
-git worktree list  # 應該不再顯示該 worktree
-git branch         # 應該不再顯示該分支
 ```
 
 ### 合併衝突處理
@@ -280,11 +340,13 @@ cd .worktrees/{task-id}
 │                                                                 │
 │  任務：{task-id}                                                │
 │  分支：feature/{task-id} → main                                 │
-│  合併方式：merge commit                                         │
+│  PR：#123                                                       │
+│  合併方式：rebase (線性歷史)                                    │
 │                                                                 │
 │  已清理：                                                       │
 │  • Worktree: .worktrees/{task-id}                               │
-│  • 分支: feature/{task-id}                                      │
+│  • 本地分支: feature/{task-id}                                  │
+│  • 遠端分支: origin/feature/{task-id}                           │
 │                                                                 │
 │  北極星已更新 ✓                                                 │
 └─────────────────────────────────────────────────────────────────┘
