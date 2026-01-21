@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.11.0] - 2026-01-21
+
+### Added
+- **GitHub → Skill 封裝策略文檔**
+  - 新增 `skills/05-integration/_base/github-to-skill.md`
+  - 六維度快速判斷框架（效率、專業、完整、品質、體驗、學習）
+  - 分解重組進階策略（大型項目拆解為元件再重組）
+  - 「封裝即學習」章節（封裝過程即知識內化過程）
+  - UX 改善封裝技巧（自然語言介面取代參數地獄）
+  - 決策流程圖與實戰案例
+  - 與 evolve skill-acquisition 流程整合說明
+
+### Documentation
+- 更新 `skills/05-integration/README.md` 加入新文檔連結
+
+---
+
 ## [5.10.1] - 2026-01-20
 
 ### Fixed
