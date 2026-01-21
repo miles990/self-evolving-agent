@@ -11,6 +11,9 @@
 | [spec-workflow.md](./_base/spec-workflow.md) | spec-workflow MCP | 需求到實作轉換 |
 | [memory-mcp.md](./_base/memory-mcp.md) | Memory MCP | 智能記憶、Skill 追蹤、失敗索引 |
 | [hooks.md](./_base/hooks.md) | Claude Code Hooks | 自動化觸發 |
+| [github-to-skill.md](./_base/github-to-skill.md) | GitHub 開源項目 | 封裝 GitHub → Skill 策略 |
+| [skill-ecosystem.md](./_base/skill-ecosystem.md) | Skill 生態系 | Skill 發現、推薦、組合 |
+| [knowledge-acquisition.md](./_base/knowledge-acquisition.md) | 4C 方法論 | 系統性學習整合 |
 
 ## 整合概覽
 
