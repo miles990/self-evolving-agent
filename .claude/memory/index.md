@@ -4,6 +4,7 @@
 
 ## 研究報告
 <!-- RESEARCH_START -->
+- [Everything Claude Code 分析](research/2026-01-23-everything-claude-code-analysis.md) - claude-code, plugin, hooks, eval-harness, continuous-learning, agents, competitor, twitter-guide, session-management, parallelization, orchestrator, pass-at-k
 - [多 Agent 研究框架綜合報告](research/2026-01-23-multi-agent-research-framework-synthesis.md) - multi-agent, collaboration, evolve-skill, synthesis, architecture
 - [多 Agent 協作架構研究](research/2026-01-23-multi-agent-collaboration-architecture.md) - multi-agent, architecture, state-management, collaboration-modes
 - [認知科學視角：多 Agent 框架](../docs/research/cognitive-perspective-multi-agent-framework.md) - multi-agent, cognitive-science, thinking-methodologies, role-design
