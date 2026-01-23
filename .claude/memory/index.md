@@ -2,8 +2,16 @@
 
 > 搜尋：`Grep pattern="關鍵字" path=".claude/memory/"`
 
+## 研究報告
+<!-- RESEARCH_START -->
+- [MCP 進階設計模式詳解](research/2026-01-23-mcp-advanced-patterns-detail.md) - mcp, full-ai-processing, progressive-discovery, code-execution, detailed
+- [MCP Server 設計模式比較](research/2026-01-23-mcp-design-patterns-comparison.md) - mcp, design-patterns, data-tools, code-execution, workflow, architecture
+- [Knowledge Nexus 專案分析](research/2026-01-23-knowledge-nexus-analysis.md) - mcp, knowledge-management, go, mcp-data-tools, spec-workflow
+<!-- RESEARCH_END -->
+
 ## 最近學習
 <!-- LEARNINGS_START -->
+- [Code Execution Skill 開發](learnings/2026-01-23-code-execution-skill.md) - code-execution, mcp, token-optimization, skill-design
 - [SDD 規格驅動開發 - 高見龍](learnings/2026-01-20-sdd-spec-driven-development.md) - sdd, spec-driven, methodology, ai-collaboration, kaochenlong
 - [版本發布工作流教訓](learnings/2026-01-20-release-workflow-lessons.md) - release, macos, sed, plugin-cache, bash, version-update
 - [Memory MCP 整合設計](learnings/2026-01-16-memory-mcp-integration.md) - memory, mcp, integration, sqlite, evolve
