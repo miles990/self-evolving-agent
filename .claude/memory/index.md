@@ -4,6 +4,10 @@
 
 ## 研究報告
 <!-- RESEARCH_START -->
+- [多 Agent 研究框架綜合報告](research/2026-01-23-multi-agent-research-framework-synthesis.md) - multi-agent, collaboration, evolve-skill, synthesis, architecture
+- [多 Agent 協作架構研究](research/2026-01-23-multi-agent-collaboration-architecture.md) - multi-agent, architecture, state-management, collaboration-modes
+- [認知科學視角：多 Agent 框架](../docs/research/cognitive-perspective-multi-agent-framework.md) - multi-agent, cognitive-science, thinking-methodologies, role-design
+- [產業視角：多 Agent 框架分析](../docs/research/multi-agent-frameworks-industry-perspective.md) - multi-agent, autogen, crewai, langgraph, metagpt, design-patterns
 - [MCP 進階設計模式詳解](research/2026-01-23-mcp-advanced-patterns-detail.md) - mcp, full-ai-processing, progressive-discovery, code-execution, detailed
 - [MCP Server 設計模式比較](research/2026-01-23-mcp-design-patterns-comparison.md) - mcp, design-patterns, data-tools, code-execution, workflow, architecture
 - [Knowledge Nexus 專案分析](research/2026-01-23-knowledge-nexus-analysis.md) - mcp, knowledge-management, go, mcp-data-tools, spec-workflow
@@ -35,6 +39,7 @@
 
 ## 北極星與計劃
 <!-- PLANS_START -->
+- [北極星: 多 Agent 研究框架](north-star/multi-agent-research-framework.md) - multi-agent, collaboration, evolve-skill, research ✅ 已完成
 - [北極星: SQLite Memory 系統](north-star/sqlite-memory-system.md) - sqlite, memory, ecosystem, token-optimization
 - [PDCA Plan: SQLite 統一架構](plans/sqlite-unified-architecture.md) - sqlite, mcp-server, skillpkg, architecture
 <!-- PLANS_END -->
