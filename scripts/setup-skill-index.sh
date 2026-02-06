@@ -13,7 +13,7 @@
 #   ./scripts/setup-skill-index.sh --test       # 測試搜尋
 #   ./scripts/setup-skill-index.sh --status     # 查看狀態
 
-set -e
+set -euo pipefail
 
 # 配置
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -12,6 +12,17 @@
 |------|----------|------|
 | `checkpoint-reminder.json` | Edit/Write | 提醒 CP1.5、CP2 檢查點 |
 | `memory-sync.json` | Write to .claude/memory/ | 提醒 CP3.5 同步 index.md |
+| `build-verify.json` | Edit/Write 代碼文件 | 自動偵測代碼變更，提醒執行編譯+測試驗證 |
+
+### build-verify Hook 詳細說明
+
+`build-verify.sh` 會根據修改的檔案副檔名智能判斷是否需要提醒驗證：
+
+- **觸發提醒的副檔名**: `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.go`, `.rs`, `.sh`
+- **靜默通過的副檔名**: `.md`, `.yaml`, `.yml`, `.json`, `.txt`
+- **無檔案路徑時**: 靜默通過
+
+提醒內容包含修改的檔案名稱和建議的驗證命令（如 `pnpm typecheck && pnpm test`）。
 
 ## 2. evolve-hooks.sh（scripts 目錄）
 

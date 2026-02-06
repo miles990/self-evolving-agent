@@ -9,7 +9,7 @@
 #   2. 檢查專案慣例
 #   3. 檢查 Schema/API
 
-set -e
+set -euo pipefail
 
 # 顏色定義
 RED='\033[0;31m'

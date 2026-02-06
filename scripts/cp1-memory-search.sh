@@ -8,7 +8,7 @@
 #   - 找到相關經驗：列出檔案路徑和摘要
 #   - 無相關經驗：顯示「無相關經驗，可繼續執行」
 
-set -e
+set -euo pipefail
 
 MEMORY_DIR="${MEMORY_DIR:-.claude/memory}"
 

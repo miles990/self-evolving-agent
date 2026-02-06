@@ -8,7 +8,7 @@
 #   - 自動偵測新文件並加入 index.md
 #   - 或指定新文件路徑進行同步
 
-set -e
+set -euo pipefail
 
 # 顏色定義
 RED='\033[0;31m'

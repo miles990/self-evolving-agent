@@ -2,6 +2,15 @@
 
 > 專案約束文件，供 AI 助手理解專案規範
 
+## Workflow Preferences
+
+- 當要求「plan」、「design」、「discuss」時，先呈現計劃/設計文件，**不要直接開始實作或探索代碼**。等用戶確認後再進入實作階段
+- 先確認範圍（scope）再動手，避免過度實作
+- 主要語言：Markdown（Skill 定義）、Bash（腳本）、TypeScript（目標專案）
+- 架構討論使用 mermaid 圖輔助說明
+- 遵守 PDCA 循環：即使是小改動也要有明確的 Plan → Do → Check → Act
+- 報告進度時簡潔明確，不要冗長解釋
+
 ## 專案概述
 
 這是一個 **Claude Code Skill**，讓 AI 能夠自主達成目標、從經驗中學習並持續改進。
@@ -46,6 +55,20 @@ skills/
 | CP3.5 | Memory 創建後 | 同步 index.md |
 | CP4 | 迭代完成後 | 涌現機會檢查 |
 
+### Checkpoint 並行化
+
+以下 CP 可以並行執行以提升效率：
+
+| 並行組合 | 說明 | 方式 |
+|----------|------|------|
+| **CP1 + CP1.5 Phase 1** | Memory 搜尋與基礎一致性檢查互不依賴 | 同時啟動兩個 Task（`run_in_background: true`），等待兩者完成 |
+| **CP4 + 下一迭代 Plan** | 涌現檢查不阻塞後續流程 | CP4 在背景運行，同時開始下一次 PDCA Plan |
+
+**不可並行的 CP**：
+- CP0/CP0.5 必須在所有其他 CP 之前完成
+- CP1.5 Phase 2 依賴 CP1 的搜尋結果，不可與 CP1 並行
+- CP2 必須在程式碼變更後、CP3 之前執行（序列關係）
+
 ### Memory 操作
 
 - 創建 memory 文件後**立即**更新 index.md
@@ -64,6 +87,18 @@ skills/
 - ❌ 創建 memory 後不更新 index.md
 - ❌ 修改 _base/ 目錄下的官方文件（除非是版本更新）
 - ❌ 在腳本中使用硬編碼絕對路徑
+
+## Hooks 自動化
+
+本專案透過 `hooks/` 目錄配置 Claude Code Plugin Hooks，自動提醒關鍵檢查點：
+
+| Hook | 觸發時機 | 提醒內容 |
+|------|----------|----------|
+| `checkpoint-reminder` | Edit/Write | CP1.5 一致性、CP2 驗證 |
+| `memory-sync` | Write .claude/memory/ | CP3.5 同步 index.md |
+| `build-verify` | Edit/Write 代碼文件 | 自動偵測代碼變更，提醒編譯+測試 |
+
+`build-verify` hook 會智能判斷檔案類型：僅對 `.ts/.tsx/.js/.jsx/.py/.go/.rs/.sh` 等代碼文件觸發提醒，Markdown/YAML/JSON 等非代碼文件靜默通過。
 
 ## 開發指南
 

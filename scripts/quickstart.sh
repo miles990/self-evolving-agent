@@ -7,7 +7,18 @@
 # Or from local:
 #   ./scripts/quickstart.sh /path/to/project
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "❌ 錯誤：未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
+
+check_dependency git
+check_dependency mkdir
 
 # Colors
 RED='\033[0;31m'

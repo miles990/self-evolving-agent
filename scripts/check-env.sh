@@ -2,6 +2,8 @@
 # Self-Evolving Agent - Environment Check Script
 # PSB Setup 環境檢查自動化
 
+set -euo pipefail
+
 echo "🔍 Self-Evolving Agent Environment Check"
 echo "════════════════════════════════════════"
 echo ""

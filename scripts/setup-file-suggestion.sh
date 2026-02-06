@@ -2,6 +2,10 @@
 # Setup file-suggestion.sh for large codebase optimization
 # See: skills/06-scaling/_base/large-codebase.md
 
+set -euo pipefail
+
+mkdir -p ~/.claude
+
 cat > ~/.claude/file-suggestion.sh << 'EOF'
 #!/bin/bash
 # Fast file indexing for Claude Code (large codebase optimization)

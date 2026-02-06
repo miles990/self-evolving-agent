@@ -2,7 +2,15 @@
 # Self-Evolving Agent - Global Skill Sync Script
 # 將原子化 skills 同步到全域 ~/.claude/skills/evolve/
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "❌ 錯誤：未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
@@ -17,6 +25,7 @@ mkdir -p "$GLOBAL_SKILL_DIR"
 
 # 方法1：複製整個 skills 目錄（保持原子化結構）
 if [[ "$1" == "--atomic" ]]; then
+    check_dependency rsync
     echo ""
     echo "📦 Syncing atomic structure..."
 

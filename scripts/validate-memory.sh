@@ -2,7 +2,7 @@
 # Self-Evolving Agent - Memory Validation Script
 # 驗證 .claude/memory/ 的完整性和一致性
 
-set -e
+set -euo pipefail
 
 MEMORY_DIR="${1:-.claude/memory}"
 INDEX_FILE="$MEMORY_DIR/index.md"

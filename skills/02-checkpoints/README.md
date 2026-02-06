@@ -36,6 +36,46 @@ CP6:   專案健檢            → Scope/方向/終止檢查
 CP6.5: Worktree 完成       → 合併/清理（條件觸發）
 ```
 
+## Checkpoint 並行化
+
+部分 CP 之間無依賴關係，可以並行執行以減少等待時間：
+
+### 可並行的 CP 組合
+
+**1. CP1 + CP1.5 Phase 1**
+
+CP1（Memory 搜尋）搜尋 `.claude/memory/`，CP1.5 Phase 1（基礎一致性檢查）搜尋 `src/`，兩者搜尋範圍不重疊、結果互不依賴。
+
+```
+# 在同一訊息中同時發送兩個 Task
+Task: CP1 Memory Search (run_in_background: true)
+Task: CP1.5 Phase 1 Basic Consistency Check (run_in_background: true)
+# 等待兩者完成後，合併結果進入下一步
+```
+
+**2. CP4 + 下一迭代 Plan**
+
+CP4（涌現檢查）為選擇性檢查點，其結果不阻塞後續 PDCA 迭代。可在背景運行 CP4，同時開始下一次迭代的 Plan 階段。
+
+### 不可並行的 CP（序列依賴）
+
+| CP | 原因 |
+|----|------|
+| CP0 / CP0.5 | 必須在所有其他 CP 之前完成（北極星錨定） |
+| CP1.5 Phase 2 | 依賴 CP1 的搜尋結果（需要知道相關記憶才能做架構驗證） |
+| CP2 → CP3 | CP2（編譯測試）必須在程式碼變更後執行，CP3 必須在 CP2 通過後 |
+| CP3.5 | 必須在 Memory 創建後立即執行 |
+
+### 並行化流程圖
+
+```
+CP0 → CP0.5 → ┬─ CP1 ──────────┬─→ CP1.5 Phase 2 → Do → CP2 → CP3 → CP3.5
+               └─ CP1.5 Phase 1 ┘                                      │
+                                                                        ▼
+                                                                ┬─ CP4 (背景)
+                                                                └─ 下一迭代 Plan
+```
+
 ## CP1.5 Phase 2 觸發條件
 
 Phase 2 架構檢查在以下**任一條件**成立時自動觸發：

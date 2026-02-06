@@ -2,7 +2,7 @@
 # Self-Evolving Agent - Complete Validation Script
 # 一鍵執行所有驗證腳本
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"

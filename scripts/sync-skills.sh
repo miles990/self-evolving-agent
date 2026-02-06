@@ -12,7 +12,15 @@
 #   ./scripts/sync-skills.sh --local      # 強制使用本地 repo（如果存在）
 #   ./scripts/sync-skills.sh --remote     # 強制使用遠端 repo（clone 到 cache）
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo -e "${RED}[ERROR]${NC} 未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
 
 # 配置
 CACHE_DIR="${HOME}/.claude/skill-cache"
@@ -37,6 +45,9 @@ log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 log_success() { echo -e "${GREEN}[OK]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
+
+check_dependency git
+check_dependency sqlite3
 
 # 確保快取目錄存在
 mkdir -p "$CACHE_DIR"

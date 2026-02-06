@@ -2,7 +2,7 @@
 # evolve-hooks.sh - evolve 強制執行提醒腳本
 # 用於 Claude Code Hooks 配置
 
-set -e
+set -euo pipefail
 
 HOOK_TYPE="${1:-}"
 TOOL_NAME="${2:-}"

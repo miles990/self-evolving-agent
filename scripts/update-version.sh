@@ -3,7 +3,18 @@
 # 統一更新所有版本號，確保一致性
 # 用法: ./scripts/update-version.sh <new-version>
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "❌ 錯誤：未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
+
+check_dependency sed
+check_dependency grep
 
 NEW_VERSION="$1"
 

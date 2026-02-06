@@ -3,7 +3,18 @@
 # 同步當前版本到 Claude Code plugin cache
 # 用法: ./scripts/sync-plugin-cache.sh
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "❌ 錯誤：未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
+
+check_dependency rsync
+check_dependency grep
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"

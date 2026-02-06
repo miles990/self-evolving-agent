@@ -2,7 +2,7 @@
 # Self-Evolving Agent - Installation Verification Script
 # 驗證 skill 安裝是否成功
 
-set -e
+set -euo pipefail
 
 echo "🔍 Self-Evolving Agent Installation Verification"
 echo "════════════════════════════════════════════════"

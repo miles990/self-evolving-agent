@@ -3,7 +3,7 @@
 # 檢查所有版本號是否一致
 # 用法: ./scripts/check-version.sh
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"

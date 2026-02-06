@@ -2,7 +2,17 @@
 # Setup Git Hooks for self-evolving-agent
 # Run this once after cloning the repo
 
-set -e
+set -euo pipefail
+
+# 依賴檢查
+check_dependency() {
+  if ! command -v "$1" &> /dev/null; then
+    echo "❌ 錯誤：未找到 '$1'，請先安裝" >&2
+    exit 1
+  fi
+}
+
+check_dependency git
 
 echo "🔧 Setting up Git hooks..."
 
